@@ -1,4 +1,4 @@
-# CS224-OOP-Final-Project
+# **CS224 OOP FINAL PROJECT*
 
 The final project collaboration space for OOP Final Project. 
 
@@ -6,9 +6,9 @@ This game is a is a top-down shooter video game.
 
 ## Features
 
-    1.One Main Player
-    2.Different Enemies
-    3.Different Weapons
-    4.Different Terrains
+    One Main Player
+    Different Enemies
+    Different Weapons
+    Different Terrains
 
  

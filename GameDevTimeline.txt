@@ -1,5 +1,7 @@
 Week 11: 
        Project Dev Started 
+       1. UML
+       2. Game Design (High Level) 
 
 
 Week 12: 

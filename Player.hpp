@@ -1,7 +1,11 @@
 #include "People.hpp"
+#include <iostream>
 class Player : public People
 {
 public:
     void shoot(){};
-    void move() {}
+    Player()
+    {
+        Player::setlocation(0, 0);
+    }
 };

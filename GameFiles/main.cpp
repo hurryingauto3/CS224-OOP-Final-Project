@@ -18,3 +18,9 @@
 #include "Enemy.hpp"
 #include "Player.hpp"
 #include "Terrain.hpp"
+
+int main()
+{
+
+  return 0
+}

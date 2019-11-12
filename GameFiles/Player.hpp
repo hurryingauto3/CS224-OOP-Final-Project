@@ -1,7 +1,7 @@
-class Player
+#include "People.hpp"
+class Player : public People
 {
-private:
-    float health;
-
 public:
+    void shoot(){};
+    void move() {}
 };

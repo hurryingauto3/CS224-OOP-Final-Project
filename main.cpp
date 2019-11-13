@@ -105,16 +105,27 @@ int main(int argc, char *args[])
           {
             quit = true;
           }
-          std::cout << A.getx();
-          std::cout << A.gety() << std::endl;
-          while (true)
+          if (e.type == SDL_KEYDOWN)
           {
+            if (e.key.keysym.sym == SDLK_w)
+            {
+              direction++;
+              direction2++;
+              A.setlocation(direction2, direction);
 
-            std::cin >> direction;
-            std::cin >> direction2;
-            A.setlocation(direction2, direction);
-            std::cout << A.getx();
-            std::cout << A.gety();
+              std::cout << "X COORD" << A.getx() << std::endl;
+              std::cout << "Y COORD" << A.gety() << std::endl;
+            }
+
+            if (e.key.keysym.sym == SDLK_s)
+            {
+              direction--;
+              direction2--;
+              A.setlocation(direction2, direction);
+
+              std::cout << "X COORD" << A.getx() << std::endl;
+              std::cout << "Y COORD" << A.gety() << std::endl;
+            }
           }
         }
         SDL_BlitSurface(hi, NULL, screenSurface, NULL);

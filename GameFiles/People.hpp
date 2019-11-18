@@ -5,7 +5,8 @@ private:
     float health;
     float x_location;
     float y_location;
-
+    float width;
+    float height;
 public:
     void decrease_health(float hitpoints)
     {
@@ -30,7 +31,7 @@ public:
     People()
     {
         health = 100;
-        x_location = 0;
-        y_location = 0;
+        width= 5;
+        height = 10;
     }
 };

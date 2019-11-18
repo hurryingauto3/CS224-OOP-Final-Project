@@ -3,9 +3,13 @@
 class Player : public People
 {
 public:
-    void shoot(){};
+    void shoot(){
+        std::cout<<"Shot fired"<<std::endl;
+    };
     Player()
     {
         Player::setlocation(0, 0);
+        
+
     }
 };

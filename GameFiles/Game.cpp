@@ -112,7 +112,7 @@ void Game::init()
 
   is_running = true;
 
-  SDL_Surface *tempSurf = IMG_Load("D:/CS224-OOP-Final-Project/Sprites/Tester.png");
+  SDL_Surface *tempSurf = IMG_Load("./Sprites/Tester.png");
   player_tex = SDL_CreateTextureFromSurface(grenderer, tempSurf);
   SDL_FreeSurface(tempSurf);
 }

@@ -8,6 +8,8 @@ public:
     {
         std::cout << "Shot fired" << std::endl;
     };
+    void shoot(){};
+
     Player()
     {
         Player::setlocation(0, 0);

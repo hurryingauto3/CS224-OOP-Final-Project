@@ -2,7 +2,8 @@
 
 SDL_Texture *player_tex;
 SDL_Texture *enemy_tex;
-SDL_Rect s_rect, d_rect;
+SDL_Rect s_rect, d_rect1, d_rect2;
+
 
 bool Game::is_runningzz()
 {
@@ -10,16 +11,21 @@ bool Game::is_runningzz()
 }
 void Game::update()
 {
-  d_rect.h = 64;
-  d_rect.w = 64;
-  d_rect.x = A.getx();
-  d_rect.y = A.gety();
+  d_rect1.h = 128;
+  d_rect1.w = 128;
+  d_rect1.x = A.getx();
+  d_rect1.y = A.gety();
+  d_rect2.h = 128;
+  d_rect2.w = 128;
+  d_rect2.x = 50;
+  d_rect2.y = 50;
 }
 
 void Game::render()
 {
   SDL_RenderClear(grenderer);
-  SDL_RenderCopy(grenderer, player_tex, NULL, &d_rect);
+  SDL_RenderCopy(grenderer, player_tex, NULL, &d_rect1);
+  SDL_RenderCopy(grenderer, enemy_tex, NULL, &d_rect2);
   SDL_RenderPresent(grenderer);
 }
 void Game::clean()
@@ -69,18 +75,20 @@ Game::Game()
   grenderer = SDL_CreateRenderer(window, -1, 0);
   if (grenderer)
   {
-    SDL_SetRenderDrawColor(grenderer, 255, 255, 255, 255);
+    SDL_SetRenderDrawColor(grenderer, 206, 140, 140, 255);
   }
 
   is_running = true;
 
-  SDL_Surface *tempSurf[2];
-  tempSurf[0] = IMG_Load("./Sprites/Tester.png");
-  tempSurf[1] = IMG_Load("./Sprites/Tester.png");
-  player_tex = SDL_CreateTextureFromSurface(grenderer, tempSurf[0]);
-  enemy_tex = SDL_CreateTextureFromSurface(grenderer, tempSurf[1]);
 
-  SDL_FreeSurface(tempSurf[0]);
+  SDL_Surface *tempSurf1;
+  SDL_Surface *tempSurf2;
+  tempSurf1 = IMG_Load("D:/CS224-OOP-Final-Project/Sprites/Player.png");
+  tempSurf2 = IMG_Load("D:/CS224-OOP-Final-Project/Sprites/Enemy.png");
+  player_tex = SDL_CreateTextureFromSurface(grenderer, tempSurf1);
+  enemy_tex = SDL_CreateTextureFromSurface(grenderer, tempSurf2);
+  SDL_FreeSurface(tempSurf1);
+  SDL_FreeSurface(tempSurf2);
   is_running = true;
   SDL_Event e;
   Player A;

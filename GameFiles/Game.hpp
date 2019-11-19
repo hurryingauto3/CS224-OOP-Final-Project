@@ -10,8 +10,8 @@
 #include <iostream>
 #include <string>
 #include "Enemy.hpp"
-#include "Player.hpp"
 #include "Terrain.hpp"
+#pragma once
 
 class Game
 {

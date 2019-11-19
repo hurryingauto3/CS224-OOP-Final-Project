@@ -1,6 +1,7 @@
 #include "Game.hpp"
 
 SDL_Texture *player_tex;
+SDL_Texture *enemy_tex;
 SDL_Rect s_rect, d_rect;
 
 bool Game::is_runningzz()
@@ -73,12 +74,17 @@ Game::Game()
 
   is_running = true;
 
-  SDL_Surface *tempSurf = IMG_Load("./Sprites/Tester.png");
-  player_tex = SDL_CreateTextureFromSurface(grenderer, tempSurf);
-  SDL_FreeSurface(tempSurf);
+  SDL_Surface *tempSurf[2];
+  tempSurf[0] = IMG_Load("./Sprites/Tester.png");
+  tempSurf[1] = IMG_Load("./Sprites/Tester.png");
+  player_tex = SDL_CreateTextureFromSurface(grenderer, tempSurf[0]);
+  enemy_tex = SDL_CreateTextureFromSurface(grenderer, tempSurf[1]);
+
+  SDL_FreeSurface(tempSurf[0]);
   is_running = true;
   SDL_Event e;
   Player A;
+  Enemy B(20, 20);
 }
 
 Game::~Game() {}

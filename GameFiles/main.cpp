@@ -27,9 +27,10 @@ int main(int argc, char *args[])
   std::cout << "gay" << std::endl;
   Game Thegame;
   std::cout << "nice" << std::endl;
-
+  Wall B;
   while (Thegame.is_runningzz())
   {
+
     framestart = SDL_GetTicks();
     Thegame.HandleEvent();
     Thegame.update();

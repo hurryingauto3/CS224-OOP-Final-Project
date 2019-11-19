@@ -27,7 +27,6 @@ public:
     void render();
     void clean(); //Frees all resources upon quitting
     void HandleEvent();
-    void init();
     Game();
     ~Game();
 };

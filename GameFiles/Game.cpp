@@ -14,6 +14,7 @@ void Game::update()
   d_rect.x = A.getx();
   d_rect.y = A.gety();
 }
+
 void Game::render()
 {
   SDL_RenderClear(grenderer);
@@ -39,16 +40,16 @@ void Game::HandleEvent()
     switch (Event.key.keysym.sym)
     {
     case SDLK_s:
-      A.setlocation(A.getx(), A.gety() + 1);
+      A.setlocation(A.getx(), A.gety() + 5);
       break;
     case SDLK_d:
-      A.setlocation(A.getx() + 1, A.gety());
+      A.setlocation(A.getx() + 5, A.gety());
       break;
     case SDLK_a:
-      A.setlocation(A.getx() - 1, A.gety());
+      A.setlocation(A.getx() - 5, A.gety());
       break;
     case SDLK_w:
-      A.setlocation(A.getx(), A.gety() - 1);
+      A.setlocation(A.getx(), A.gety() - 5);
       break;
     case SDLK_p:
       A.shoot();
@@ -63,46 +64,6 @@ void Game::HandleEvent()
 }
 Game::Game()
 {
-  is_running = true;
-  SDL_Event e;
-  Player A;
-
-  while (is_running)
-  {
-    while (SDL_PollEvent(&e) != 0)
-    {
-      if (e.type == SDL_QUIT)
-      {
-        is_running = false;
-      }
-      if (e.type == SDL_KEYDOWN)
-      {
-        if (e.key.keysym.sym == SDLK_w)
-        {
-          A.setlocation(A.getx(), A.gety() + 1);
-        }
-
-        if (e.key.keysym.sym == SDLK_s)
-        {
-          A.setlocation(A.getx(), A.gety() - 1);
-        }
-        if (e.key.keysym.sym == SDLK_d)
-        {
-          A.setlocation(A.getx() + 1, A.gety());
-        }
-        if (e.key.keysym.sym == SDLK_a)
-        {
-          A.setlocation(A.getx() - 1, A.gety());
-        }
-        std::cout << "X COORD" << A.getx() << std::endl;
-        std::cout << "Y COORD" << A.gety() << std::endl;
-      }
-    }
-  }
-}
-
-void Game::init()
-{
   window = SDL_CreateWindow("Tester", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 1080, 720, 0);
   grenderer = SDL_CreateRenderer(window, -1, 0);
   if (grenderer)
@@ -115,6 +76,9 @@ void Game::init()
   SDL_Surface *tempSurf = IMG_Load("./Sprites/Tester.png");
   player_tex = SDL_CreateTextureFromSurface(grenderer, tempSurf);
   SDL_FreeSurface(tempSurf);
+  is_running = true;
+  SDL_Event e;
+  Player A;
 }
 
 Game::~Game() {}

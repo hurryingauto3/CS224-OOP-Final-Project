@@ -16,16 +16,34 @@
 #include <string>
 #include "Game.hpp"
 
+Uint32 framestart;
+int frametime;
+
+const int fps = 60;
+const int framedelay = 1000 / fps;
+
 int main(int argc, char *args[])
 {
-  Game *Thegame = new Game();
-  while (Thegame->is_runningzz())
+  std::cout << "gay" << std::endl;
+  Game Thegame;
+  std::cout << "nice" << std::endl;
+  Wall B;
+  while (Thegame.is_runningzz())
   {
-    Thegame->HandleEvent();
-    Thegame->update();
-    Thegame->render();
+
+    framestart = SDL_GetTicks();
+    Thegame.HandleEvent();
+    Thegame.update();
+    Thegame.render();
+    frametime = SDL_GetTicks() - framestart;
+    if (framedelay > frametime)
+    {
+      SDL_Delay(framedelay - frametime);
+    }
+
+    std::cout << "RENDERING" << std::endl;
   }
 
-  Thegame->clean();
+  Thegame.clean();
   return 0;
 }

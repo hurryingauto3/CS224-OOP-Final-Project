@@ -10,8 +10,8 @@
 #include <iostream>
 #include <string>
 #include "Enemy.hpp"
-#include "Player.hpp"
 #include "Terrain.hpp"
+#pragma once
 
 class Game
 {
@@ -22,10 +22,11 @@ private:
     SDL_Renderer *grenderer;
 
 public:
-    bool is_runningzz();
+    bool is_runningzz(); //Returns the status of the game
     void update();
     void render();
-    void clean();
+    void clean(); //Frees all resources upon quitting
     void HandleEvent();
-    void init();
+    Game();
+    ~Game();
 };

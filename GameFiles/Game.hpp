@@ -18,15 +18,16 @@ class Game
 private:
     bool is_running;
     Player A;
+    Enemy B;
     SDL_Window *window;
     SDL_Renderer *grenderer;
 
 public:
-    bool is_runningzz(); //Returns the status of the game
+    bool runcheck(); //Returns the status of the game
     void update();
     void render();
     void clean(); //Frees all resources upon quitting
-    void HandleEvent();
+    void handle_event();
     Game();
     ~Game();
 };

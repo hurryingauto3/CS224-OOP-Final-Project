@@ -1,8 +1,7 @@
-class Terrain
 #pragma once
 
+class Terrain
 {
-
 public:
     float width;
     float height;

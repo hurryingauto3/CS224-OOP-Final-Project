@@ -4,7 +4,6 @@ SDL_Texture *player_tex;
 SDL_Texture *enemy_tex;
 SDL_Rect s_rect, d_rect1, d_rect2;
 
-
 bool Game::is_runningzz()
 {
   return is_running;
@@ -71,20 +70,17 @@ void Game::HandleEvent()
 }
 Game::Game()
 {
-  window = SDL_CreateWindow("Tester", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 1080, 720, 0);
+  window = SDL_CreateWindow("Game", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 1080, 720, 0);
   grenderer = SDL_CreateRenderer(window, -1, 0);
   if (grenderer)
   {
     SDL_SetRenderDrawColor(grenderer, 206, 140, 140, 255);
   }
-
   is_running = true;
-
-
   SDL_Surface *tempSurf1;
   SDL_Surface *tempSurf2;
-  tempSurf1 = IMG_Load("D:/CS224-OOP-Final-Project/Sprites/Player.png");
-  tempSurf2 = IMG_Load("D:/CS224-OOP-Final-Project/Sprites/Enemy.png");
+  tempSurf1 = IMG_Load("./Sprites/Player.png");
+  tempSurf2 = IMG_Load("./Sprites/Enemy.png");
   player_tex = SDL_CreateTextureFromSurface(grenderer, tempSurf1);
   enemy_tex = SDL_CreateTextureFromSurface(grenderer, tempSurf2);
   SDL_FreeSurface(tempSurf1);

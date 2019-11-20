@@ -40,8 +40,6 @@ int main(int argc, char *args[])
     {
       SDL_Delay(framedelay - frametime);
     }
-
-    std::cout << "RENDERING" << std::endl;
   }
 
   Thegame.clean();

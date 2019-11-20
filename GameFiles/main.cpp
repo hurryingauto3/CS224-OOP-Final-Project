@@ -28,11 +28,11 @@ int main(int argc, char *args[])
   Game Thegame;
   std::cout << "nice" << std::endl;
   Wall B;
-  while (Thegame.is_runningzz())
+  while (Thegame.runcheck())
   {
 
     framestart = SDL_GetTicks();
-    Thegame.HandleEvent();
+    Thegame.handle_event();
     Thegame.update();
     Thegame.render();
     frametime = SDL_GetTicks() - framestart;

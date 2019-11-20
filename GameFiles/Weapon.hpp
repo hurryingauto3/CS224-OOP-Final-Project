@@ -21,7 +21,7 @@ public:
     void setdecayrate(float decrate) { this->decay_rate = decrate; }
     void setattackpwr(float attack) { this->attackpwr = attack; }
     float attackpwr() { return this->attackpwr; }
-    void appearonmap(int x, int y)
+    void maploc(int x, int y)
     {
         this->xloc = x;
         this->yloc = y;
@@ -62,7 +62,7 @@ public:
     gun()
     {
         gun::setattackpwr(3.5);
-        gun::appearonmap(25, 25);
+        gun::maploc(25, 25);
     }
 };
 

@@ -14,6 +14,8 @@ private:
     int xloc;
     int yloc;
     int bulletsfired;
+    float width;
+    float height;
 
 public:
     int getx() { return this->xloc; }

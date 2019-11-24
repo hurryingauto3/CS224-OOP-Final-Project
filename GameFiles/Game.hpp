@@ -11,6 +11,7 @@
 #include <string>
 #include "Enemy.hpp"
 #include "Terrain.hpp"
+#include "Texture.hpp"
 #pragma once
 
 class Game

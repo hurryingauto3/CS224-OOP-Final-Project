@@ -1,8 +1,8 @@
+#pragma once
 #include "Game.hpp"
 
 SDL_Texture *player_tex;
-SDL_Texture *enemy_tex;
-SDL_Rect s_rect, d_rect1, d_rect2;
+SDL_Rect s_rect, d_rect;
 
 bool Game::is_runningzz()
 {
@@ -10,21 +10,15 @@ bool Game::is_runningzz()
 }
 void Game::update()
 {
-  d_rect1.h = 128;
-  d_rect1.w = 128;
-  d_rect1.x = A.getx();
-  d_rect1.y = A.gety();
-  d_rect2.h = 128;
-  d_rect2.w = 128;
-  d_rect2.x = 50;
-  d_rect2.y = 50;
+  d_rect.h = 64;
+  d_rect.w = 64;
+  d_rect.x = A.getx();
+  d_rect.y = A.gety();
 }
-
 void Game::render()
 {
   SDL_RenderClear(grenderer);
-  SDL_RenderCopy(grenderer, player_tex, NULL, &d_rect1);
-  SDL_RenderCopy(grenderer, enemy_tex, NULL, &d_rect2);
+  SDL_RenderCopy(grenderer, player_tex, NULL, &d_rect);
   SDL_RenderPresent(grenderer);
 }
 void Game::clean()
@@ -46,16 +40,16 @@ void Game::HandleEvent()
     switch (Event.key.keysym.sym)
     {
     case SDLK_s:
-      A.setlocation(A.getx(), A.gety() + 5);
+      A.setlocation(A.getx(), A.gety() + 1);
       break;
     case SDLK_d:
-      A.setlocation(A.getx() + 5, A.gety());
+      A.setlocation(A.getx() + 1, A.gety());
       break;
     case SDLK_a:
-      A.setlocation(A.getx() - 5, A.gety());
+      A.setlocation(A.getx() - 1, A.gety());
       break;
     case SDLK_w:
-      A.setlocation(A.getx(), A.gety() - 5);
+      A.setlocation(A.getx(), A.gety() - 1);
       break;
     case SDLK_p:
       A.shoot();
@@ -70,27 +64,58 @@ void Game::HandleEvent()
 }
 Game::Game()
 {
+  is_running = true;
+  SDL_Event e;
+  Player A;
+
+  while (is_running)
+  {
+    while (SDL_PollEvent(&e) != 0)
+    {
+      if (e.type == SDL_QUIT)
+      {
+        is_running = false;
+      }
+      if (e.type == SDL_KEYDOWN)
+      {
+        if (e.key.keysym.sym == SDLK_w)
+        {
+          A.setlocation(A.getx(), A.gety() + 1);
+        }
+
+        if (e.key.keysym.sym == SDLK_s)
+        {
+          A.setlocation(A.getx(), A.gety() - 1);
+        }
+        if (e.key.keysym.sym == SDLK_d)
+        {
+          A.setlocation(A.getx() + 1, A.gety());
+        }
+        if (e.key.keysym.sym == SDLK_a)
+        {
+          A.setlocation(A.getx() - 1, A.gety());
+        }
+        std::cout << "X COORD" << A.getx() << std::endl;
+        std::cout << "Y COORD" << A.gety() << std::endl;
+      }
+    }
+  }
+}
+
+void Game::init()
+{
   window = SDL_CreateWindow("Tester", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 1080, 720, 0);
   grenderer = SDL_CreateRenderer(window, -1, 0);
   if (grenderer)
   {
-    SDL_SetRenderDrawColor(grenderer, 206, 140, 140, 255);
+    SDL_SetRenderDrawColor(grenderer, 255, 255, 255, 255);
   }
 
   is_running = true;
 
-  SDL_Surface *tempSurf1;
-  SDL_Surface *tempSurf2;
-  tempSurf1 = IMG_Load("D:/CS224-OOP-Final-Project/Sprites/Player.png");
-  tempSurf2 = IMG_Load("D:/CS224-OOP-Final-Project/Sprites/Enemy.png");
-  player_tex = SDL_CreateTextureFromSurface(grenderer, tempSurf1);
-  enemy_tex = SDL_CreateTextureFromSurface(grenderer, tempSurf2);
-  SDL_FreeSurface(tempSurf1);
-  SDL_FreeSurface(tempSurf2);
-  is_running = true;
-  SDL_Event e;
-  Player A;
-  Enemy B(20, 20);
+  SDL_Surface *tempSurf = IMG_Load("D:/CS224-OOP-Final-Project/Sprites/Tester.png");
+  player_tex = SDL_CreateTextureFromSurface(grenderer, tempSurf);
+  SDL_FreeSurface(tempSurf);
 }
 
 Game::~Game() {}

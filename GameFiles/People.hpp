@@ -7,8 +7,6 @@ private:
     float y_location;
     float width;
     float height;
-
-
 public:
     void decrease_health(float hitpoints)
     {

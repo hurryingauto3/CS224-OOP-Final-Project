@@ -24,9 +24,9 @@ const int framedelay = 1000 / fps;
 
 int main(int argc, char *args[])
 {
-  std::cout << "gay" << std::endl;
+  std::cout << "Started" << std::endl;
   Game Thegame;
-  std::cout << "nice" << std::endl;
+  std::cout << "Game Object Created" << std::endl;
   Wall B;
   while (Thegame.runcheck())
   {

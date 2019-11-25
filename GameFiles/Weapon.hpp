@@ -35,7 +35,7 @@ public:
         this->bulletsfired++;
     }
     int bullets_left()
-    {
+    {   
         return this->magsize - this->bulletsfired;
     }
     float attackpower_decayed(Player A, Enemy B)

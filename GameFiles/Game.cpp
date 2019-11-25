@@ -78,9 +78,15 @@ Game::Game()
   bg_temp = texture::sprite("./Sprites/bg.jpg", grenderer);
   is_running = true;
   SDL_Event e;
+<<<<<<< HEAD
 
   A = new Player("./Sprites/Player.png", grenderer);
   B = new Enemy("./Sprites/Enemy.png", grenderer); //made both classes into popinters so i could render more effeciently
+  == == == =
+               Player A("./Sprites/Player.png", grenderer);
+  Enemy B("./Sprites/Enemy.png", grenderer);
+
+>>>>>>> 96d10069d189c2df569e21196b1711dfe18a5c84
 }
 
 Game::~Game() {}

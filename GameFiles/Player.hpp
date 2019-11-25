@@ -17,6 +17,7 @@ public:
 
     Player(){};
     Player(const char *sprite, SDL_Renderer *r)
+
     {
         Player::setlocation(0, 0);
         ren = r;

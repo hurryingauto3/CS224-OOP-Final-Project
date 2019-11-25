@@ -8,6 +8,7 @@ bool Game::runcheck()
 }
 void Game::update()
 {
+
   A->update();
   d_rect3.h = 571;
   d_rect3.w = 999;
@@ -20,6 +21,7 @@ void Game::render()
 {
   SDL_RenderClear(grenderer);
   SDL_RenderCopy(grenderer, bg_temp, NULL, &d_rect3);
+
   A->render();
   SDL_RenderPresent(grenderer);
 }
@@ -79,6 +81,7 @@ Game::Game()
   SDL_Event e;
   Player A("./Sprites/Player.png", grenderer);
   Enemy B("./Sprites/Enemy.png", grenderer);
+
 }
 
 Game::~Game() {}

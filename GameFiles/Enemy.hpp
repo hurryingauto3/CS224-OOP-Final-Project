@@ -42,6 +42,15 @@ public:
         SDL_RenderCopy(ren, obj_tex, &sRect, &dRect);
     }
 
+
+  //  Enemy(int xloc, int yloc)
+   // {
+     //   this->setlocation(xloc, yloc);
+    //};
+    //Enemy(int xloc, int yloc, int health) : Enemy(xloc, yloc){};
+//
+ //   Enemy(int xloc, int yloc, int health, int attack) : Enemy(xloc, yloc, health){};
+
     void ApproachPlayer(Player A)
     {
         if (this->getx() != A.getx() and this->gety() != A.gety())

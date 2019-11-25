@@ -11,15 +11,15 @@
 #include <string>
 #include "Enemy.hpp"
 #include "Terrain.hpp"
-#include "Texture.hpp"
+
 #pragma once
 
 class Game
 {
 private:
     bool is_running;
-    Player A;
-    Enemy B;
+    Player *A;
+    Enemy *B;
     SDL_Window *window;
     SDL_Renderer *grenderer;
 

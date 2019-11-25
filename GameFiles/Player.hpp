@@ -1,6 +1,8 @@
 #include "People.hpp"
 #include "Texture.hpp"
 #include <iostream>
+#include <SDL.h>
+
 #pragma once
 class Player : public People
 {
@@ -16,11 +18,19 @@ public:
     };
 
     Player(){};
-    Player(const char *sprite, SDL_Renderer *r)
+
+    Player(const char *sprite, SDL_Renderer *gRenderer)
     {
         Player::setlocation(0, 0);
-        ren = r;
-        obj_tex = texture::sprite(sprite, r);
+        ren = gRenderer;
+        obj_tex = texture::sprite(sprite, gRenderer);
+        dRect.h = 571;
+        dRect.w = 999;
+        dRect.x = 0;
+        dRect.y = 0;
+        SDL_Texture *this1 = texture::sprite("./Sprites/Player.png", gRenderer);
+        SDL_RenderCopy(gRenderer, this1, NULL, &dRect);
+        SDL_RenderCopy(gRenderer, obj_tex, nullptr, &dRect);
     }
 
     void obj_update()
@@ -38,6 +48,6 @@ public:
 
     void obj_render()
     {
-        SDL_RenderCopy(ren, obj_tex, &sRect, &dRect);
+        SDL_RenderCopy(ren, obj_tex, nullptr, &dRect); //sRect is null for now
     }
 };

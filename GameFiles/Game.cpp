@@ -1,7 +1,4 @@
 #include "Game.hpp"
-SDL_Texture *bg_temp;
-SDL_Texture *char_temp;
-SDL_Rect s_rect, d_rect3;
 
 bool Game::runcheck()
 {
@@ -12,16 +9,13 @@ void Game::update()
   A->obj_update();
   B->obj_update();
   B->ApproachPlayer(A);
-  d_rect3.h = 571;
-  d_rect3.w = 999;
-  d_rect3.x = 0;
-  d_rect3.y = 0;
+  //C->obj_update();
 }
 
 void Game::render()
 {
   SDL_RenderClear(grenderer);
-  SDL_RenderCopy(grenderer, bg_temp, NULL, &d_rect3);
+  C->obj_render();
   A->obj_render();
   B->obj_render();
   SDL_RenderPresent(grenderer);
@@ -75,18 +69,11 @@ Game::Game()
     SDL_SetRenderDrawColor(grenderer, 206, 140, 140, 255);
   }
   is_running = true;
-  bg_temp = texture::sprite("./Sprites/bg.jpg", grenderer);
   is_running = true;
   SDL_Event e;
-<<<<<<< HEAD
-
   A = new Player("./Sprites/Player.png", grenderer);
   B = new Enemy("./Sprites/Enemy.png", grenderer); //made both classes into popinters so i could render more effeciently
-  == == == =
-               Player A("./Sprites/Player.png", grenderer);
-  Enemy B("./Sprites/Enemy.png", grenderer);
-
->>>>>>> 96d10069d189c2df569e21196b1711dfe18a5c84
+  C = new BG("./Sprites/level_BG.png", grenderer);
 }
 
 Game::~Game() {}

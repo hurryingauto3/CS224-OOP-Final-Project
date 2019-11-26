@@ -11,7 +11,7 @@
 #include <string>
 #include "Enemy.hpp"
 #include "Terrain.hpp"
-
+#include "Background.hpp"
 #pragma once
 
 class Game
@@ -20,6 +20,7 @@ private:
     bool is_running;
     Player *A;
     Enemy *B;
+    BG *C;
     SDL_Window *window;
     SDL_Renderer *grenderer;
 

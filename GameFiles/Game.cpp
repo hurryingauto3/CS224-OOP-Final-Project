@@ -9,7 +9,7 @@ void Game::update()
   A->obj_update();
   B->obj_update();
   B->ApproachPlayer(A);
-  //C->obj_update();
+  C->obj_update();
 }
 
 void Game::render()
@@ -62,7 +62,7 @@ void Game::handle_event()
 }
 Game::Game()
 {
-  window = SDL_CreateWindow("Game", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 999, 571, 0);
+  window = SDL_CreateWindow("Game", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 1080, 720, 0);
   grenderer = SDL_CreateRenderer(window, -1, 0);
   if (grenderer)
   {

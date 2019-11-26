@@ -1,0 +1,20 @@
+Week 11: 
+       Project Dev Started 
+       1. UML
+       2. Game Design (High Level) 
+
+
+Week 12: 
+       1.Have Working Logic
+       2.Sprites
+       3.2D Background 
+       
+
+
+Week 13:
+       
+
+Week 14:
+        
+Week 15: 
+       Project Submission

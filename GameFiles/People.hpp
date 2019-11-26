@@ -1,4 +1,5 @@
 #include <iostream>
+
 #include "Master.hpp"
 
 class People : public MasterObject
@@ -51,4 +52,6 @@ public:
     {
         this->attack = attack;
     }
+
+
 };

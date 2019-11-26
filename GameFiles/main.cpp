@@ -1,8 +1,8 @@
-<<<<<<< Updated upstream
+
 #include "Enemy.hpp"
 #include "Player.hpp"
 #include "Terrain.hpp"
-=======
+
 /*This source code copyrighted by Lazy Foo' Productions (2004-2015)
   and may not be redistributed without written permission.*/
 
@@ -51,4 +51,4 @@ int main(int argc, char *args[])
   Thegame.clean();
   return 0;
 }
->>>>>>> Stashed changes
+

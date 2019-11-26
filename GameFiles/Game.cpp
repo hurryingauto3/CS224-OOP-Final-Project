@@ -8,6 +8,7 @@ void Game::update()
 {
   A->obj_update();
   B->obj_update();
+
   B->IsPlayerClose(*A);
   if (B->getplayercloseby())
   {
@@ -19,6 +20,7 @@ void Game::update()
     B->Path(0, 0, 100, 0, 100, 100, 0, 100);
     B->obj_update();
   }
+
   C->obj_update();
 }
 
@@ -27,7 +29,9 @@ void Game::render()
   SDL_RenderClear(grenderer);
   C->obj_render();
   A->obj_render();
+
   Obj->RenderAll();
+
   SDL_RenderPresent(grenderer);
 }
 void Game::clean()
@@ -79,6 +83,7 @@ Game::Game()
     SDL_SetRenderDrawColor(grenderer, 206, 140, 140, 255);
   }
   is_running = true;
+
   SDL_Event e;
   Obj->addnode(new Enemy("./Sprites/Enemy.png", grenderer, 10, 10));
   Obj->addnode(new Enemy("./Sprites/Enemy.png", grenderer, 300, 300));

@@ -1,4 +1,3 @@
-
 #ifdef __APPLE__
 #include <SDL2/SDL.h>
 #include <SDL2_image/SDL_image.h>
@@ -14,10 +13,14 @@
 #include "Background.hpp"
 #include "LinkedList.hpp"
 #pragma once
+
+
+
 class Game
 {
 private:
     bool is_running;
+
     LinkedList *Obj;
     Player *A;
     Enemy *B;

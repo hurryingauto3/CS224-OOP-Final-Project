@@ -10,16 +10,21 @@
 #include <iostream>
 #include <string>
 #include "Enemy.hpp"
-#include "Terrain.hpp"
 #include "Background.hpp"
+#include "LinkedList.hpp"
 #pragma once
+
+
 
 class Game
 {
 private:
     bool is_running;
+
+    LinkedList *Obj;
     Player *A;
     Enemy *B;
+    Wall *W;
     BG *C;
     SDL_Window *window;
     SDL_Renderer *grenderer;

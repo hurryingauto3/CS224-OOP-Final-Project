@@ -1,3 +1,6 @@
+class Weapon
+{
+
 #include "Enemy.hpp"
 #include <cmath>
 
@@ -18,6 +21,24 @@ private:
     float height;
 
 public:
+
+    int getx();
+    int gety();
+    void setdecayrate(float decrate);
+    void setattackpwr(float attack);
+    float attackpwr();
+    void maploc(int x, int y);
+    void setweapontype(char type);
+    char weapontype();
+    void fire();
+    int bullets_left();
+    float attackpower_decayed(Player A, Enemy B);
+    void reload() {}
+    void setmagsize(int mag);
+    int magsize();
+    void pickgunup(Player A);
+    bool gunpicked();
+
     int getx() { return this->xloc; }
     int gety() { return this->yloc; }
     void setdecayrate(float decrate) { this->decay_rate = decrate; }
@@ -55,6 +76,7 @@ public:
         }
     }
     bool gunpicked() { return this->gunpicked; }
+
 };
 
 class gun : public Weapon

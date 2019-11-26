@@ -1,10 +1,12 @@
 #include <iostream>
-#pragma once
 
-class People
+#include "Master.hpp"
+
+class People : public MasterObject
 {
 private:
     float health;
+    float attack;
     float x_location;
     float y_location;
     float width;
@@ -40,4 +42,16 @@ public:
         x_location = 0;
         y_location = 0;
     }
+
+    void sethealth(float health)
+    {
+        this->health = health;
+    }
+
+    void setattack(float attack)
+    {
+        this->attack = attack;
+    }
+
+
 };

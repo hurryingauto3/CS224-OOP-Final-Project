@@ -1,3 +1,8 @@
+
+#include "Enemy.hpp"
+#include "Player.hpp"
+#include "Terrain.hpp"
+
 /*This source code copyrighted by Lazy Foo' Productions (2004-2015)
   and may not be redistributed without written permission.*/
 
@@ -8,6 +13,7 @@
 #else
 #include <SDL.h>
 #include <SDL_image.h>
+
 #endif
 
 #include <cmath>
@@ -45,3 +51,4 @@ int main(int argc, char *args[])
   Thegame.clean();
   return 0;
 }
+

@@ -1,6 +1,7 @@
 #include "Player.hpp"
-
+#include "Texture.hpp"
 #pragma once
+
 class Enemy : public People
 {
 private:

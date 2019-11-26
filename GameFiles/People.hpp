@@ -1,4 +1,6 @@
 #include <iostream>
+#pragma once
+
 class People
 {
 private:
@@ -7,6 +9,7 @@ private:
     float y_location;
     float width;
     float height;
+
 public:
     void decrease_health(float hitpoints)
     {
@@ -36,6 +39,5 @@ public:
 
         x_location = 0;
         y_location = 0;
-
     }
 };

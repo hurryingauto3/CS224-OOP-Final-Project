@@ -4,6 +4,7 @@
 #include <SDL.h>
 
 #pragma once
+
 class Player : public People
 {
 private:

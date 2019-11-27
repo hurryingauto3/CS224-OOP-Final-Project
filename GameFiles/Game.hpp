@@ -34,6 +34,7 @@ public:
     void render();
     void clean(); //Frees all resources upon quitting
     void handle_event();
+    void mousePress(SDL_MouseButtonEvent &b);
     Game();
     ~Game();
 };

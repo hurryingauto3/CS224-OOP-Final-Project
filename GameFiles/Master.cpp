@@ -1,4 +1,5 @@
 #include "Master.hpp"
+
 int MasterObject::getx()
 {
     return this->x;
@@ -13,12 +14,30 @@ void MasterObject::obj_update()
     sRect.w = 208;
     sRect.x = 0;
     sRect.y = 0;
-
     dRect.h = 128;
     dRect.w = 128;
     dRect.x = MasterObject::getx();
     dRect.y = MasterObject::gety();
 }
+
+void MasterObject::setlocation(int x1, int y2)
+{
+    x = x1;
+    y = y2;
+}
+int MasterObject::getheight()
+{
+    return height;
+}
+int MasterObject::getwidth()
+{
+    return width;
+}
+void MasterObject::setdimension(int w, int h)
+{
+    height = h;
+    width = w;
+};
 
 void MasterObject::obj_render()
 {

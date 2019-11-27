@@ -7,17 +7,24 @@ bool Game::runcheck()
 void Game::update()
 {
   A->obj_update();
+  B->IsPlayerClose(*A);
+  if (B->getplayercloseby())
+  {
+    B->ApproachPlayer(*A);
+  }
+  else
+  {
+  }
   B->obj_update();
   B->ApproachPlayer(*A);
   C->obj_update();
 }
-
 void Game::render()
 {
   SDL_RenderClear(grenderer);
   C->obj_render();
-  B->obj_render();
   A->obj_render();
+  B->obj_render();
   SDL_RenderPresent(grenderer);
 }
 void Game::clean()
@@ -69,12 +76,10 @@ Game::Game()
     SDL_SetRenderDrawColor(grenderer, 206, 140, 140, 255);
   }
   is_running = true;
-
+  is_running = true;
   SDL_Event e;
-
   A = new Player("./Sprites/Player.png", grenderer);
-  B = new Enemy("./Sprites/Player.png", grenderer, 100, 100);
-  //made both classes into popinters so i could render more effeciently
+  B = new Enemy("./Sprites/Enemy.png", grenderer); //made both classes into popinters so i could render more effeciently
   C = new BG("./Sprites/level_BG.png", grenderer);
 }
 

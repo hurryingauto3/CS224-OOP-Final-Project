@@ -12,9 +12,8 @@
 #include "Enemy.hpp"
 #include "Background.hpp"
 #include "LinkedList.hpp"
+#include "Terrain.hpp"
 #pragma once
-
-
 
 class Game
 {

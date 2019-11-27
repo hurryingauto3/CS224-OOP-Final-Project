@@ -1,6 +1,7 @@
 #include <string>
 #include "SDL.h"
-
+#include <SDL_image.h>
+#pragma once
 class MasterObject
 {
 private:
@@ -17,4 +18,6 @@ public:
     int gety();
     void obj_update();
     void obj_render();
+    SDL_Rect getsrekt();
+    SDL_Rect getdrekt();
 };

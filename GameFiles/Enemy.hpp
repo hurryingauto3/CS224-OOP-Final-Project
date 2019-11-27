@@ -1,7 +1,8 @@
-#include "Player.hpp"
-#include "Texture.hpp"
-#pragma once
 
+#include "Texture.hpp"
+#include <cmath>
+#include "Player.hpp"
+#pragma once
 class Enemy : public People
 {
 
@@ -13,24 +14,17 @@ private:
     SDL_Renderer *ren;
 
 public:
-
     Enemy()
     {
         PlayernearBy = false;
     };
 
-    // Enemy(int xloc, int yloc, int health, int attack) : Enemy(xloc, yloc, health){};
     Enemy(const char *sprite, SDL_Renderer *r, int x, int y) : Enemy()
     {
         Enemy::setlocation(x, y);
-    Enemy(){};
-    // Enemy(int xloc, int yloc)
-    // {
-    //     this->setlocation(xloc, yloc);
-    // };
-    // Enemy(int xloc, int yloc, int health) : Enemy(xloc, yloc){};
+        std::cout << "Enemy born" << std::endl;
+    }
 
-    // Enemy(int xloc, int yloc, int health, int attack) : Enemy(xloc, yloc, health){};
     Enemy(const char *sprite, SDL_Renderer *r)
     {
         Enemy::setlocation(0, 0);
@@ -49,7 +43,6 @@ public:
         Enemy::setattack(attack);
     }
 
-
     void obj_update()
     {
         sRect.h = 208;
@@ -67,7 +60,6 @@ public:
     {
         SDL_RenderCopy(ren, obj_tex, &sRect, &dRect);
     }
-
 
     void Path(int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4)
     {
@@ -107,7 +99,7 @@ public:
 
     void ApproachPlayer(Player A)
     {
-        if (this->getx() != A.getx() || this->gety() != A.gety())
+        if (this->getx() != A.getx() | this->gety() != A.gety())
         {
             if (this->getx() > A.getx())
             {
@@ -130,26 +122,4 @@ public:
     {
         return Enemy::PlayernearBy;
     }
-
-    void ApproachPlayer(Player *A) //Player is a pointer now
-    {
-        if (this->getx() != A->getx() and this->gety() != A->gety())
-        {
-            if (this->getx() > A->getx())
-            {
-                this->setlocation(this->getx() - 5, this->gety());
-            }
-            else
-            {
-                this->setlocation(this->getx() + 5, this->gety());
-            }
-            if (this->gety() > A->gety())
-                this->setlocation(this->getx(), this->gety() - 5);
-        }
-        else if (this->gety() < A->gety())
-        {
-            this->setlocation(this->getx(), this->gety() + 5);
-        }
-    };
-
 };

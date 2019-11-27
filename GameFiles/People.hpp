@@ -1,7 +1,7 @@
 #include <iostream>
 
 #include "Master.hpp"
-
+#pragma once
 class People : public MasterObject
 {
 private:
@@ -52,6 +52,5 @@ public:
     {
         this->attack = attack;
     }
-
 
 };

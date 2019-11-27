@@ -3,6 +3,8 @@
 #include <cstdlib>
 #include "Node.hpp"
 #include "SDL.h"
+#include "Player.hpp"
+#pragma once
 class LinkedList
 {
 private:
@@ -20,5 +22,5 @@ public:
     void DelNode();  //deletes the last node
     bool IsEmpty();
     void RenderAll();
-    void CollideCheck();
+    SDL_bool CollideCheck(Player *A);
 };

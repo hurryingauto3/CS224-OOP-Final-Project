@@ -33,14 +33,17 @@ int main(int argc, char *args[])
   std::cout << "Started" << std::endl;
   Game Thegame;
   std::cout << "Game Object Created" << std::endl;
-  Wall B;
   while (Thegame.runcheck())
   {
 
     framestart = SDL_GetTicks();
+    //std::cout << "Ticks got" << std::endl;
     Thegame.handle_event();
+    //std::cout << "Events handled" << std::endl;
     Thegame.update();
+    //std::cout << "Update game" << std::endl;
     Thegame.render();
+    //std::cout << "Rendered" << std::endl;
     frametime = SDL_GetTicks() - framestart;
     if (framedelay > frametime)
     {
@@ -51,4 +54,3 @@ int main(int argc, char *args[])
   Thegame.clean();
   return 0;
 }
-

@@ -22,7 +22,14 @@ void MasterObject::obj_update()
 
 void MasterObject::obj_render()
 {
-    SDL_RenderCopy(ren, obj_tex, nullptr, &dRect); //sRect is null for now
+    SDL_RenderCopy(ren, obj_tex, &sRect, &dRect); //sRect is null for now
 }
+
+SDL_Rect MasterObject::getsrekt()
+{
+    return sRect;
 }
-;
+SDL_Rect MasterObject::getdrekt()
+{
+    return dRect;
+}

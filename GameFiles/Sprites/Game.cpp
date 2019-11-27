@@ -7,19 +7,16 @@ bool Game::runcheck()
 void Game::update()
 {
   A->obj_update();
-  B->obj_update();
-
   B->IsPlayerClose(*A);
   if (B->getplayercloseby())
   {
     B->ApproachPlayer(*A);
-    B->obj_update();
   }
   else
   {
     B->Path(0, 0, 100, 0, 100, 100, 0, 100);
-    B->obj_update();
   }
+  B->obj_update();
 
   C->obj_update();
 }
@@ -29,9 +26,12 @@ void Game::render()
   SDL_RenderClear(grenderer);
   C->obj_render();
   A->obj_render();
-
-  Obj->RenderAll();
-
+  Node *tmp = Obj->gethead();
+  while (tmp != nullptr)
+  {
+    tmp->data->obj_render();
+    tmp = tmp->next;
+  }
   SDL_RenderPresent(grenderer);
 }
 void Game::clean()
@@ -83,13 +83,14 @@ Game::Game()
     SDL_SetRenderDrawColor(grenderer, 206, 140, 140, 255);
   }
   is_running = true;
-
   SDL_Event e;
-  Obj->addnode(new Enemy("./Sprites/Enemy.png", grenderer, 10, 10));
-  Obj->addnode(new Enemy("./Sprites/Enemy.png", grenderer, 300, 300));
-  Obj->addnode(new Enemy("./Sprites/Enemy.png", grenderer, 50, 50));
-
   A = new Player("./Sprites/Player.png", grenderer);
+  B = new Enemy("./Sprites/Enemy.png", grenderer, 300, 50);
+  // Obj->addnode(new Enemy("./Sprites/Enemy.png", grenderer, 50, 50));
+  // Obj->addnode(new Enemy("./Sprites/Enemy.png", grenderer, 100, 50));
+  // Obj->addnode(new Enemy("./Sprites/Enemy.png", grenderer, 200, 50));
+  // Obj->addnode(new Enemy("./Sprites/Enemy.png", grenderer, 300, 50));
+  // Obj->addnode(new Enemy("./Sprites/Enemy.png", grenderer, 400, 50));
   //made both classes into popinters so i could render more effeciently
   C = new BG("./Sprites/level_BG.png", grenderer);
 }

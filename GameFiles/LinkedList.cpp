@@ -1,5 +1,4 @@
 #include <iostream>
-
 #include "LinkedList.hpp"
 
 void LinkedList::addnode(MasterObject *n)
@@ -76,3 +75,16 @@ void LinkedList::RenderAll()
         tmp = tmp->next;
     }
 }
+
+// SDL_bool LinkedList::CollideCheck(Player *A)
+// {
+//     Node *tmp = this->head;
+//     SDL_Rect *Collision;
+
+//     while (tmp != nullptr)
+//     {
+//         SDL_IntersectRect(A->getsrekt, tmp->data->getsrekt, Collision);
+
+//         tmp = tmp->next;
+//     }
+// }

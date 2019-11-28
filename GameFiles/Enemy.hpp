@@ -8,7 +8,6 @@ class Enemy : public People
 
 private:
     bool PlayernearBy;
-
     SDL_Texture *obj_tex;
     SDL_Rect sRect, dRect;
     SDL_Renderer *ren;
@@ -49,7 +48,6 @@ public:
         sRect.w = 208;
         sRect.x = 0;
         sRect.y = 0;
-
         dRect.h = 128;
         dRect.w = 128;
         dRect.x = getx();

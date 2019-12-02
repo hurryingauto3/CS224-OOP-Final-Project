@@ -12,7 +12,7 @@ Game::Game()
     }
     is_running = true;
     SDL_Event e;
-    A = new Character("./Sprites/Player.png", grenderer, 100, 100);
+    A = new Character("./Sprites/Player.png", grenderer, 0, 100);
     B = new Character("./Sprites/Player.png", grenderer, 100, 500);
 }
 bool Game::RunCheck()
@@ -58,10 +58,10 @@ void Game::handle_event()
             A->setx(A->getx() + 5), A->sety(A->gety());
             break;
         case SDLK_a:
-            A->setx(A->getx()), A->sety(A->gety() - 5);
+            A->setx(A->getx() - 5), A->sety(A->gety());
             break;
         case SDLK_w:
-            A->setx(A->getx() - 5), A->sety(A->gety());
+            A->setx(A->getx()), A->sety(A->gety() - 5);
             break;
 
         case SDLK_k:

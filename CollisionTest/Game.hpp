@@ -15,7 +15,7 @@ private:
     SDL_Window *window;
     SDL_Renderer *grenderer;
     Character *A;
-    Character *B;
+    Character *B[10];
 
 public:
     bool RunCheck(); //Returns the status of the game

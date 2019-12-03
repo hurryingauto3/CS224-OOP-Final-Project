@@ -25,7 +25,7 @@ public:
         obj_tex = texture::sprite(sprite, r);
     }
 
-    void obj_update()
+    void obj_update(Player *p)
     {
         sRect.h = 208;
         sRect.w = 208;
@@ -36,11 +36,13 @@ public:
         dRect.w = 128;
         dRect.x = getx();
         dRect.y = gety();
+
+        angle(p);
     }
 
-    void obj_render()
+    void obj_render(Player *p)
     {
-        SDL_RenderCopy(ren, obj_tex, &sRect, &dRect);
+        SDL_RenderCopyEx(ren, obj_tex, nullptr, &dRect, angle(p), nullptr, SDL_FLIP_HORIZONTAL);
     }
 
     void ApproachPlayer(Player *A) //Player is a pointer now
@@ -63,4 +65,11 @@ public:
             this->setlocation(this->getx(), this->gety() + 5);
         }
     };
+    double angle(Player *p)
+    {
+        int base = p->getx() - getx();
+        int height = p->gety() - gety();
+        double ans = atan2(height, base) * 180 / 3.14159265;
+        return ans;
+    }
 };

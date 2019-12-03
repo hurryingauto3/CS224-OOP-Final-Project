@@ -7,7 +7,7 @@ bool Game::runcheck()
 void Game::update()
 {
   A->obj_update();
-  B->obj_update();
+  B->obj_update(A);
   B->ApproachPlayer(A);
   C->obj_update();
 }
@@ -17,7 +17,7 @@ void Game::render()
   SDL_RenderClear(grenderer);
   C->obj_render();
   A->obj_render();
-  B->obj_render();
+  B->obj_render(A);
   SDL_RenderPresent(grenderer);
 }
 void Game::clean()

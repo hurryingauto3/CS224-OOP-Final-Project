@@ -13,7 +13,7 @@ Game::Game()
     is_running = true;
     SDL_Event e;
     A = new Character("./Sprites/Player.png", grenderer, 0, 100);
-    B = new Character("./Sprites/Player.png", grenderer, 100, 500);
+    B[0] = new Character("./Sprites/Player.png", grenderer, 100, 500);
 }
 bool Game::RunCheck()
 {
@@ -24,14 +24,14 @@ void Game::render()
 {
     SDL_RenderClear(grenderer);
     A->obj_render(A->getren(), A->getTex(), A->getsrekt(), A->getdrekt());
-    A->obj_render(B->getren(), B->getTex(), B->getsrekt(), B->getdrekt());
+    B[0]->obj_render(B[0]->getren(), B[0]->getTex(), B[0]->getsrekt(), B[0]->getdrekt());
     SDL_RenderPresent(grenderer);
 }
 
 void Game::update()
 {
     A->obj_update();
-    B->obj_update();
+    B[0]->obj_update();
 }
 void Game::clean()
 {
@@ -65,16 +65,16 @@ void Game::handle_event()
             break;
 
         case SDLK_k:
-            B->setx(B->getx()), B->sety(B->gety() + 5);
+            B[0]->setx(B[0]->getx()), B[0]->sety(B[0]->gety() + 5);
             break;
         case SDLK_l:
-            B->setx(B->getx() + 5), B->sety(B->gety());
+            B[0]->setx(B[0]->getx() + 5), B[0]->sety(B[0]->gety());
             break;
         case SDLK_i:
-            B->setx(B->getx()), B->sety(B->gety() - 5);
+            B[0]->setx(B[0]->getx()), B[0]->sety(B[0]->gety() - 5);
             break;
         case SDLK_j:
-            B->setx(B->getx() - 5), B->sety(B->gety());
+            B[0]->setx(B[0]->getx() - 5), B[0]->sety(B[0]->gety());
             break;
         default:
             break;

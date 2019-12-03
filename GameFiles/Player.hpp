@@ -60,8 +60,8 @@ public:
         SDL_GetMouseState(&x, &y);
         int a = x;
         int b = y;
-        int base = abs(getx() - a);
-        int height = abs(gety() - b);
+        int base = getx() - a;
+        int height = gety() - b;
         double ans = atan2(height, base) * 180 / 3.14159265;
         return ans;
     }

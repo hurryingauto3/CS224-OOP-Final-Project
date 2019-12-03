@@ -53,6 +53,8 @@ void Game::handle_event()
     case SDLK_p:
       A->shoot();
       break;
+    case SDL_MOUSEMOTION:
+      A->obj_update();
     default:
       break;
     }

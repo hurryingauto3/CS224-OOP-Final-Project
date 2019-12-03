@@ -2,6 +2,7 @@
 #include "Texture.hpp"
 #include <iostream>
 #include <SDL.h>
+//#include <math.h>
 
 #pragma once
 
@@ -45,10 +46,23 @@ public:
         dRect.w = 128;
         dRect.x = People::getx();
         dRect.y = People::gety();
+
+        angle();
     }
 
     void obj_render()
     {
-        SDL_RenderCopy(ren, obj_tex, nullptr, &dRect); //sRect is null for now
+        SDL_RenderCopyEx(ren, obj_tex, nullptr, &dRect, angle(), nullptr, SDL_FLIP_HORIZONTAL); //sRect is null for now
+    }
+    double angle()
+    {
+        int x, y;
+        SDL_GetMouseState(&x, &y);
+        int a = x;
+        int b = y;
+        int base = abs(getx() - a);
+        int height = abs(gety() - b);
+        double ans = atan2(height, base) * 180 / 3.14159265;
+        return ans;
     }
 };

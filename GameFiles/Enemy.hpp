@@ -23,9 +23,9 @@ public:
 
     void obj_update(Player *p);
 
-    Enemy(const char *sprite, SDL_Renderer *r, int x, int y, float health);
+    // Enemy(const char *sprite, SDL_Renderer *r, int x, int y, float health);
 
-    Enemy(const char *sprite, SDL_Renderer *r, int x, int y, float health, float attack);
+    // Enemy(const char *sprite, SDL_Renderer *r, int x, int y, float health, float attack);
 
     void obj_update();
 

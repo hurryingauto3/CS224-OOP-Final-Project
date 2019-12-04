@@ -30,15 +30,15 @@ void Enemy::obj_update()
     dRect.y = gety();
 }
 
-Enemy::Enemy(const char *sprite, SDL_Renderer *r, int x, int y, float health) : Enemy(sprite, r, x, y)
-{
-    Enemy::sethealth(health);
-}
+// Enemy::Enemy(const char *sprite, SDL_Renderer *r, int x, int y, float health) : Enemy(sprite, r, x, y)
+// {
+//     Enemy::sethealth(health);
+// }
 
-Enemy::Enemy(const char *sprite, SDL_Renderer *r, int x, int y, float health, float attack) : Enemy(sprite, r, x, y, health)
-{
-    Enemy::setattack(attack);
-}
+// Enemy::Enemy(const char *sprite, SDL_Renderer *r, int x, int y, float health, float attack) : Enemy(sprite, r, x, y, health)
+// {
+//     Enemy::setattack(attack);
+// }
 
 void Enemy::obj_render(Player *p)
 {

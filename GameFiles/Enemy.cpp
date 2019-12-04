@@ -2,7 +2,7 @@
 
 Enemy::Enemy()
 {
-    PlayernearBy = false;
+    Enemy::PlayernearBy = false;
 };
 
 Enemy::Enemy(const char *sprite, SDL_Renderer *r, int x, int y) : Enemy()

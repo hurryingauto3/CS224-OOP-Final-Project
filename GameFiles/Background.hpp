@@ -31,8 +31,8 @@ public:
         sRect.x = 0;
         sRect.y = 0;
 
-        dRect.h = 1080;
-        dRect.w = 720;
+        dRect.h = 1080 * 3;
+        dRect.w = 720 * 3;
         dRect.x = 0;
         dRect.y = 0;
         // dRect.h = 128;

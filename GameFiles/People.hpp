@@ -8,6 +8,8 @@ private:
     float attack;
     float width;
     float height;
+    int x;
+    int y;
 
 public:
     void decrease_health(float hitpoints)
@@ -16,6 +18,21 @@ public:
     }
 
     void spriteshift(std::string direction){};
+    virtual int getx()
+    {
+        return x;
+    }
+
+    virtual int gety()
+    {
+        return y;
+    }
+
+    virtual void setlocation(int x1, int y2)
+    {
+        x = x1;
+        y = y2;
+    }
 
     People()
     {

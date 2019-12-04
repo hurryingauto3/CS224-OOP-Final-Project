@@ -2,7 +2,7 @@
 #include "Texture.hpp"
 #include <iostream>
 #include <SDL.h>
-//#include <math.h>
+#include <cmath>
 
 #pragma once
 
@@ -12,6 +12,8 @@ private:
     SDL_Texture *obj_tex;
     SDL_Rect sRect, dRect;
     SDL_Renderer *ren;
+    int x;
+    int y;
 
 public:
     void shoot()
@@ -20,6 +22,22 @@ public:
     };
 
     Player(){};
+
+    virtual int getx()
+    {
+        return x;
+    }
+
+    virtual int gety()
+    {
+        return y;
+    }
+
+    virtual void setlocation(int x1, int y2)
+    {
+        x = x1;
+        y = y2;
+    }
 
     Player(const char *sprite, SDL_Renderer *gRenderer)
     {
@@ -43,8 +61,8 @@ public:
 
         dRect.h = 128;
         dRect.w = 128;
-        dRect.x = People::getx();
-        dRect.y = People::gety();
+        dRect.x = getx();
+        dRect.y = gety();
 
         angle();
     }

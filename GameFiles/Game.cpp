@@ -7,21 +7,21 @@ bool Game::runcheck()
 void Game::update()
 {
   A->obj_update();
+  B->angle(A);
+  B->obj_update();
 
-  B->obj_update(A);
   B->ApproachPlayer(A);
 
-  B->IsPlayerClose(*A);
+  B->IsPlayerClose(A);
   if (B->getplayercloseby())
   {
-    B->ApproachPlayer(*A);
+    B->ApproachPlayer(A);
   }
   else
   {
     B->Path(0, 0, 100, 0, 100, 100, 0, 100);
   }
   B->obj_update();
-
 
   C->obj_update();
 }

@@ -10,16 +10,20 @@
 #include <iostream>
 #include <string>
 #include "Enemy.hpp"
-#include "Terrain.hpp"
 #include "Background.hpp"
+#include "LinkedList.hpp"
+#include "Terrain.hpp"
 #pragma once
 
 class Game
 {
 private:
     bool is_running;
+
+    LinkedList *Obj;
     Player *A;
     Enemy *B;
+    Wall *W;
     BG *C;
     SDL_Window *window;
     SDL_Renderer *grenderer;
@@ -30,6 +34,7 @@ public:
     void render();
     void clean(); //Frees all resources upon quitting
     void handle_event();
+    void mousePress(SDL_MouseButtonEvent &b);
     Game();
     ~Game();
 };

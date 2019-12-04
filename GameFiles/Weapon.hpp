@@ -1,6 +1,8 @@
+
+#include <cmath>
 #include "Enemy.hpp"
 #include <cmath>
-
+#pragma once
 class Weapon
 {
 private:

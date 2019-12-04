@@ -1,3 +1,8 @@
+
+#include "Enemy.hpp"
+#include "Player.hpp"
+#include "Terrain.hpp"
+
 /*This source code copyrighted by Lazy Foo' Productions (2004-2015)
   and may not be redistributed without written permission.*/
 
@@ -8,6 +13,7 @@
 #else
 #include <SDL.h>
 #include <SDL_image.h>
+
 #endif
 
 #include <cmath>
@@ -24,17 +30,20 @@ const int framedelay = 1000 / fps;
 
 int main(int argc, char *args[])
 {
-  std::cout << "gay" << std::endl;
+  std::cout << "Started" << std::endl;
   Game Thegame;
-  std::cout << "nice" << std::endl;
-  Wall B;
+  std::cout << "Game Object Created" << std::endl;
   while (Thegame.runcheck())
   {
 
     framestart = SDL_GetTicks();
+    //std::cout << "Ticks got" << std::endl;
     Thegame.handle_event();
+    //std::cout << "Events handled" << std::endl;
     Thegame.update();
+    //std::cout << "Update game" << std::endl;
     Thegame.render();
+    //std::cout << "Rendered" << std::endl;
     frametime = SDL_GetTicks() - framestart;
     if (framedelay > frametime)
     {

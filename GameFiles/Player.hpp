@@ -23,15 +23,14 @@ public:
 
     Player(const char *sprite, SDL_Renderer *gRenderer)
     {
-        Player::setlocation(0, 0);
+        Player::setlocation(200, 200);
         ren = gRenderer;
         obj_tex = texture::sprite(sprite, gRenderer);
         dRect.h = 571;
         dRect.w = 999;
         dRect.x = 0;
         dRect.y = 0;
-        SDL_Texture *this1 = texture::sprite("./Sprites/Player.png", gRenderer);
-        SDL_RenderCopy(gRenderer, this1, NULL, &dRect);
+
         SDL_RenderCopy(gRenderer, obj_tex, nullptr, &dRect);
     }
 

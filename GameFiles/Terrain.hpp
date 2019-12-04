@@ -1,12 +1,16 @@
-#pragma once
 
-class Terrain
+#pragma once
+#include "Master.hpp"
+
+class Terrain : public MasterObject
+
 {
+private:
+    SDL_Texture *obj_tex;
+    SDL_Rect sRect, dRect;
+    SDL_Renderer *ren;
+
 public:
-    float width;
-    float height;
-    float x_cor;
-    float y_cor;
     bool passable;
 };
 
@@ -19,8 +23,7 @@ public:
     Door()
     {
         state_open = false;
-        this->height = 5;
-        this->width = 1;
+        this->setdimension(5, 1);
     };
     void openclose_door()
     {
@@ -46,10 +49,8 @@ public:
     Wall()
     {
         passable = false;
-        x_cor = 10;
-        y_cor = 10;
-        this->width = 5;
-        this->height = 5;
+        this->setlocation(10, 10);
+        this->setdimension(5, 5);
     }
 };
 
@@ -66,11 +67,10 @@ public:
             status_broken = true;
             this->passable = true;
         }
-    };
+    }
     Window()
     {
         status_broken = false;
-        this->height = 5;
-        this->width = 1;
-    };
+        this->setdimension(5, 1);
+    }
 };

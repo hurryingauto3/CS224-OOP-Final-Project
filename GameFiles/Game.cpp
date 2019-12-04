@@ -1,5 +1,5 @@
 #include "Game.hpp"
-
+#include "Bullet.cpp"
 bool Game::runcheck()
 {
   return is_running;
@@ -7,11 +7,24 @@ bool Game::runcheck()
 void Game::update()
 {
   A->obj_update();
+
   B->obj_update(A);
   B->ApproachPlayer(A);
+
+  B->IsPlayerClose(*A);
+  if (B->getplayercloseby())
+  {
+    B->ApproachPlayer(*A);
+  }
+  else
+  {
+    B->Path(0, 0, 100, 0, 100, 100, 0, 100);
+  }
+  B->obj_update();
+
+
   C->obj_update();
 }
-
 void Game::render()
 {
   SDL_RenderClear(grenderer);
@@ -29,6 +42,9 @@ void Game::clean()
 void Game::handle_event()
 {
   SDL_Event Event;
+  bool mouseClicked;
+  mouseClicked = false;
+  int x, y; //Mouse coordinates current
   SDL_PollEvent(&Event);
   switch (Event.type)
   {
@@ -58,8 +74,27 @@ void Game::handle_event()
     default:
       break;
     }
+    //Get mouse position
+    //SDL Function for gettting mousestate, current location.
+  case (SDL_MOUSEMOTION):
+  {
+    SDL_GetMouseState(&x, &y);
+    std::cout << x << " " << y << std::endl;
+  }
+  case (SDL_MOUSEBUTTONDOWN): //checks if mousebutton pressed
+  {
+    SDL_GetMouseState(&x, &y);
+    mousePress(Event.button);
+  }
   default:
     break;
+  }
+};
+void Game::mousePress(SDL_MouseButtonEvent &b)
+{
+  if (b.button == SDL_BUTTON_LEFT)
+  {
+    Bullet bullet;
   }
 }
 Game::Game()

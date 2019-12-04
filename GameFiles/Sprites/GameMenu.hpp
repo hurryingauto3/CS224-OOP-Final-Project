@@ -3,7 +3,6 @@
 #include <SDL2_image/SDL_image.h>
 #else
 #include <SDL.h>
-#include <
 #include <SDL_image.h>
 
 #endif
@@ -19,5 +18,5 @@ int showmenu(SDL_Surface *screen)
     SDL_Surface *menus[NUMMENU];
     bool selected[NUMMENU] = {0, 0};
     SDL_Color color[2] = {{255, 255, 255}, {255, 0, 0}};
-    menus[0] =
+    //menus[0] =
 }

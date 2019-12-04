@@ -7,10 +7,15 @@ bool Game::runcheck()
 void Game::update()
 {
   A->obj_update();
-  B->IsPlayerClose(*A);
+  B->angle(A);
+  B->obj_update();
+
+  B->ApproachPlayer(A);
+
+  B->IsPlayerClose(A);
   if (B->getplayercloseby())
   {
-    B->ApproachPlayer(*A);
+    B->ApproachPlayer(A);
   }
   else
   {
@@ -25,7 +30,7 @@ void Game::render()
   SDL_RenderClear(grenderer);
   C->obj_render();
   A->obj_render();
-  B->obj_render();
+  B->obj_render(A);
   SDL_RenderPresent(grenderer);
 }
 void Game::clean()
@@ -64,6 +69,8 @@ void Game::handle_event()
     case SDLK_p:
       A->shoot();
       break;
+    case SDL_MOUSEMOTION:
+      A->obj_update();
     default:
       break;
     }

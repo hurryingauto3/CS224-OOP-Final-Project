@@ -8,8 +8,18 @@ private:
     float attack;
     float width;
     float height;
+    int x;
+    int y;
 
 public:
+    int getx()
+    {
+        return x;
+    }
+    int gety()
+    {
+        return y;
+    }
     void decrease_health(float hitpoints)
     {
         health = health - hitpoints;

@@ -13,6 +13,7 @@
 #include "Background.hpp"
 #include "LinkedList.hpp"
 #include "Terrain.hpp"
+#include "UI.hpp"
 #pragma once
 
 class Game
@@ -27,7 +28,8 @@ private:
     BG *C;
     SDL_Window *window;
     SDL_Renderer *grenderer;
-
+    ui_simplified *ui;
+    bool onSplashScreen;
 public:
     bool runcheck(); //Returns the status of the game
     void update();

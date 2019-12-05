@@ -1,5 +1,5 @@
 #include "Game.hpp"
-#include "Bullet.cpp"
+
 bool Game::runcheck()
 {
   return is_running;
@@ -89,6 +89,8 @@ void Game::handle_event()
       break;
     case SDL_MOUSEMOTION:
       A->obj_update();
+    case SDL_MOUSEBUTTONDOWN:
+      mousePress(Event.button);
     default:
       break;
     }
@@ -99,11 +101,11 @@ void Game::handle_event()
     SDL_GetMouseState(&x, &y);
     std::cout << x << " " << y << std::endl;
   }
-  case (SDL_MOUSEBUTTONDOWN): //checks if mousebutton pressed
-  {
-    SDL_GetMouseState(&x, &y);
-    mousePress(Event.button);
-  }
+  // case (SDL_MOUSEBUTTONDOWN): //checks if mousebutton pressed
+  // {
+  //   SDL_GetMouseState(&x, &y);
+  //   mousePress(Event.button);
+  // }
   default:
     break;
   }
@@ -112,7 +114,7 @@ void Game::mousePress(SDL_MouseButtonEvent &b)
 {
   if (b.button == SDL_BUTTON_LEFT)
   {
-    Bullet bullet;
+    bullet = new Bullet("./Sprites/MainMenu.png", grenderer);
   }
 }
 Game::Game()

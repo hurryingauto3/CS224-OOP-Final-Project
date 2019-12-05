@@ -14,6 +14,7 @@
 #include "LinkedList.hpp"
 #include "Terrain.hpp"
 #include "UI.hpp"
+#include "Bullet.cpp"
 #pragma once
 
 class Game
@@ -30,6 +31,8 @@ private:
     SDL_Renderer *grenderer;
     ui_simplified *ui;
     bool onSplashScreen;
+    Bullet *bullet;
+
 public:
     bool runcheck(); //Returns the status of the game
     void update();

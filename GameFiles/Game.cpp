@@ -27,9 +27,9 @@ void Game::update()
 
     C->obj_update();
   }
-  else
-    ui->obj_update();
+  ui->obj_update();
 }
+
 void Game::render()
 {
   SDL_RenderClear(grenderer);

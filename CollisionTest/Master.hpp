@@ -18,7 +18,7 @@ public:
 
     void setx(int x);
     void sety(int y);
-    
+
     void setTex(SDL_Texture *);
     void setsRect(int x, int y, int h, int w);
     void setdRect(int x, int y, int h, int w);
@@ -31,4 +31,14 @@ public:
 
     void obj_update();
     void obj_render(SDL_Renderer *ren, SDL_Texture *obj_tex, SDL_Rect &sRect, SDL_Rect &dRect);
+
+    // SDL_Rect getsrekt1() const
+    // {
+    //     return this->sRect;
+    // }
+
+    // SDL_Rect getdrekt1() const
+    // {
+    //     return this->dRect;
+    // }
 };

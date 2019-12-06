@@ -11,6 +11,8 @@ void Game::update()
     A->obj_update();
     B->angle(A);
     B->obj_update();
+    camera.x = A->getx() - 540;
+    camera.y = A->gety() - 360;
 
     B->ApproachPlayer(A);
 
@@ -26,6 +28,22 @@ void Game::update()
     B->obj_update();
 
     C->obj_update();
+    if (camera.x < 0)
+    {
+      camera.x = 0;
+    }
+    if (camera.y < 0)
+    {
+      camera.y = 0;
+    }
+    if (camera.x > camera.w)
+    {
+      camera.x = camera.w;
+    }
+    if (camera.y > camera.h)
+    {
+      camera.y = camera.h;
+    }
   }
   else
     ui->obj_update();
@@ -65,10 +83,10 @@ void Game::handle_event()
     switch (Event.key.keysym.sym)
     {
     case SDLK_s:
-      A->setlocation(A->getx(), A->gety() + 5);
+      A->setlocation(A->getx(), A->gety() + A->getSpeed);
       break;
     case SDLK_d:
-      A->setlocation(A->getx() + 5, A->gety());
+      A->setlocation(A->getx() + A->getSpeed, A->gety());
       break;
     case SDLK_F4: //pressing this should kill the process
       if (onSplashScreen)
@@ -79,10 +97,10 @@ void Game::handle_event()
         onSplashScreen = false;
       break;
     case SDLK_a:
-      A->setlocation(A->getx() - 5, A->gety());
+      A->setlocation(A->getx() - A->getSpeed, A->gety());
       break;
     case SDLK_w:
-      A->setlocation(A->getx(), A->gety() - 5);
+      A->setlocation(A->getx(), A->gety() - A->getSpeed);
       break;
     case SDLK_p:
       A->shoot();
@@ -125,6 +143,7 @@ Game::Game()
   {
     SDL_SetRenderDrawColor(grenderer, 206, 140, 140, 255);
   }
+  camera = {0, 0, 1080, 720};
   is_running = true;
   onSplashScreen = true;
   SDL_Event e;

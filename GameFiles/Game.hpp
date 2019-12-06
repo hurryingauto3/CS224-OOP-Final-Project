@@ -40,6 +40,7 @@ public:
     void clean(); //Frees all resources upon quitting
     void handle_event();
     void mousePress(SDL_MouseButtonEvent &b);
+    static SDL_Rect camera;
     Game();
     ~Game();
 };

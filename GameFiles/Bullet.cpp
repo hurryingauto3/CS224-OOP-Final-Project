@@ -42,7 +42,7 @@ public:
     // }
     void obj_render(Player *p)
     {
-        SDL_RenderCopyEx(ren, obj_tex, nullptr, &dRect, p->angle, nullptr, SDL_FLIP_HORIZONTAL);
+        SDL_RenderCopyEx(ren, obj_tex, nullptr, &dRect, p->angle(), nullptr, SDL_FLIP_HORIZONTAL);
     }
     void obj_update()
     {

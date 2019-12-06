@@ -45,9 +45,9 @@ void Game::update()
       camera.y = camera.h;
     }
   }
-  ui->obj_update();
+  else
+    ui->obj_update();
 }
-
 void Game::render()
 {
   SDL_RenderClear(grenderer);

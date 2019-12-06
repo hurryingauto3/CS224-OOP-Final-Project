@@ -81,8 +81,3 @@ void Game::handle_event()
         }
     }
 }
-// SDL_Rect *Game::Collider()
-// {
-
-//     return SDL_IntersectRect(A->getdrekt1(), B[0]->getdrekt());
-// }

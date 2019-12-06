@@ -25,5 +25,4 @@ public:
     void handle_event();
     Game();
     ~Game();
-    SDL_Rect *Collider();
 };

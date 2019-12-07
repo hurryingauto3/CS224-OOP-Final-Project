@@ -56,4 +56,7 @@ SDL_Rect &MasterObject::getdrekt()
 {
     return this->dRect;
 }
-SDL_Renderer *MasterObject::getren() { return this->ren; }
+SDL_Renderer *MasterObject::getren()
+{
+    return this->ren;
+}

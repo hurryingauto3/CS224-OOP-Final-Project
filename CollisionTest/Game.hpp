@@ -25,4 +25,28 @@ public:
     void handle_event();
     Game();
     ~Game();
+
+    bool collision(SDL_Rect a, SDL_Rect b)
+    {
+        if (a.y >= b.y + b.h)
+        {
+            return false;
+        }
+        if (a.x >= b.x + b.w)
+        {
+            return false;
+        }
+        if (a.y + a.h <= b.y)
+        {
+            return false;
+        }
+        if (a.x + a.w <= b.x)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
 };

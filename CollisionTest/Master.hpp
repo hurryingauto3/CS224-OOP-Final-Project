@@ -18,7 +18,7 @@ public:
 
     void setx(int x);
     void sety(int y);
-    
+
     void setTex(SDL_Texture *);
     void setsRect(int x, int y, int h, int w);
     void setdRect(int x, int y, int h, int w);

@@ -1,4 +1,5 @@
 #include "Texture.hpp"
+class Game;
 #pragma once
 
 class BG
@@ -36,7 +37,7 @@ public:
         dRect.w = 720 * 3;
         dRect.x = a - Game::camera.x;
         dRect.y = b - Game::camera.y;
-        }
+    }
 
     void obj_render()
     {

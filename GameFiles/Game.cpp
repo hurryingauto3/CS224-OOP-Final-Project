@@ -118,6 +118,11 @@ void Game::handle_event()
       break;
     case SDL_MOUSEMOTION:
       A->obj_update();
+    case SDLK_f:
+    {
+      cout << "boom boom" << endl;
+      bullet = new Bullet("./Sprites/temp_bullet.png", grenderer);
+    }
     default:
       break;
     }
@@ -126,6 +131,7 @@ void Game::handle_event()
     SDL_GetMouseState(&x, &y);
     std::cout << x << " " << y << std::endl;
   }
+
   default:
     break;
   }
@@ -139,10 +145,10 @@ Game::Game()
   {
     SDL_SetRenderDrawColor(grenderer, 206, 140, 140, 255);
   }
-  camera = {0, 0, 1080, 720};
   is_running = true;
   onSplashScreen = true;
   SDL_Event e;
+  SDL_Rect camera;
   A = new Player("./Sprites/Player.png", grenderer);
   B = new Enemy("./Sprites/Enemy.png", grenderer); //made both classes into popinters so i could render more effeciently
   C = new BG("./Sprites/level_BG.png", grenderer);

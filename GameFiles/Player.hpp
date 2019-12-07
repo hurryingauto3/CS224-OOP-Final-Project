@@ -10,11 +10,10 @@ class Player : public People
 {
 private:
     SDL_Texture *obj_tex;
-    SDL_Rect sRect, dRect;
+    SDL_Rect sRect, dRect, camera;
     SDL_Renderer *ren;
-    int x;
-    int y;
-    int speed = 7;
+    int x, y;
+    int a, b;
 
 public:
     void shoot()
@@ -35,7 +34,7 @@ public:
     }
     int getSpeed()
     {
-        return speed;
+        return a;
     }
 
     virtual void setlocation(int x1, int y2)
@@ -51,8 +50,8 @@ public:
         obj_tex = texture::sprite(sprite, gRenderer);
         dRect.h = 720;
         dRect.w = 1080;
-        dRect.x = 0;
-        dRect.y = 0;
+        dRect.x = x;
+        dRect.y = y;
 
         SDL_RenderCopy(gRenderer, obj_tex, nullptr, &dRect);
     }
@@ -62,10 +61,30 @@ public:
 
         dRect.h = 128;
         dRect.w = 128;
-        dRect.x = getx();
-        dRect.y = gety();
+        dRect.x = getx() - camera.x;
+        dRect.y = gety() - camera.y;
 
         angle();
+
+        camera.x = (getx() + 64) - 540;
+        camera.y = (gety() + 64) - 360;
+
+        if (camera.x < 0)
+        {
+            camera.x = 0;
+        }
+        if (camera.y < 0)
+        {
+            camera.y = 0;
+        }
+        if (camera.x > 1800 - camera.w)
+        {
+            camera.x = 1800 - camera.w;
+        }
+        if (camera.y > 1300 - camera.h)
+        {
+            camera.y = 1300 - camera.h;
+        }
     }
 
     void obj_render()

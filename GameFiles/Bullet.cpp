@@ -42,11 +42,11 @@ public:
         obj_tex = texture::sprite(sprite, gRenderer);
     }
 
-    // Bullet(Player A, int x, int y)
-    // { //incorrect formula for now
-    //     x_direction_movement = (A.getx() - x) / pow(pow((A.getx() - x), 2) - pow(A.gety() - y, 2), 0.5);
-    //     y_direction_movement = (A.gety() - y) / pow(pow((A.getx() - x), 2) - pow(A.gety() - y, 2), 0.5);
-    // }
+    Bullet(Player A, int x, int y)
+    { //incorrect formula for now
+        x_direction_movement = (A.getx() - x) / pow(pow((A.getx() - x), 2) - pow(A.gety() - y, 2), 0.5);
+        y_direction_movement = (A.gety() - y) / pow(pow((A.getx() - x), 2) - pow(A.gety() - y, 2), 0.5);
+    }
     void obj_render(Player *p)
     {
         SDL_RenderCopyEx(ren, obj_tex, nullptr, &dRect, p->angle(), nullptr, SDL_FLIP_HORIZONTAL);

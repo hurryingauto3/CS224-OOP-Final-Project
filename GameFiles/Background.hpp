@@ -1,4 +1,5 @@
 #include "Texture.hpp"
+class Game;
 #pragma once
 
 class BG
@@ -36,6 +37,7 @@ public:
         dRect.w = 720 * 3;
         dRect.x = a - p->getSpeed();
         dRect.y = b - p->getSpeed();
+
     }
 
     void obj_render()

@@ -4,8 +4,8 @@ ui_simplified::ui_simplified(const char *sprite, SDL_Renderer *gRenderer)
 {
     ren = gRenderer;
     obj_tex = texture::sprite(sprite, gRenderer);
-    dRect.h = 1080;
-    dRect.w = 720;
+    dRect.h = 720;
+    dRect.w = 1080;
     dRect.x = 0;
     dRect.y = 0;
     endGame = false;
@@ -14,8 +14,8 @@ ui_simplified::ui_simplified(const char *sprite, SDL_Renderer *gRenderer)
 
 void ui_simplified::obj_update()
 {
-    dRect.h = 1080;
-    dRect.w = 720;
+    dRect.h = 720;
+    dRect.w = 1080;
     dRect.x = 0;
     dRect.y = 0;
 
@@ -34,10 +34,6 @@ bool ui_simplified::start_party()
 {
     return starto;
 }
-/*void ui_simplified::handle_event()
-{
-
-}*/
 
 void ui_simplified::setEndGame(bool gameState)
 {

@@ -32,6 +32,7 @@ private:
     ui_simplified *ui;
     bool onSplashScreen;
     Bullet *bullet;
+    //bool moving;
 
 public:
     bool runcheck(); //Returns the status of the game
@@ -43,4 +44,5 @@ public:
     SDL_Rect camera;
     Game();
     ~Game();
+    //bool move();
 };

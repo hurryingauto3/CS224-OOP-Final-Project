@@ -13,6 +13,9 @@ void Game::update()
     B->obj_update();
     camera.x = A->getx() - 540;
     camera.y = A->gety() - 360;
+    bullet->obj_update();
+    bullet->setX(A->getx());
+    bullet->setY(A->gety());
 
     B->ApproachPlayer(A);
 
@@ -27,7 +30,7 @@ void Game::update()
     }
     B->obj_update();
 
-    C->obj_update(A);
+    C->obj_update();
     if (camera.x < 0)
     {
       camera.x = 0;
@@ -56,6 +59,7 @@ void Game::render()
     C->obj_render();
     A->obj_render();
     B->obj_render(A);
+    bullet->obj_render(A);
   }
   else
     ui->obj_render();
@@ -84,9 +88,13 @@ void Game::handle_event()
     {
     case SDLK_s:
       A->setlocation(A->getx(), A->gety() + A->getSpeed());
+      //camera.y += A->getSpeed;
+      //C->gety() + A->getSpeed();
       break;
     case SDLK_d:
       A->setlocation(A->getx() + A->getSpeed(), A->gety());
+      //camera.x += A->getSpeed;
+      //C->getx() + A->getSpeed();
       break;
     case SDLK_F4: //pressing this should kill the process
       if (onSplashScreen)
@@ -98,43 +106,31 @@ void Game::handle_event()
       break;
     case SDLK_a:
       A->setlocation(A->getx() - A->getSpeed(), A->gety());
+      //C->getx() - A->getSpeed();
       break;
     case SDLK_w:
       A->setlocation(A->getx(), A->gety() - A->getSpeed());
+      //C->gety() - A->getSpeed();
       break;
     case SDLK_p:
       A->shoot();
+      bullet->setShotFired(true);
       break;
     case SDL_MOUSEMOTION:
       A->obj_update();
-    case SDL_MOUSEBUTTONDOWN:
-      mousePress(Event.button);
     default:
       break;
     }
-    //Get mouse position
-    //SDL Function for gettting mousestate, current location.
   case (SDL_MOUSEMOTION):
   {
     SDL_GetMouseState(&x, &y);
     std::cout << x << " " << y << std::endl;
   }
-  // case (SDL_MOUSEBUTTONDOWN): //checks if mousebutton pressed
-  // {
-  //   SDL_GetMouseState(&x, &y);
-  //   mousePress(Event.button);
-  // }
   default:
     break;
   }
 };
-void Game::mousePress(SDL_MouseButtonEvent &b)
-{
-  if (b.button == SDL_BUTTON_LEFT)
-  {
-    bullet = new Bullet("./Sprites/MainMenu.png", grenderer);
-  }
-}
+
 Game::Game()
 {
   window = SDL_CreateWindow("Game", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 1080, 720, 0);
@@ -151,6 +147,7 @@ Game::Game()
   B = new Enemy("./Sprites/Enemy.png", grenderer); //made both classes into popinters so i could render more effeciently
   C = new BG("./Sprites/level_BG.png", grenderer);
   ui = new ui_simplified("./Sprites/MainMenu.png", grenderer);
+  bullet = new Bullet("./Sprites/temp_bullet.png", grenderer);
 }
 
 Game::~Game() {}

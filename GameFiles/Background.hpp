@@ -25,7 +25,7 @@ public:
         SDL_RenderCopy(gRenderer, obj_tex, nullptr, &dRect);
     }
 
-    void obj_update()
+    void obj_update(Player *p)
     {
         // sRect.h = 208;
         // sRect.w = 208;
@@ -34,9 +34,9 @@ public:
 
         dRect.h = 1080 * 3;
         dRect.w = 720 * 3;
-        dRect.x = a - Game::camera.x;
-        dRect.y = b - Game::camera.y;
-        }
+        dRect.x = a - p->getSpeed();
+        dRect.y = b - p->getSpeed();
+    }
 
     void obj_render()
     {

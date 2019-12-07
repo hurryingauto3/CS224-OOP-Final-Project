@@ -27,7 +27,7 @@ void Game::update()
     }
     B->obj_update();
 
-    C->obj_update();
+    C->obj_update(A);
     if (camera.x < 0)
     {
       camera.x = 0;
@@ -83,10 +83,10 @@ void Game::handle_event()
     switch (Event.key.keysym.sym)
     {
     case SDLK_s:
-      A->setlocation(A->getx(), A->gety() + A->getSpeed);
+      A->setlocation(A->getx(), A->gety() + A->getSpeed());
       break;
     case SDLK_d:
-      A->setlocation(A->getx() + A->getSpeed, A->gety());
+      A->setlocation(A->getx() + A->getSpeed(), A->gety());
       break;
     case SDLK_F4: //pressing this should kill the process
       if (onSplashScreen)
@@ -97,10 +97,10 @@ void Game::handle_event()
         onSplashScreen = false;
       break;
     case SDLK_a:
-      A->setlocation(A->getx() - A->getSpeed, A->gety());
+      A->setlocation(A->getx() - A->getSpeed(), A->gety());
       break;
     case SDLK_w:
-      A->setlocation(A->getx(), A->gety() - A->getSpeed);
+      A->setlocation(A->getx(), A->gety() - A->getSpeed());
       break;
     case SDLK_p:
       A->shoot();

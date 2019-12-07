@@ -13,8 +13,7 @@ private:
 public:
     float width;
     float height;
-    float x_cor;
-    float y_cor;
+
     bool passable;
 };
 
@@ -54,8 +53,6 @@ public:
     Wall()
     {
         passable = false;
-        x_cor = 10;
-        y_cor = 10;
         this->width = 5;
         this->height = 5;
     }

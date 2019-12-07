@@ -37,13 +37,9 @@ int main(int argc, char *args[])
   {
 
     framestart = SDL_GetTicks();
-    //std::cout << "Ticks got" << std::endl;
     Thegame.handle_event();
-    //std::cout << "Events handled" << std::endl;
     Thegame.update();
-    //std::cout << "Update game" << std::endl;
     Thegame.render();
-    //std::cout << "Rendered" << std::endl;
     frametime = SDL_GetTicks() - framestart;
     if (framedelay > frametime)
     {

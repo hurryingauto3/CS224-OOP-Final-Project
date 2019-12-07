@@ -8,7 +8,6 @@ class Enemy : public People
 
 private:
     bool PlayernearBy;
-
     SDL_Texture *obj_tex;
     SDL_Rect sRect, dRect;
     SDL_Renderer *ren;
@@ -31,16 +30,6 @@ public:
 
         ren = r;
         obj_tex = texture::sprite(sprite, r);
-    }
-
-    Enemy(const char *sprite, SDL_Renderer *r, int x, int y, float health) : Enemy(sprite, r, x, y)
-    {
-        Enemy::sethealth(health);
-    }
-
-    Enemy(const char *sprite, SDL_Renderer *r, int x, int y, float health, float attack) : Enemy(sprite, r, x, y, health)
-    {
-        Enemy::setattack(attack);
     }
 
     void obj_update()

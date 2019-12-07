@@ -1,4 +1,5 @@
 #include "Master.hpp"
+
 int MasterObject::getx()
 {
     return this->x;
@@ -13,7 +14,6 @@ void MasterObject::obj_update()
     sRect.w = 208;
     sRect.x = 0;
     sRect.y = 0;
-
     dRect.h = 128;
     dRect.w = 128;
     dRect.x = MasterObject::getx();
@@ -33,3 +33,9 @@ SDL_Rect MasterObject::getdrekt()
 {
     return dRect;
 }
+
+void MasterObject::setlocation(int xs, int ys)
+{
+    this->x = xs;
+    this->y = ys;
+};

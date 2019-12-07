@@ -7,7 +7,6 @@ class MasterObject
 private:
     int x;
     int y;
-
     SDL_Texture *obj_tex;
     SDL_Rect sRect, dRect;
     SDL_Renderer *ren;
@@ -18,6 +17,7 @@ public:
     int gety();
     void obj_update();
     void obj_render();
+    void setlocation(int x, int y);
     SDL_Rect getsrekt();
     SDL_Rect getdrekt();
 };

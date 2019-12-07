@@ -14,17 +14,17 @@ void Game::update()
     camera.x = A->getx() - 540;
     camera.y = A->gety() - 360;
 
-    B->ApproachPlayer(A);
+    // B->ApproachPlayer(A);
 
-    B->IsPlayerClose(A);
-    if (B->getplayercloseby())
-    {
-      B->ApproachPlayer(A);
-    }
-    else
-    {
-      B->Path(0, 0, 100, 0, 100, 100, 0, 100);
-    }
+    // B->IsPlayerClose(A);
+    // if (B->getplayercloseby())
+    // {
+    //   B->ApproachPlayer(A);
+    // }
+    // else
+    // {
+    //   B->Path(0, 0, 100, 0, 100, 100, 0, 100);
+    // }
     B->obj_update();
 
     C->obj_update(A);
@@ -83,10 +83,16 @@ void Game::handle_event()
     switch (Event.key.keysym.sym)
     {
     case SDLK_s:
-      A->setlocation(A->getx(), A->gety() + A->getSpeed());
+      if (!collision(A->getdrekt(), B->getdrekt()))
+      {
+        A->setlocation(A->getx(), A->gety() + A->getSpeed());
+      }
       break;
     case SDLK_d:
-      A->setlocation(A->getx() + A->getSpeed(), A->gety());
+      if (!collision(A->getdrekt(), B->getdrekt()))
+      {
+        A->setlocation(A->getx() + A->getSpeed(), A->gety());
+      }
       break;
     case SDLK_F4: //pressing this should kill the process
       if (onSplashScreen)
@@ -97,10 +103,16 @@ void Game::handle_event()
         onSplashScreen = false;
       break;
     case SDLK_a:
-      A->setlocation(A->getx() - A->getSpeed(), A->gety());
+      if (!collision(A->getdrekt(), B->getdrekt()))
+      {
+        A->setlocation(A->getx() - A->getSpeed(), A->gety());
+      }
       break;
     case SDLK_w:
-      A->setlocation(A->getx(), A->gety() - A->getSpeed());
+      if (!collision(A->getdrekt(), B->getdrekt()))
+      {
+        A->setlocation(A->getx(), A->gety() - A->getSpeed());
+      }
       break;
     case SDLK_p:
       A->shoot();

@@ -9,13 +9,17 @@ Game::Game()
     if (grenderer)
     {
         SDL_SetRenderDrawColor(grenderer, 206, 140, 140, 255);
-        std::cout << "Rendered" << std::endl;
     }
     is_running = true;
     SDL_Event e;
+
     A = new Character("./Sprites/Player.png", grenderer, 0, 100);
     B[0] = new Character("./Sprites/Player.png", grenderer, 100, 500);
 }
+//game class has 2 private linked lists
+// one is moving objects Masterobj
+// one is all objets Masterobj
+//n^2 loop
 
 bool Game::RunCheck()
 {
@@ -51,38 +55,54 @@ void Game::handle_event()
         is_running = false;
 
     case SDL_KEYDOWN:
-
     { //both classes are pointers now so used arrows
         switch (event.key.keysym.sym)
         {
-
         case SDLK_s:
             if (!collision(A->getdrekt(), B[0]->getdrekt()))
             {
                 A->setx(A->getx()), A->sety(A->gety() + 5);
-                std::cout << "S Pressed: " << A->gety() << std::endl;
+                std::cout << A->getx() << ", " << A->gety() << std::endl;
+            }
+            else
+            {
+                A->setx(A->getx()), A->sety(A->gety() - 5);
             }
             break;
         case SDLK_d:
             if (!collision(A->getdrekt(), B[0]->getdrekt()))
             {
                 A->setx(A->getx() + 5), A->sety(A->gety());
-                std::cout << "D Pressed: " << A->getx() << std::endl;
+                std::cout << A->getx() << ", " << A->gety() << std::endl;
             }
+            else
+            {
+                A->setx(A->getx() - 5), A->sety(A->gety());
+            }
+
             break;
 
         case SDLK_a:
             if (!collision(A->getdrekt(), B[0]->getdrekt()))
             {
                 A->setx(A->getx() - 5), A->sety(A->gety());
-                std::cout << "D Pressed: " << A->getx() << std::endl;
+                std::cout << A->getx() << ", " << A->gety() << std::endl;
+            }
+            else
+            {
+                A->setx(A->getx() + 5), A->sety(A->gety());
             }
             break;
         case SDLK_w:
             if (!collision(A->getdrekt(), B[0]->getdrekt()))
             {
                 A->setx(A->getx()), A->sety(A->gety() - 5);
-                std::cout << "W Pressed: " << A->gety() << std::endl;
+
+                std::cout << A->getx() << ", " << A->gety() << std::endl;
+            }
+            else
+            {
+                A->setx(A->getx()), A->sety(A->gety() + 5);
             }
             break;
         }

@@ -14,6 +14,7 @@ private:
     SDL_Renderer *ren;
     bool starto;
     bool endGame;
+
 public:
     void setEndGame(bool);
     ui_simplified();                                            //default constructor
@@ -22,5 +23,4 @@ public:
     void obj_update();                                          //in cpp
     void obj_render();                                          //in cpp
     bool start_party();                                         //in cpp
-    //void handle_event();
 };

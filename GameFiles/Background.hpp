@@ -35,7 +35,7 @@ public:
 
         dRect.h = 1080 * 3;
         dRect.w = 720 * 3;
-        dRect.x = a - Game::camera.x;
+        dRect.x = a - (Game::camera).x;
         dRect.y = b - Game::camera.y;
     }
 

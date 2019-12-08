@@ -17,17 +17,17 @@ void Game::update()
     bullet->setX(A->getx());
     bullet->setY(A->gety());
 
-    B->ApproachPlayer(A);
+    // B->ApproachPlayer(A);
 
-    B->IsPlayerClose(A);
-    if (B->getplayercloseby())
-    {
-      B->ApproachPlayer(A);
-    }
-    else
-    {
-      B->Path(0, 0, 100, 0, 100, 100, 0, 100);
-    }
+    // B->IsPlayerClose(A);
+    // if (B->getplayercloseby())
+    // {
+    //   B->ApproachPlayer(A);
+    // }
+    // else
+    // {
+    //   B->Path(0, 0, 100, 0, 100, 100, 0, 100);
+    // }
     B->obj_update();
 
     C->obj_update();
@@ -105,25 +105,25 @@ void Game::handle_event()
         onSplashScreen = false;
       break;
     case SDLK_a:
-      A->setlocation(A->getx() - A->getSpeed(), A->gety());
-      //C->getx() - A->getSpeed();
+
+      if (!collision(A->getdrekt(), B->getdrekt()))
+      {
+        A->setlocation(A->getx() - A->getSpeed(), A->gety());
+      }
       break;
     case SDLK_w:
-      A->setlocation(A->getx(), A->gety() - A->getSpeed());
-      //C->gety() - A->getSpeed();
-      break;
-    case SDLK_p:
-      A->shoot();
-      bullet->setShotFired(true);
-      break;
-    case SDL_MOUSEMOTION:
+      if (!collision(A->getdrekt(), B->getdrekt()))
+      {
+        A->setlocation(A->getx(), A->gety() - A->getSpeed());
+      }
+
+      A->setlocation(A->getx() - A->getSpeed(), A->gety());
       A->obj_update();
     default:
       break;
     }
   case (SDL_MOUSEMOTION):
   {
-    SDL_GetMouseState(&x, &y);
     std::cout << x << " " << y << std::endl;
   }
   default:

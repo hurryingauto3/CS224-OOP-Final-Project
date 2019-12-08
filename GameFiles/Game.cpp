@@ -14,8 +14,7 @@ void Game::update()
     camera.x = A->getx() - 540;
     camera.y = A->gety() - 360;
     bullet->obj_update();
-    bullet->setX(A->getx());
-    bullet->setY(A->gety());
+    bullet->setlocation(A->getx(), A->gety());
 
     B->ApproachPlayer(A);
 
@@ -30,23 +29,23 @@ void Game::update()
     }
     B->obj_update();
 
-    C->obj_update();
-    if (camera.x < 0)
-    {
-      camera.x = 0;
-    }
-    if (camera.y < 0)
-    {
-      camera.y = 0;
-    }
-    if (camera.x > camera.w)
-    {
-      camera.x = camera.w;
-    }
-    if (camera.y > camera.h)
-    {
-      camera.y = camera.h;
-    }
+    C->obj_update(&camera);
+    // if (camera.x < 0)
+    // {
+    //   camera.x = 0;
+    // }
+    // if (camera.y < 0)
+    // {
+    //   camera.y = 0;
+    // }
+    // if (camera.x > camera.w)
+    // {
+    //   camera.x = camera.w;
+    // }
+    // if (camera.y > camera.h)
+    // {
+    //   camera.y = camera.h;
+    // }
   }
   else
     ui->obj_update();
@@ -56,7 +55,7 @@ void Game::render()
   SDL_RenderClear(grenderer);
   if (!onSplashScreen)
   {
-    C->obj_render();
+    C->obj_render((A->getx()), (A->gety()), &camera);
     A->obj_render();
     B->obj_render(A);
     bullet->obj_render(A);
@@ -118,17 +117,14 @@ void Game::handle_event()
       break;
     case SDL_MOUSEMOTION:
       A->obj_update();
-    case SDLK_f:
-    {
-      cout << "boom boom" << endl;
-      bullet = new Bullet("./Sprites/temp_bullet.png", grenderer);
-    }
+
     default:
       break;
     }
-  case (SDL_MOUSEMOTION):
+  case (SDLK_SPACE):
   {
     SDL_GetMouseState(&x, &y);
+    bullet = new Bullet(*A, x, y, "./Sprites/temp_bullet.png", grenderer);
     std::cout << x << " " << y << std::endl;
   }
 
@@ -153,7 +149,7 @@ Game::Game()
   B = new Enemy("./Sprites/Enemy.png", grenderer); //made both classes into popinters so i could render more effeciently
   C = new BG("./Sprites/level_BG.png", grenderer);
   ui = new ui_simplified("./Sprites/MainMenu.png", grenderer);
-  bullet = new Bullet("./Sprites/temp_bullet.png", grenderer);
+  bullet = new Bullet();
 }
 
 Game::~Game() {}

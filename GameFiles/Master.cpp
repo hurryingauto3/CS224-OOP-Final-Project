@@ -24,6 +24,12 @@ void MasterObject::setlocation(int x1, int y2)
 {
     x = x1;
     y = y2;
+    if (x1 >= 540)
+    {
+        x1 = x1 - 540;
+    }
+    if (y2 >= 360)
+        y2 = y2 - 360;
 }
 int MasterObject::getheight()
 {

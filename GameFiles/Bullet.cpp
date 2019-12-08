@@ -12,8 +12,6 @@ private:
     SDL_Rect sRect, dRect;
     SDL_Renderer *ren;
     bool shot_fired;
-    int x;
-    int y;
     bool move_bullet = false;
 
 public:
@@ -34,22 +32,17 @@ public:
         shot_fired = false;
         std::cout << "Bullet was made" << std::endl;
     };
-    ~Bullet(){};
-    Bullet(const char *sprite, SDL_Renderer *gRenderer)
-    {
-        //Player::setlocation(200, 200);
+
+    Bullet(Player A, int x, int y, const char *sprite, SDL_Renderer *gRenderer)
+    { //incorrect formula for now
+        x_direction_movement = (A.getx() - x, A.gety() - y);
+        y_direction_movement = (A.gety() - y, A.gety() - y);
         ren = gRenderer;
         obj_tex = texture::sprite(sprite, gRenderer);
     }
-
-    // Bullet(Player A, int x, int y)
-    // { //incorrect formula for now
-    //     x_direction_movement = (A.getx() - x) / pow(pow((A.getx() - x), 2) - pow(A.gety() - y, 2), 0.5);
-    //     y_direction_movement = (A.gety() - y) / pow(pow((A.getx() - x), 2) - pow(A.gety() - y, 2), 0.5);
-    // }
     void obj_render(Player *p)
     {
-        SDL_RenderCopyEx(ren, obj_tex, nullptr, &dRect, p->angle(), nullptr, SDL_FLIP_HORIZONTAL);
+        SDL_RenderCopyEx(ren, obj_tex, nullptr, &dRect, 0, nullptr, SDL_FLIP_HORIZONTAL);
     }
     void obj_update()
     {
@@ -57,24 +50,15 @@ public:
         {
             dRect.h = 128;
             dRect.w = 128;
-            dRect.x = x;
-            dRect.y = y;
+            dRect.x = this->getx();
+            dRect.y = this->gety();
             shot_fired = false;
             move_bullet = true;
         }
 
         if (move_bullet)
         {
-            dRect.x += 7;
+            BulletMove();
         }
-    }
-
-    void setX(int X)
-    {
-        x = X;
-    }
-    void setY(int Y)
-    {
-        y = Y;
     }
 };

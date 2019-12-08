@@ -11,11 +11,8 @@ void Game::update()
     A->obj_update();
     B->angle(A);
     B->obj_update();
-    camera.x = A->getx() - 540;
-    camera.y = A->gety() - 360;
     bullet->obj_update();
-    bullet->setX(A->getx());
-    bullet->setY(A->gety());
+    bullet->setlocation(A->getx(), A->gety());
 
     // B->ApproachPlayer(A);
 
@@ -30,23 +27,7 @@ void Game::update()
     // }
     B->obj_update();
 
-    C->obj_update();
-    if (camera.x < 0)
-    {
-      camera.x = 0;
-    }
-    if (camera.y < 0)
-    {
-      camera.y = 0;
-    }
-    if (camera.x > camera.w)
-    {
-      camera.x = camera.w;
-    }
-    if (camera.y > camera.h)
-    {
-      camera.y = camera.h;
-    }
+    C->obj_update(-A->getx(), -A->gety());
   }
   else
     ui->obj_update();
@@ -56,7 +37,7 @@ void Game::render()
   SDL_RenderClear(grenderer);
   if (!onSplashScreen)
   {
-    C->obj_render();
+    C->obj_render((A->getx()), (A->gety()), &temp);
     A->obj_render();
     B->obj_render(A);
     bullet->obj_render(A);
@@ -95,8 +76,6 @@ void Game::handle_event()
     case SDLK_s:
       Mix_PlayChannel(-1, foot2,0);
       A->setlocation(A->getx(), A->gety() + A->getSpeed());
-      //camera.y += A->getSpeed;
-      //C->gety() + A->getSpeed();
       break;
     case SDLK_d:
       Mix_PlayChannel(-1, foot2,0);
@@ -131,15 +110,16 @@ void Game::handle_event()
       A->setlocation(A->getx() - A->getSpeed(), A->gety());
       A->obj_update();
       Mix_PlayChannel(-1, foot1,0);
-    default:
-      break;
-      case SDLK_p:
+
         
     }
-  case (SDL_MOUSEMOTION):
+  case (SDLK_SPACE):
   {
+    SDL_GetMouseState(&x, &y);
+    bullet = new Bullet(*A, x, y, "./Sprites/temp_bullet.png", grenderer);
     std::cout << x << " " << y << std::endl;
   }
+
   default:
     break;
   }
@@ -153,15 +133,16 @@ Game::Game()
   {
     SDL_SetRenderDrawColor(grenderer, 206, 140, 140, 255);
   }
-  camera = {0, 0, 1080, 720};
   is_running = true;
   onSplashScreen = true;
   SDL_Event e;
+  //SDL_Rect camera;
   A = new Player("./Sprites/Player.png", grenderer);
   B = new Enemy("./Sprites/Enemy.png", grenderer); //made both classes into popinters so i could render more effeciently
   C = new BG("./Sprites/level_BG.png", grenderer);
+  temp = {C->BG::getsrect()};
   ui = new ui_simplified("./Sprites/MainMenu.png", grenderer);
-  bullet = new Bullet("./Sprites/temp_bullet.png", grenderer);
+  bullet = new Bullet();
 }
 
 Game::~Game() {}

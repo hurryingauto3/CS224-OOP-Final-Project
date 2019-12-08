@@ -27,17 +27,21 @@ private:
     Player *A;
     Enemy *B;
     Wall *W;
-    BG *C;
+    BG *C, *t;
     SDL_Window *window;
     SDL_Renderer *grenderer;
     ui_simplified *ui;
     bool onSplashScreen;
     Bullet *bullet;
+
+    SDL_Rect temp;
+
     Mix_Music *backgroundSound = Mix_LoadMUS("bgmusic.mp3");
     Mix_Chunk *Click = Mix_LoadWAV("Click.wav");
     Mix_Chunk *foot1 = Mix_LoadWAV("foot1.wav");
     Mix_Chunk *foot2 = Mix_LoadWAV("foot2.wav");
     Mix_Chunk *shot = Mix_LoadWAV("shot.wav");
+
     //bool moving;
 
 public:
@@ -51,7 +55,7 @@ public:
     void clean(); //Frees all resources upon quitting
     void handle_event();
     void mousePress(SDL_MouseButtonEvent &b);
-    SDL_Rect camera;
+    //SDL_Rect camera;
     Game();
     ~Game();
 

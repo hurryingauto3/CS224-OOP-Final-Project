@@ -10,7 +10,7 @@ int MasterObject::gety()
 void MasterObject::obj_update()
 {
     MasterObject::setsRect(0, 0, 208, 208);
-    MasterObject::setdRect(MasterObject::getx(), MasterObject::gety(), 128, 128);
+    MasterObject::setdRect(MasterObject::getx(), MasterObject::gety(), 50, 50);
 }
 
 void MasterObject::obj_render(SDL_Renderer *ren, SDL_Texture *obj_tex, SDL_Rect &sRect, SDL_Rect &dRect)
@@ -56,4 +56,7 @@ SDL_Rect &MasterObject::getdrekt()
 {
     return this->dRect;
 }
-SDL_Renderer *MasterObject::getren() { return this->ren; }
+SDL_Renderer *MasterObject::getren()
+{
+    return this->ren;
+}

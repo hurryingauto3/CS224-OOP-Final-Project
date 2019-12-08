@@ -1,9 +1,9 @@
 #include "Game.hpp"
-
 Game::Game()
 {
 
     window = SDL_CreateWindow("Game", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 1080, 720, 0);
+
     grenderer = SDL_CreateRenderer(window, -1, 0);
     if (grenderer)
     {
@@ -12,9 +12,11 @@ Game::Game()
     }
     is_running = true;
     SDL_Event e;
-    A = new Character("./Sprites/Player.png", grenderer, 0, 100);
-    B[0] = new Character("./Sprites/Player.png", grenderer, 100, 500);
+    allobjs.push_back(new Character("./Sprites/Player.png", grenderer, 0, 100));
+    moving.push_back(new Character("./Sprites/Player.png", grenderer, 100, 500));
+    moving.push_back(new Character("./Sprites/Player.png", grenderer, 600, 500));
 }
+
 bool Game::RunCheck()
 {
     return this->is_running;
@@ -22,16 +24,29 @@ bool Game::RunCheck()
 
 void Game::render()
 {
+
     SDL_RenderClear(grenderer);
-    A->obj_render(A->getren(), A->getTex(), A->getsrekt(), A->getdrekt());
-    B[0]->obj_render(B[0]->getren(), B[0]->getTex(), B[0]->getsrekt(), B[0]->getdrekt());
-    SDL_RenderPresent(grenderer);
+    for (int i = 0; i <= allobjs.size() - 1; i++)
+    {
+        allobjs[i]->obj_render(allobjs[i]->getren(), allobjs[i]->getTex(), allobjs[i]->getsrekt(), allobjs[i]->getdrekt());
+    }
+    for (int i = 0; i <= moving.size() - 1; i++)
+    {
+        moving[i]->obj_render(moving[i]->getren(), moving[i]->getTex(), moving[i]->getsrekt(), moving[i]->getdrekt());
+        SDL_RenderPresent(grenderer);
+    }
 }
 
 void Game::update()
 {
-    A->obj_update();
-    B[0]->obj_update();
+    for (int i = 0; i <= allobjs.size() - 1; i++)
+    {
+        allobjs[i]->obj_update();
+    }
+    for (int i = 0; i <= moving.size() - 1; i++)
+    {
+        moving[i]->obj_update();
+    }
 }
 void Game::clean()
 {
@@ -48,36 +63,76 @@ void Game::handle_event()
     case SDL_QUIT:
         is_running = false;
 
-    case SDL_KEYDOWN: //both classes are pointers now so used arrows
+    case SDL_KEYDOWN:
+
+    {
         switch (event.key.keysym.sym)
         {
+
         case SDLK_s:
-            A->setx(A->getx()), A->sety(A->gety() + 5);
+            for (int i = 0; i <= allobjs.size() - 1; i++)
+            {
+                for (int j = 0; j <= moving.size() - 1; j++)
+                    if (!collision(allobjs[i]->getdrekt(), moving[j]->getdrekt()))
+                    {
+                        allobjs[i]->setx(allobjs[i]->getx()), allobjs[i]->sety(allobjs[i]->gety() + 5);
+                        std::cout << "S Pressed: " << allobjs[i]->gety() << std::endl;
+                    }
+                    else
+                    {
+                        allobjs[i]->setx(allobjs[i]->getx()), allobjs[i]->sety(allobjs[i]->gety() - 20);
+                    }
+            }
             break;
         case SDLK_d:
-            A->setx(A->getx() + 5), A->sety(A->gety());
-            break;
-        case SDLK_a:
-            A->setx(A->getx() - 5), A->sety(A->gety());
-            break;
-        case SDLK_w:
-            A->setx(A->getx()), A->sety(A->gety() - 5);
+            for (int i = 0; i <= allobjs.size() - 1; i++)
+            {
+                for (int j = 0; j <= moving.size() - 1; j++)
+                    if (!collision(allobjs[i]->getdrekt(), moving[j]->getdrekt()))
+                    {
+                        allobjs[i]->setx(allobjs[i]->getx() + 5), allobjs[i]->sety(allobjs[i]->gety());
+                        std::cout << "D Pressed: " << allobjs[i]->getx() << std::endl;
+                    }
+                    else
+                    {
+                        allobjs[i]->setx(allobjs[i]->getx() - 20), allobjs[i]->sety(allobjs[i]->gety());
+                    }
+            }
             break;
 
-        case SDLK_k:
-            B[0]->setx(B[0]->getx()), B[0]->sety(B[0]->gety() + 5);
+        case SDLK_a:
+            for (int i = 0; i <= allobjs.size() - 1; i++)
+            {
+                for (int j = 0; j <= moving.size() - 1; j++)
+                    if (!collision(allobjs[i]->getdrekt(), moving[j]->getdrekt()))
+                    {
+                        allobjs[i]->setx(allobjs[i]->getx() - 5), allobjs[i]->sety(allobjs[i]->gety());
+                        std::cout << "D Pressed: " << allobjs[i]->getx() << std::endl;
+                    }
+                    else
+                    {
+                        allobjs[i]->setx(allobjs[i]->getx() + 20), allobjs[i]->sety(allobjs[i]->gety());
+                    }
+            }
             break;
-        case SDLK_l:
-            B[0]->setx(B[0]->getx() + 5), B[0]->sety(B[0]->gety());
-            break;
-        case SDLK_i:
-            B[0]->setx(B[0]->getx()), B[0]->sety(B[0]->gety() - 5);
-            break;
-        case SDLK_j:
-            B[0]->setx(B[0]->getx() - 5), B[0]->sety(B[0]->gety());
-            break;
-        default:
+        case SDLK_w:
+            for (int i = 0; i <= allobjs.size() - 1; i++)
+            {
+                for (int j = 0; j <= moving.size() - 1; j++)
+                {
+                    if (!collision(allobjs[i]->getdrekt(), moving[j]->getdrekt()))
+                    {
+                        allobjs[i]->setx(allobjs[i]->getx()), allobjs[i]->sety(allobjs[i]->gety() - 5);
+                        std::cout << "W Pressed: " << allobjs[i]->gety() << std::endl;
+                    }
+                    else
+                    {
+                        allobjs[i]->setx(allobjs[i]->getx()), allobjs[i]->sety(allobjs[i]->gety() + 20);
+                    }
+                }
+            }
             break;
         }
+    }
     }
 }

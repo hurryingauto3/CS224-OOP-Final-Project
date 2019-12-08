@@ -7,7 +7,7 @@
 #include <string>
 //Other Libraries Included
 #include "Character.hpp"
-
+#include "Terrain.hpp"
 class Game
 {
 private:
@@ -16,6 +16,8 @@ private:
     SDL_Renderer *grenderer;
     Character *A;
     Character *B[10];
+    Wall *W;
+    Door *D;
 
     SDL_Rect top = {0, 0, 1080, 0};
     SDL_Rect left = {0, 0, 0, 720};

@@ -15,6 +15,7 @@ Game::Game()
 
     A = new Character("./Sprites/Player.png", grenderer, 0, 100);
     B[0] = new Character("./Sprites/Player.png", grenderer, 100, 500);
+    W = new Wall("./Sprites/wall.png", grenderer, 200, 200);
 }
 //game class has 2 private linked lists
 // one is moving objects Masterobj

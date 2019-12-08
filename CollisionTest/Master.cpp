@@ -9,16 +9,8 @@ int MasterObject::gety()
 }
 void MasterObject::obj_update()
 {
-    if (this->animated)
-    {
-        MasterObject::setsRect(MasterObject::getsrekt().w * static_cast<int>((SDL_GetTicks() / this->speed) % this->frames), 0, 128, 128);
-        MasterObject::setdRect(MasterObject::getx(), MasterObject::gety(), 128, 128);
-    }
-    else
-    {
-        MasterObject::setsRect(0, 0, 128, 128);
-        MasterObject::setdRect(MasterObject::getx(), MasterObject::gety(), 128, 128);
-    }
+    MasterObject::setsRect(0, 0, 208, 208);
+    MasterObject::setdRect(MasterObject::getx(), MasterObject::gety(), 50, 50);
 }
 
 void MasterObject::obj_render(SDL_Renderer *ren, SDL_Texture *obj_tex, SDL_Rect &sRect, SDL_Rect &dRect)
@@ -67,19 +59,4 @@ SDL_Rect &MasterObject::getdrekt()
 SDL_Renderer *MasterObject::getren()
 {
     return this->ren;
-}
-
-void MasterObject::set_animated()
-{
-    this->animated = true;
-}
-
-void MasterObject::setspeed(int Speed)
-{
-    this->speed = Speed;
-}
-
-void MasterObject::setframes(int Frames)
-{
-    this->frames = Frames;
 }

@@ -49,7 +49,6 @@ public:
     Wall()
     {
         passable = false;
-        this->setlocation(10, 10);
         this->setdimension(5, 5);
     }
 };

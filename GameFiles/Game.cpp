@@ -14,17 +14,17 @@ void Game::update()
     bullet->obj_update();
     bullet->setlocation(A->getx(), A->gety());
 
-    B->ApproachPlayer(A);
+    // B->ApproachPlayer(A);
 
-    B->IsPlayerClose(A);
-    if (B->getplayercloseby())
-    {
-      B->ApproachPlayer(A);
-    }
-    else
-    {
-      B->Path(0, 0, 100, 0, 100, 100, 0, 100);
-    }
+    // B->IsPlayerClose(A);
+    // if (B->getplayercloseby())
+    // {
+    //   B->ApproachPlayer(A);
+    // }
+    // else
+    // {
+    //   B->Path(0, 0, 100, 0, 100, 100, 0, 100);
+    // }
     B->obj_update();
 
     C->obj_update(-A->getx(), -A->gety());
@@ -50,6 +50,12 @@ void Game::clean()
 {
   SDL_DestroyWindow(window);
   SDL_DestroyRenderer(grenderer);
+  Mix_FreeMusic(backgroundSound);
+  Mix_FreeChunk(Click);
+  Mix_FreeChunk(foot2);
+  Mix_FreeChunk(foot1);
+  Mix_FreeChunk(shot);
+  Mix_CloseAudio();
   SDL_Quit();
 }
 void Game::handle_event()
@@ -68,9 +74,11 @@ void Game::handle_event()
     switch (Event.key.keysym.sym)
     {
     case SDLK_s:
+      Mix_PlayChannel(-1, foot2,0);
       A->setlocation(A->getx(), A->gety() + A->getSpeed());
       break;
     case SDLK_d:
+      Mix_PlayChannel(-1, foot2,0);
       A->setlocation(A->getx() + A->getSpeed(), A->gety());
       //camera.x += A->getSpeed;
       //C->getx() + A->getSpeed();
@@ -81,25 +89,29 @@ void Game::handle_event()
       break;
     case SDLK_RETURN:
       if (onSplashScreen)
+        Mix_PlayChannel(-1, Click,0);
+        Mix_HaltMusic();
         onSplashScreen = false;
       break;
     case SDLK_a:
-      A->setlocation(A->getx() - A->getSpeed(), A->gety());
-      //C->getx() - A->getSpeed();
+
+      if (!collision(A->getdrekt(), B->getdrekt()))
+      {
+        A->setlocation(A->getx() - A->getSpeed(), A->gety());
+      }
+      Mix_PlayChannel(-1, foot1,0);
       break;
     case SDLK_w:
-      A->setlocation(A->getx(), A->gety() - A->getSpeed());
-      //C->gety() - A->getSpeed();
-      break;
-    case SDLK_p:
-      A->shoot();
-      bullet->setShotFired(true);
-      break;
-    case SDL_MOUSEMOTION:
-      A->obj_update();
+      if (!collision(A->getdrekt(), B->getdrekt()))
+      {
+        A->setlocation(A->getx(), A->gety() - A->getSpeed());
+      }
 
-    default:
-      break;
+      A->setlocation(A->getx() - A->getSpeed(), A->gety());
+      A->obj_update();
+      Mix_PlayChannel(-1, foot1,0);
+
+        
     }
   case (SDLK_SPACE):
   {

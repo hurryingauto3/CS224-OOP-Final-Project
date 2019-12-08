@@ -5,17 +5,18 @@
 #include <cstdio>
 #include <iostream>
 #include <string>
-//Other Libraries Included
+#include <vector>
 #include "Character.hpp"
-
+#include "Terrain.hpp"
 class Game
 {
 private:
     bool is_running;
     SDL_Window *window;
     SDL_Renderer *grenderer;
-    Character *A;
-    Character *B[10];
+
+    std::vector<MasterObject *> allobjs;
+    std::vector<MasterObject *> moving;
 
 public:
     bool RunCheck(); //Returns the status of the game
@@ -44,6 +45,8 @@ public:
         {
             return false;
         }
+        if (a.y == b.y && a.h == b.h && a.x == b.x && a.w == b.w)
+            return false;
         else
         {
             return true;

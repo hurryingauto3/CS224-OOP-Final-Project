@@ -10,7 +10,7 @@ public:
         Character::setx(x);
         Character::sety(y);
         Character::setRen(gRenderer);
-        Character::setdRect(0, 0, 128, 128);
+        Character::setdRect(0, 0, 50, 50);
         Character::setTex(texture::sprite(sprite, gRenderer));
     }
 };

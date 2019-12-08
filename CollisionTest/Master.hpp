@@ -6,7 +6,6 @@ class MasterObject
 private:
     int x;
     int y;
-
     SDL_Texture *obj_tex;
     SDL_Rect sRect, dRect;
     SDL_Renderer *ren;

@@ -13,7 +13,7 @@ private:
     SDL_Rect sRect, dRect, camera;
     SDL_Renderer *ren;
     int x, y;
-    int a, b;
+    int a = 7;
 
 public:
     void shoot()
@@ -52,6 +52,7 @@ public:
         dRect.w = 1080;
         dRect.x = x;
         dRect.y = y;
+        camera = {x, y, 1080, 720};
 
         SDL_RenderCopy(gRenderer, obj_tex, nullptr, &dRect);
     }
@@ -61,13 +62,13 @@ public:
 
         dRect.h = 128;
         dRect.w = 128;
-        dRect.x = getx() - camera.x;
-        dRect.y = gety() - camera.y;
+        dRect.x = getx();
+        dRect.y = gety();
 
         angle();
 
-        camera.x = (getx() + 64) - 540;
-        camera.y = (gety() + 64) - 360;
+        // camera.x = getx() - 540;
+        // camera.y = gety() - 360;
 
         if (camera.x < 0)
         {
@@ -77,11 +78,11 @@ public:
         {
             camera.y = 0;
         }
-        if (camera.x > 1800 - camera.w)
+        if (camera.x + camera.w >= 1800)
         {
             camera.x = 1800 - camera.w;
         }
-        if (camera.y > 1300 - camera.h)
+        if (camera.y + camera.h >= 1300)
         {
             camera.y = 1300 - camera.h;
         }
@@ -89,6 +90,7 @@ public:
 
     void obj_render()
     {
+        dRect = {x - camera.x, y - camera.y, dRect.w, dRect.h};
         SDL_RenderCopyEx(ren, obj_tex, nullptr, &dRect, angle(), nullptr, SDL_FLIP_HORIZONTAL); //sRect is null for now
     }
     double angle()

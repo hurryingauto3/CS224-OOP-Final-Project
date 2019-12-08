@@ -26,12 +26,13 @@ private:
     Player *A;
     Enemy *B;
     Wall *W;
-    BG *C;
+    BG *C, *t;
     SDL_Window *window;
     SDL_Renderer *grenderer;
     ui_simplified *ui;
     bool onSplashScreen;
     Bullet *bullet;
+    SDL_Rect temp;
     //bool moving;
 
 public:
@@ -41,7 +42,7 @@ public:
     void clean(); //Frees all resources upon quitting
     void handle_event();
     void mousePress(SDL_MouseButtonEvent &b);
-    SDL_Rect camera;
+    //SDL_Rect camera;
     Game();
     ~Game();
 

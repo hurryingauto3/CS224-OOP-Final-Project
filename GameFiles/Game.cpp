@@ -11,8 +11,6 @@ void Game::update()
     A->obj_update();
     B->angle(A);
     B->obj_update();
-    camera.x = A->getx() - 540;
-    camera.y = A->gety() - 360;
     bullet->obj_update();
     bullet->setlocation(A->getx(), A->gety());
 
@@ -29,23 +27,7 @@ void Game::update()
     }
     B->obj_update();
 
-    C->obj_update(&camera);
-    // if (camera.x < 0)
-    // {
-    //   camera.x = 0;
-    // }
-    // if (camera.y < 0)
-    // {
-    //   camera.y = 0;
-    // }
-    // if (camera.x > camera.w)
-    // {
-    //   camera.x = camera.w;
-    // }
-    // if (camera.y > camera.h)
-    // {
-    //   camera.y = camera.h;
-    // }
+    C->obj_update(-A->getx(), -A->gety());
   }
   else
     ui->obj_update();
@@ -55,7 +37,7 @@ void Game::render()
   SDL_RenderClear(grenderer);
   if (!onSplashScreen)
   {
-    C->obj_render((A->getx()), (A->gety()), &camera);
+    C->obj_render((A->getx()), (A->gety()), &temp);
     A->obj_render();
     B->obj_render(A);
     bullet->obj_render(A);
@@ -87,8 +69,6 @@ void Game::handle_event()
     {
     case SDLK_s:
       A->setlocation(A->getx(), A->gety() + A->getSpeed());
-      //camera.y += A->getSpeed;
-      //C->gety() + A->getSpeed();
       break;
     case SDLK_d:
       A->setlocation(A->getx() + A->getSpeed(), A->gety());
@@ -144,10 +124,11 @@ Game::Game()
   is_running = true;
   onSplashScreen = true;
   SDL_Event e;
-  SDL_Rect camera;
+  //SDL_Rect camera;
   A = new Player("./Sprites/Player.png", grenderer);
   B = new Enemy("./Sprites/Enemy.png", grenderer); //made both classes into popinters so i could render more effeciently
   C = new BG("./Sprites/level_BG.png", grenderer);
+  temp = {C->BG::getsrect()};
   ui = new ui_simplified("./Sprites/MainMenu.png", grenderer);
   bullet = new Bullet();
 }

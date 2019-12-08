@@ -12,8 +12,7 @@ private:
     SDL_Texture *obj_tex;
     SDL_Rect sRect, dRect, camera;
     SDL_Renderer *ren;
-    int x, y;
-    int a = 7;
+    int a = 3;
 
 public:
     void shoot()
@@ -23,36 +22,21 @@ public:
 
     Player(){};
 
-    virtual int getx()
-    {
-        return x;
-    }
-
-    virtual int gety()
-    {
-        return y;
-    }
     int getSpeed()
     {
         return a;
     }
 
-    virtual void setlocation(int x1, int y2)
-    {
-        x = x1;
-        y = y2;
-    }
-
     Player(const char *sprite, SDL_Renderer *gRenderer)
     {
-        Player::setlocation(200, 200);
+        Player::setlocation(50, 50);
         ren = gRenderer;
         obj_tex = texture::sprite(sprite, gRenderer);
-        dRect.h = 720;
-        dRect.w = 1080;
-        dRect.x = x;
-        dRect.y = y;
-        camera = {x, y, 1080, 720};
+        dRect.h = 128;
+        dRect.w = 128;
+        dRect.x = this->getx();
+        dRect.y = this->gety();
+        camera = {this->getx(), this->gety(), 1080, 720};
 
         SDL_RenderCopy(gRenderer, obj_tex, nullptr, &dRect);
     }
@@ -90,7 +74,7 @@ public:
 
     void obj_render()
     {
-        dRect = {x - camera.x, y - camera.y, dRect.w, dRect.h};
+        dRect = {dRect.x - camera.x, dRect.y - camera.y, dRect.w, dRect.h};
         SDL_RenderCopyEx(ren, obj_tex, nullptr, &dRect, angle(), nullptr, SDL_FLIP_HORIZONTAL); //sRect is null for now
     }
     double angle()

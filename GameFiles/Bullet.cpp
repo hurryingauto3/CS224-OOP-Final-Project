@@ -35,8 +35,8 @@ public:
 
     Bullet(Player A, int x, int y, const char *sprite, SDL_Renderer *gRenderer)
     { //incorrect formula for now
-        x_direction_movement = (A.getx() - x) / pow(pow((A.getx() - x), 2) - pow(A.gety() - y, 2), 0.5);
-        y_direction_movement = (A.gety() - y) / pow(pow((A.getx() - x), 2) - pow(A.gety() - y, 2), 0.5);
+        x_direction_movement = (A.getx() - x, A.gety() - y);
+        y_direction_movement = (A.gety() - y, A.gety() - y);
         ren = gRenderer;
         obj_tex = texture::sprite(sprite, gRenderer);
     }

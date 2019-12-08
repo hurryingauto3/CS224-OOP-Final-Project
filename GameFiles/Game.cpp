@@ -69,6 +69,12 @@ void Game::clean()
 {
   SDL_DestroyWindow(window);
   SDL_DestroyRenderer(grenderer);
+  Mix_FreeMusic(backgroundSound);
+  Mix_FreeChunk(Click);
+  Mix_FreeChunk(foot2);
+  Mix_FreeChunk(foot1);
+  Mix_FreeChunk(shot);
+  Mix_CloseAudio();
   SDL_Quit();
 }
 void Game::handle_event()
@@ -87,11 +93,13 @@ void Game::handle_event()
     switch (Event.key.keysym.sym)
     {
     case SDLK_s:
+      Mix_PlayChannel(-1, foot2,0);
       A->setlocation(A->getx(), A->gety() + A->getSpeed());
       //camera.y += A->getSpeed;
       //C->gety() + A->getSpeed();
       break;
     case SDLK_d:
+      Mix_PlayChannel(-1, foot2,0);
       A->setlocation(A->getx() + A->getSpeed(), A->gety());
       //camera.x += A->getSpeed;
       //C->getx() + A->getSpeed();
@@ -102,6 +110,8 @@ void Game::handle_event()
       break;
     case SDLK_RETURN:
       if (onSplashScreen)
+        Mix_PlayChannel(-1, Click,0);
+        Mix_HaltMusic();
         onSplashScreen = false;
       break;
     case SDLK_a:
@@ -110,6 +120,7 @@ void Game::handle_event()
       {
         A->setlocation(A->getx() - A->getSpeed(), A->gety());
       }
+      Mix_PlayChannel(-1, foot1,0);
       break;
     case SDLK_w:
       if (!collision(A->getdrekt(), B->getdrekt()))
@@ -119,8 +130,11 @@ void Game::handle_event()
 
       A->setlocation(A->getx() - A->getSpeed(), A->gety());
       A->obj_update();
+      Mix_PlayChannel(-1, foot1,0);
     default:
       break;
+      case SDLK_p:
+        
     }
   case (SDL_MOUSEMOTION):
   {

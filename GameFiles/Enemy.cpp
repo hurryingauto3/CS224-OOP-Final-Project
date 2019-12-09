@@ -68,22 +68,6 @@ void Enemy::Path(int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4)
     }
 }
 
-int Enemy::getx()
-{
-    return this->x;
-}
-
-int Enemy::gety()
-{
-    return this->y;
-}
-
-void Enemy::setlocation(int x1, int y2)
-{
-    x = x1;
-    y = y2;
-}
-
 void Enemy::IsPlayerClose(Player *A)
 {
     if (pow(pow(this->getx() - A->getx(), 2) + pow(this->gety() - A->gety(), 2), 0.5) < 200)

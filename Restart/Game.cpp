@@ -7,6 +7,28 @@ Map *map;
 Bullet *bullet;
 // Camera *camera;
 
+//Initialize SDL Video and Audio
+SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
+
+//Initialize SDL Mixer
+Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
+
+//Load Audio Files
+Mix_Music *backgroundSound =  Mix_LoadMUS("Soundtrack.mp3");
+Mix_Music *track1 = Mix_LoadMUS("sorry.mp3");
+Mix_Music *track2 = Mix_LoadMUS("take on me.mp3");
+Mix_Music *track3 = Mix_LoadMUS("midnight city.mp3");
+Mix_Music *track4 =Mix_LoadMUS("Laneboy.mp3");
+Mix_Music *track5 =Mix_LoadMUS("dancin.mp3");
+Mix_Music *track6 =Mix_LoadMUS("Untitiled.mp3");
+Mix_Music *track7 = Mix_LoadMUS("borderline.mp3");
+Mix_Chunk *Click = Mix_LoadWAV("Click.wav");
+Mix_Chunk *foot1 = Mix_LoadWAV("foot1.wav");
+Mix_Chunk *foot2 = Mix_LoadWAV("foot2.wav");
+Mix_Chunk *shot = Mix_LoadWAV("shot.wav");
+Mix_Chunk *dooropen = Mix_LoadWAV("dooropen.wav");
+
+
 SDL_Renderer *Game::renderer = nullptr;
 
 Game::Game()
@@ -22,11 +44,6 @@ Game::~Game() {}
 
 void Game::init(const char *title, int xpos, int ypos, int width, int height, bool fullscreen)
 {
-    //Initialize SDL Video and Audio
-    SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
-
-    //Initialize SDL Mixer
-    Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
 
     int flags = 0;
     if (fullscreen)

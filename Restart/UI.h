@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #include "Game.h"
 #include "Texture.h"

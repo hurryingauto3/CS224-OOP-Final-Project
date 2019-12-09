@@ -1,7 +1,9 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_mixer.h>
+
 #include <iostream>
+
 #include "Texture.h"
 #include "GameObject.h"
 #include "Map.h"
@@ -24,22 +26,24 @@ private:
     bool Door1;
     bool Door2;
     bool Door3;
-    Mix_Music *t rack1 = Mix_LoadMUS("sorry.mp3");
-    Mix_Music *track2 = Mix_LoadMUS("take on me.mp3");
-    Mix_Music *track3 = Mix_LoadMUS("midnight city.mp3");
-    Mix_Music *track4 = Mix_LoadMUS("Laneboy.mp3");
-    Mix_Music *track5 = Mix_LoadMUS("dancin.mp3");
-    Mix_Music *track6 = Mix_LoadMUS("Untitiled.mp3");
-    Mix_Music *track7 = Mix_LoadMUS("borderline.mp3");
-    Mix_Chunk *Click = Mix_LoadWAV("Click.wav");
-    Mix_Chunk *foot1 = Mix_LoadWAV("foot1.wav");
-    Mix_Chunk *foot2 = Mix_LoadWAV("foot2.wav");
-    Mix_Chunk *shot = Mix_LoadWAV("shot.wav");
-    Mix_Chunk *dooropen = Mix_LoadWAV("dooropen.wav");
+
+    // Mix_Music *track1;
+    // Mix_Music *track2;
+    // Mix_Music *track3;
+    // Mix_Music *track4;
+    // Mix_Music *track5;
+    // Mix_Music *track6;
+    // Mix_Music *track7;
+    // Mix_Music *backgroundSound;
+    // Mix_Chunk *Click;
+    // Mix_Chunk *foot1;
+    // Mix_Chunk *foot2;
+    // Mix_Chunk *shot;
+    // Mix_Chunk *dooropen;
 
 public:
     //Constructors and Destructors
-
+    static SDL_Renderer *renderer;
     //Member functions
     void init(const char *title, int xpos, int ypos, int width, int height, bool fullscreen); //window Creator
     void handleEvents();
@@ -50,6 +54,9 @@ public:
     bool collision(SDL_Rect a, SDL_Rect b);
     bool TerrainCollide(int x, int y, bool door1, bool door2, bool door3);
     void DoorOpen(int x, int y);
+
+    Game();
+    ~Game();
 };
 
 #endif

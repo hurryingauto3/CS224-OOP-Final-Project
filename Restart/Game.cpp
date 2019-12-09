@@ -1,35 +1,11 @@
 #include "Game.h"
 
+// Camera *camera;
 GameObject *Player;
 GameObject *Enemy;
 Background *background;
 Map *map;
-UI *ui;
-// Camera *camera;
-
-//Initialize SDL Video and Audio
-SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
-
-//Initialize SDL Mixer
-Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
-
-//Load Audio Files
-Mix_Music *backgroundSound =  Mix_LoadMUS("Soundtrack.mp3");
-Mix_Music *track1 = Mix_LoadMUS("sorry.mp3");
-Mix_Music *track2 = Mix_LoadMUS("take on me.mp3");
-Mix_Music *track3 = Mix_LoadMUS("midnight city.mp3");
-Mix_Music *track4 =Mix_LoadMUS("Laneboy.mp3");
-Mix_Music *track5 =Mix_LoadMUS("dancin.mp3");
-Mix_Music *track6 =Mix_LoadMUS("Untitiled.mp3");
-Mix_Music *track7 = Mix_LoadMUS("borderline.mp3");
-Mix_Chunk *Click = Mix_LoadWAV("Click.wav");
-Mix_Chunk *foot1 = Mix_LoadWAV("foot1.wav");
-Mix_Chunk *foot2 = Mix_LoadWAV("foot2.wav");
-Mix_Chunk *shot = Mix_LoadWAV("shot.wav");
-Mix_Chunk *dooropen = Mix_LoadWAV("dooropen.wav");
-
-
-SDL_Renderer *Game::renderer = nullptr;
+ui_simplified *ui;
 
 Game::Game()
 {
@@ -37,13 +13,32 @@ Game::Game()
     Door2 = false;
     Door3 = false;
     KeyFound = false;
-    PaperFound = false;
+    // PaperFound = false;
+
+    // Mix_Music *track1 = Mix_LoadMUS("./Sounds/sorry.mp3");
+    // Mix_Music *track2 = Mix_LoadMUS("./Sounds/take on me.mp3");
+    // Mix_Music *track3 = Mix_LoadMUS("./Sounds/midnight city.mp3");
+    // Mix_Music *track4 = Mix_LoadMUS("./Sounds/Laneboy.mp3");
+    // Mix_Music *track5 = Mix_LoadMUS("./Sounds/dancin.mp3");
+    // Mix_Music *track6 = Mix_LoadMUS("./Sounds/Untitiled.mp3");
+    // Mix_Music *track7 = Mix_LoadMUS("./Sounds/borderline.mp3");
+    // Mix_Music *backgroundSound = Mix_LoadMUS("./Sounds/bgmusic.mps");
+    // Mix_Chunk *Click = Mix_LoadWAV("./Sounds/Click.wav");
+    // Mix_Chunk *foot1 = Mix_LoadWAV("./Sounds/foot1.wav");
+    // Mix_Chunk *foot2 = Mix_LoadWAV("./Sounds/foot2.wav");
+    // Mix_Chunk *shot = Mix_LoadWAV("./Sounds/shot.wav");
+    // Mix_Chunk *dooropen = Mix_LoadWAV("./Sounds/dooropen.wav");
 }
 
 Game::~Game() {}
 
 void Game::init(const char *title, int xpos, int ypos, int width, int height, bool fullscreen)
 {
+    //Initialize SDL Video and Audio
+    // SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
+
+    // //Initialize SDL Mixer
+    // Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
 
     int flags = 0;
     if (fullscreen)
@@ -64,8 +59,7 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height, bo
             SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
             std::cout << "Renderer Created" << std::endl;
         }
-        //Start playing bg music
-        Mix_PlayMusic(backgroundSound, -1);
+
         isRunning = true;
     }
 
@@ -74,12 +68,13 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height, bo
     Enemy = new GameObject("./Sprites/player_stat.png", 0, 0);
     background = new Background("./Sprites/Level_No_Doors1.png");
     map = new Map();
-    ui = new UI("./Screens/Mainmenu.png;")
+    ui = new ui_simplified("./Screens/Mainmenu.png;");
 }
 
 void Game::handleEvents()
 {
-    
+    //Start playing bg music
+    // Mix_PlayMusic(backgroundSound, -1);
     SDL_Event e;
     SDL_PollEvent(&e);
 
@@ -95,7 +90,7 @@ void Game::handleEvents()
         switch (e.key.keysym.sym)
         {
         case SDLK_w:
-            Mix_PlayChannel(-1, foot1, 0);
+            // Mix_PlayChannel(-1, foot1, 0);
             if (!TerrainCollide(Player->getx(), Player->gety(), Door1, Door2, Door3))
             {
                 Player->ChangeSprite("./Sprites/player_moving_up.png");
@@ -109,7 +104,7 @@ void Game::handleEvents()
                 Player->Setloc(Player->getx(), Player->gety() + 5);
             }
         case SDLK_s:
-            Mix_PlayChannel(-1, foot2, 0);
+            // Mix_PlayChannel(-1, foot2, 0);
             if (!TerrainCollide(Player->getx(), Player->gety(), Door1, Door2, Door3))
             {
                 Player->ChangeSprite("./Sprites/player_moving_down.png");
@@ -124,7 +119,7 @@ void Game::handleEvents()
             }
 
         case SDLK_a:
-            Mix_PlayChannel(-1, foot1, 0);
+            // Mix_PlayChannel(-1, foot1, 0);
             if (!TerrainCollide(Player->getx(), Player->gety(), Door1, Door2, Door3))
             {
                 Player->ChangeSprite("./Sprites/player_moving_left.png");
@@ -139,7 +134,7 @@ void Game::handleEvents()
             }
 
         case SDLK_d:
-            Mix_PlayChannel(-1, foot2, 0);
+            // Mix_PlayChannel(-1, foot2, 0);
             if (!TerrainCollide(Player->getx(), Player->gety(), Door1, Door2, Door3))
             {
                 Player->ChangeSprite("./Sprites/player_moving_right.png");
@@ -154,43 +149,44 @@ void Game::handleEvents()
             }
         case SDLK_p:
             Player->ChangeSprite("./Sprites/player_shoot.png");
-            Mix_PlayChannel(-1, shot, 0);
+            // Mix_PlayChannel(-1, shot, 0);
         case SDLK_o:
-            Mix_PlayChannel(-1, dooropen, 0);
+            // Mix_PlayChannel(-1, dooropen, 0);
             DoorOpen(Player->getx(), Player->gety());
             std::cout << "O Pressed" << std::endl;
 
-        case SDLK_0:
-            Mix_HaltMusic();
-            Mix_PlayMusic(backgroundSound, -1);
+            // case SDLK_0:
+            //     Mix_HaltMusic();
+            //     Mix_PlayMusic(backgroundSound, -1);
 
-        case SDLK_1:
-            Mix_HaltMusic();
-            Mix_PlayMusic(track1, -1);
+            // case SDLK_1:
+            //     Mix_HaltMusic();
+            //     Mix_PlayMusic(track1, -1);
 
-        case SDLK_2:
-            Mix_HaltMusic();
-            Mix_PlayMusic(track2, -1);
+            // case SDLK_2:
+            //     Mix_HaltMusic();
+            //     Mix_PlayMusic(track2, -1);
 
-        case SDLK_3:
-            Mix_HaltMusic();
-            Mix_PlayMusic(track3, -1);
+            // case SDLK_3:
+            //     Mix_HaltMusic();
+            //     Mix_PlayMusic(track3, -1);
 
-        case SDLK_4:
-            Mix_HaltMusic();
-            Mix_PlayMusic(track4, -1);
+            // case SDLK_4:
+            //     Mix_HaltMusic();
+            //     Mix_PlayMusic(track4, -1);
 
-        case SDLK_5:
-            Mix_HaltMusic();
-            Mix_PlayMusic(track5, -1);
+            // case SDLK_5:
+            //     Mix_HaltMusic();
+            //     Mix_PlayMusic(track5, -1);
 
-        case SDLK_6:
-            Mix_HaltMusic();
-            Mix_PlayMusic(track6, -1);
+            // case SDLK_6:
+            //     Mix_HaltMusic();
+            //     Mix_PlayMusic(track6, -1);
 
-        case SDLK_7:
-            Mix_HaltMusic();
-            Mix_PlayMusic(track7, -1);
+            // case SDLK_7:
+            //     Mix_HaltMusic();
+            //     Mix_PlayMusic(track7, -1);
+            // }
         }
     }
 }
@@ -200,7 +196,6 @@ void Game::update()
     // camera->Cam_Update(Player->getx(), Player->gety());
     background->BG_Update();
     ui->UI_Update();
-
     Enemy->Path(1, 0, 1, 0, 1, 0, 1, 0);
     Enemy->Update();
 }
@@ -209,19 +204,19 @@ void Game::clean()
 {
     SDL_DestroyWindow(window);
     std::cout << "Window Destroyed" << std::endl;
-    Mix_FreeMusic(backgroundSound);
-    Mix_FreeMusic(track1);
-    Mix_FreeMusic(track2);
-    Mix_FreeMusic(track3);
-    Mix_FreeMusic(track4);
-    Mix_FreeMusic(track5); //Destroy all music
-    Mix_FreeMusic(track6);
-    Mix_FreeMusic(track7);
-    Mix_FreeChunk(Click);
-    Mix_FreeChunk(foot2);
-    Mix_FreeChunk(foot1);
-    Mix_FreeChunk(shot);
-    Mix_CloseAudio();
+    // Mix_FreeMusic(backgroundSound);
+    // Mix_FreeMusic(track1);
+    // Mix_FreeMusic(track2);
+    // Mix_FreeMusic(track3);
+    // Mix_FreeMusic(track4);
+    // Mix_FreeMusic(track5); //Destroy all music
+    // Mix_FreeMusic(track6);
+    // Mix_FreeMusic(track7);
+    // Mix_FreeChunk(Click);
+    // Mix_FreeChunk(foot2);
+    // Mix_FreeChunk(foot1);
+    // Mix_FreeChunk(shot);
+    // Mix_CloseAudio();
     std::cout << "Music Disabled" << std::endl;
     SDL_DestroyRenderer(renderer);
     std::cout << "Renderer Destroyed" << std::endl;

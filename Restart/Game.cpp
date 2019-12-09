@@ -4,7 +4,7 @@ GameObject *Player;
 GameObject *Enemy;
 Background *background;
 Map *map;
-Bullet *bullet;
+UI *ui;
 // Camera *camera;
 
 SDL_Renderer *Game::renderer = nullptr;
@@ -56,6 +56,7 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height, bo
     Enemy = new GameObject("./Sprites/player_stat.png", 0, 0);
     background = new Background("./Sprites/Level_No_Doors1.png");
     map = new Map();
+    ui = new UI("./Screens/Mainmenu.png;")
 }
 
 void Game::handleEvents()
@@ -181,13 +182,12 @@ void Game::update()
     Player->Update();
     // camera->Cam_Update(Player->getx(), Player->gety());
     background->BG_Update();
+    ui->UI_Update();
+
     Enemy->Path(1, 0, 1, 0, 1, 0, 1, 0);
     Enemy->Update();
 }
 
-void Game::render()
-{
-}
 void Game::clean()
 {
     SDL_DestroyWindow(window);
@@ -217,24 +217,12 @@ bool Game::running()
     return isRunning;
 }
 
-bool Game::collision(SDL_Rect a, SDL_Rect b)
-{
-    if (a.y >= b.y + b.h)
-    {
-        return false;
-    }
-    if (a.x >= b.x + b.w)
-    {
-        return false;
-    }
-    if (a.y + a.h <= b.y)
-}
-
-void Game::renderer()
+void Game::render()
 
 {
     SDL_RenderClear(renderer);
     background->BG_Render();
+    ui->UI_Render();
     Player->Render();
     Enemy->Render();
     SDL_RenderPresent(renderer);
@@ -327,16 +315,15 @@ void Game::DoorOpen(int x, int y)
     {
         std::cout << "Not Near Door" << std::endl;
     }
-}
-== == == =
-             if (x > 280 & x<290 & y> 330 & y < 340 & KeyFound == true)
-{
-    Door3 = true;
-    std::cout << "Door 3 Opened" << std::endl;
-    background->ChangeSprite("./Sprites/Level_Teacher_Door.png");
-}
-else
-{
-    std::cout << "Not Near Door" << std::endl;
-}
+
+    if (x > 280 & x<290 & y> 330 & y < 340 & KeyFound == true)
+    {
+        Door3 = true;
+        std::cout << "Door 3 Opened" << std::endl;
+        background->ChangeSprite("./Sprites/Level_Teacher_Door.png");
+    }
+    else
+    {
+        std::cout << "Not Near Door" << std::endl;
+    }
 }

@@ -8,6 +8,7 @@
 #include "Camera.h"
 #include "Background.h"
 #include "Bullet.h"
+#include "UI.h"
 
 #ifndef GAME_H
 #define GAME_H
@@ -24,13 +25,13 @@ private:
     bool Door2;
     bool Door3;
     //Load Audio Files
-    Mix_Music *backgroundSound =  Mix_LoadMUS("Soundtrack.mp3");
+    Mix_Music *backgroundSound = Mix_LoadMUS("Soundtrack.mp3");
     Mix_Music *track1 = Mix_LoadMUS("sorry.mp3");
     Mix_Music *track2 = Mix_LoadMUS("take on me.mp3");
     Mix_Music *track3 = Mix_LoadMUS("midnight city.mp3");
-    Mix_Music *track4 =Mix_LoadMUS("Laneboy.mp3");
-    Mix_Music *track5 =Mix_LoadMUS("dancin.mp3");
-    Mix_Music *track6 =Mix_LoadMUS("Untitiled.mp3");
+    Mix_Music *track4 = Mix_LoadMUS("Laneboy.mp3");
+    Mix_Music *track5 = Mix_LoadMUS("dancin.mp3");
+    Mix_Music *track6 = Mix_LoadMUS("Untitiled.mp3");
     Mix_Music *track7 = Mix_LoadMUS("borderline.mp3");
     Mix_Chunk *Click = Mix_LoadWAV("Click.wav");
     Mix_Chunk *foot1 = Mix_LoadWAV("foot1.wav");

@@ -1,4 +1,4 @@
-#include "Credits.hpp"
+#include "Credits.h"
 using namespace std;
 
 void Credits::load()

@@ -64,7 +64,8 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height, bo
             SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
             std::cout << "Renderer Created" << std::endl;
         }
-
+        //Start playing bg music
+        Mix_PlayMusic(backgroundSound, -1);
         isRunning = true;
     }
 
@@ -78,8 +79,7 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height, bo
 
 void Game::handleEvents()
 {
-    //Start playing bg music
-    Mix_PlayMusic(backgroundSound, -1);
+    
     SDL_Event e;
     SDL_PollEvent(&e);
 

@@ -16,4 +16,5 @@ public:
     void BG_Update();
     void BG_Render();
     void ChangeSprite(char *Sprite);
+    void BG_Cam(int x, int y);
 };

@@ -22,6 +22,19 @@ void Background::BG_Update()
     // if (dRect.y < 0)
     //     dRect.y = 0;
 }
+void Background::BG_Cam(int x, int y)
+{
+    SDL_RenderCopy(Game::renderer, obj_tex, &dRect, nullptr);
+    dRect.w = 1080;
+    dRect.h = 720;
+    dRect.x = x - 560;
+    dRect.y = y - 360;
+
+    if (dRect.x < 0)
+        dRect.x = 0;
+    if (dRect.y < 0)
+        dRect.y = 0;
+}
 void Background::BG_Render()
 {
     SDL_RenderCopy(Game::renderer, obj_tex, &dRect, nullptr); //sRect is null for now

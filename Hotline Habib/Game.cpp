@@ -1,7 +1,8 @@
+
 #include "Game.h"
 
 GameObject *Player;
-GameObject *Enemy;
+GameObject *Enemy[3];
 Background *background;
 Map *map;
 // Camera *camera;
@@ -46,7 +47,9 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height, bo
 
     Player = new GameObject("./Sprites/player_stat.png", 970, 70, 2, 150);
     // camera = new Camera("./Sprite/Level_No_Doors");
-    Enemy = new GameObject("./Sprites/player_stat.png", 0, 0);
+    Enemy[0] = new GameObject("./Sprites/player_stat.png", 390, 60, 2, 150);
+    Enemy[1] = new GameObject("./Sprites/player_stat.png", 240, 50, 2, 150);
+    Enemy[2] = new GameObject("./Sprites/player_stat.png", 470, 330, 2, 150);
     background = new Background("./Sprites/Level_No_Doors1.png");
     map = new Map();
 }
@@ -71,27 +74,27 @@ void Game::handleEvents()
             if (!TerrainCollide(Player->getx(), Player->gety(), Door1, Door2, Door3))
             {
                 Player->ChangeSprite("./Sprites/player_moving_up.png");
-                Player->Setloc(Player->getx(), Player->gety() - 10);
+                Player->Setloc(Player->getx(), Player->gety() - 5);
                 std::cout << Player->getx() << ", " << Player->gety() << std::endl;
                 break;
             }
             else
             {
                 Player->ChangeSprite("./Sprites/player_moving_up.png");
-                Player->Setloc(Player->getx(), Player->gety() + 5);
+                Player->Setloc(Player->getx(), Player->gety() + 20);
             }
         case SDLK_s:
             if (!TerrainCollide(Player->getx(), Player->gety(), Door1, Door2, Door3))
             {
                 Player->ChangeSprite("./Sprites/player_moving_down.png");
-                Player->Setloc(Player->getx(), Player->gety() + 10);
+                Player->Setloc(Player->getx(), Player->gety() + 5);
                 std::cout << Player->getx() << ", " << Player->gety() << std::endl;
                 break;
             }
             else
             {
                 Player->ChangeSprite("./Sprites/player_moving_down.png");
-                Player->Setloc(Player->getx(), Player->gety() - 5);
+                Player->Setloc(Player->getx(), Player->gety() - 20);
             }
 
         case SDLK_a:
@@ -105,7 +108,7 @@ void Game::handleEvents()
             else
             {
                 Player->ChangeSprite("./Sprites/player_moving_left.png");
-                Player->Setloc(Player->getx() + 5, Player->gety());
+                Player->Setloc(Player->getx() + 20, Player->gety());
             }
 
         case SDLK_d:
@@ -119,14 +122,15 @@ void Game::handleEvents()
             else
             {
                 Player->ChangeSprite("./Sprites/player_moving_right.png");
-                Player->Setloc(Player->getx() + -10, Player->gety());
+                Player->Setloc(Player->getx() - 20, Player->gety());
             }
         case SDLK_p:
             Player->ChangeSprite("./Sprites/player_shoot.png");
-        case SDLK_o:
-            DoorOpen(Player->getx(), Player->gety());
-            std::cout << "O Pressed" << std::endl;
         }
+        // case SDLK_o:
+        //     DoorOpen(Player->getx(), Player->gety());
+        //     std::cout << "O Pressed" << std::endl;
+        // }
     }
     if (e.type == SDL_KEYUP)
     {
@@ -136,18 +140,71 @@ void Game::handleEvents()
 void Game::update()
 {
     Player->Update();
-    // camera->Cam_Update(Player->getx(), Player->gety());
     background->BG_Update();
-    Enemy->Path(1, 0, 1, 0, 1, 0, 1, 0);
-    Enemy->Update();
+    // background->BG_Cam(Player->getx(), Player->gety());
+    int array[40];
+    array[0] = 390;
+    array[1] = 60;
+    array[2] = 420;
+    array[3] = 60;
+    array[4] = 420;
+    array[5] = 310;
+    array[6] = 390;
+    array[7] = 310;
+    array[8] = 240;
+    array[9] = 50;
+    array[10] = 320;
+    array[11] = 50;
+    array[12] = 320;
+    array[13] = 300;
+    array[14] = 240;
+    array[15] = 300;
+    array[16] = 470;
+    array[17] = 330;
+    array[18] = 730;
+    array[19] = 330;
+    array[20] = 730;
+    array[21] = 610;
+    array[22] = 470;
+    array[23] = 610;
+
+    for (int i = 0; i < 3; i++)
+    {
+        Enemy[i]->Path(0, 0, 100, 0, 100, 100, 0, 100);
+        Enemy[i]->Update();
+
+        if (Enemy[i]->returnclose())
+        {
+            Enemy[i]->ApproachPlayer(Player);
+            Enemy[i]->Update();
+        }
+        else
+        {
+            if (Enemy[i]->IsPlayerClose(Player))
+            {
+                Enemy[i]->ApproachPlayer(Player);
+                Enemy[i]->Update();
+            }
+            else
+            {
+                Enemy[i]->Path(array[i], array[i + 1], array[i + 2], array[i + 3], array[i + 4], array[i + 5], array[i + 6], array[i + 7]);
+                Enemy[i]->Update();
+            }
+        }
+    }
 }
 
 void Game::render()
 {
     SDL_RenderClear(renderer);
     background->BG_Render();
+
     Player->Render();
-    Enemy->Render();
+
+    Enemy[0]->Render();
+    Enemy[1]->Render();
+    Enemy[2]->Render();
+
     SDL_RenderPresent(renderer);
 }
 

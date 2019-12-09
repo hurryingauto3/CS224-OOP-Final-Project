@@ -1,3 +1,4 @@
+#include "Bullet.h"
 
 bool Bullet::getShotFired()
 {

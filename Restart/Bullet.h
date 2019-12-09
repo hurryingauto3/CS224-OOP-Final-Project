@@ -1,4 +1,5 @@
 #include <cmath>
+#include "GameObject.h"
 
 class Bullet : public GameObject
 {

@@ -24,9 +24,7 @@ private:
     bool Door1;
     bool Door2;
     bool Door3;
-    //Load Audio Files
-    Mix_Music *backgroundSound = Mix_LoadMUS("Soundtrack.mp3");
-    Mix_Music *track1 = Mix_LoadMUS("sorry.mp3");
+    Mix_Music *t rack1 = Mix_LoadMUS("sorry.mp3");
     Mix_Music *track2 = Mix_LoadMUS("take on me.mp3");
     Mix_Music *track3 = Mix_LoadMUS("midnight city.mp3");
     Mix_Music *track4 = Mix_LoadMUS("Laneboy.mp3");
@@ -40,11 +38,7 @@ private:
     Mix_Chunk *dooropen = Mix_LoadWAV("dooropen.wav");
 
 public:
-    static SDL_Renderer *renderer;
-
     //Constructors and Destructors
-    Game();
-    ~Game();
 
     //Member functions
     void init(const char *title, int xpos, int ypos, int width, int height, bool fullscreen); //window Creator

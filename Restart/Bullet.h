@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 // #include <cmath>
 // #include "GameObject.h"
+=======
+#include <cmath>
+>>>>>>> parent of d3f32ec... adding the rest
 
 // class Bullet : public GameObject
 // {

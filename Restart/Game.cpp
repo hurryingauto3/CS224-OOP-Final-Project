@@ -5,7 +5,13 @@ GameObject *Player;
 GameObject *Enemy;
 Background *background;
 Map *map;
+<<<<<<< HEAD
 ui_simplified *ui;
+=======
+// Camera *camera;
+
+SDL_Renderer *Game::renderer = nullptr;
+>>>>>>> parent of d3f32ec... adding the rest
 
 Game::Game()
 {
@@ -154,6 +160,7 @@ void Game::handleEvents()
             // Mix_PlayChannel(-1, dooropen, 0);
             DoorOpen(Player->getx(), Player->gety());
             std::cout << "O Pressed" << std::endl;
+<<<<<<< HEAD
 
             // case SDLK_0:
             //     Mix_HaltMusic();
@@ -264,6 +271,72 @@ bool Game::collision(SDL_Rect a, SDL_Rect b)
     {
         return true;
     }
+=======
+        }
+    }
+    if (e.type == SDL_KEYUP)
+    {
+        Player->ChangeSprite("./Sprites/player_stat.png");
+    }
+}
+void Game::update()
+{
+    Player->Update();
+    // camera->Cam_Update(Player->getx(), Player->gety());
+    background->BG_Update();
+    Enemy->Path(1, 0, 1, 0, 1, 0, 1, 0);
+    Enemy->Update();
+}
+
+void Game::render()
+{
+    SDL_RenderClear(renderer);
+    background->BG_Render();
+    Player->Render();
+    Enemy->Render();
+    SDL_RenderPresent(renderer);
+}
+
+void Game::clean()
+{
+    SDL_DestroyWindow(window);
+    std::cout << "Window Destroyed" << std::endl;
+    SDL_DestroyRenderer(renderer);
+    std::cout << "Renderer Destroyed" << std::endl;
+    SDL_Quit();
+    std::cout << "Game Cleaned" << std::endl;
+}
+
+bool Game::running()
+{
+    return isRunning;
+}
+
+bool Game::collision(SDL_Rect a, SDL_Rect b)
+{
+    if (a.y >= b.y + b.h)
+    {
+        return false;
+    }
+    if (a.x >= b.x + b.w)
+    {
+        return false;
+    }
+    if (a.y + a.h <= b.y)
+    {
+        return false;
+    }
+    if (a.x + a.w <= b.x)
+    {
+        return false;
+    }
+    if (a.y == b.y && a.h == b.h && a.x == b.x && a.w == b.w)
+        return false;
+    else
+    {
+        return true;
+    }
+>>>>>>> parent of d3f32ec... adding the rest
 }
 
 bool Game::TerrainCollide(int x, int y, bool door1, bool door2, bool door3)
@@ -288,6 +361,7 @@ bool Game::TerrainCollide(int x, int y, bool door1, bool door2, bool door3)
         }
     }
     else
+<<<<<<< HEAD
     {
         return false;
     }
@@ -304,13 +378,47 @@ void Game::DoorOpen(int x, int y)
     else
     {
         std::cout << "Not Near Door" << std::endl;
+=======
+    {
+        return false;
+>>>>>>> parent of d3f32ec... adding the rest
     }
+}
 
+<<<<<<< HEAD
     if (x > 360 & x<370 & y> 60 & y < 80)
     {
         Door2 = true;
         std::cout << "Door 2 Opened" << std::endl;
         background->ChangeSprite("./Sprites/Level_Passage_Door.png");
+=======
+void Game::DoorOpen(int x, int y)
+{
+    if (x > 580 & x < 590 & y<340 & y> 330)
+    {
+        Door1 = true;
+        std::cout << "Door 1 Opened" << std::endl;
+        background->ChangeSprite("./Sprites/Level_TV_Door.png");
+>>>>>>> parent of d3f32ec... adding the rest
+    }
+    else
+    {
+        std::cout << "Not Near Door" << std::endl;
+    }
+
+<<<<<<< HEAD
+    if (x > 280 & x<290 & y> 330 & y < 340 & KeyFound == true)
+    {
+        Door3 = true;
+        std::cout << "Door 3 Opened" << std::endl;
+        background->ChangeSprite("./Sprites/Level_Teacher_Door.png");
+=======
+    if (x > 360 & x<370 & y> 60 & y < 80)
+    {
+        Door2 = true;
+        std::cout << "Door 2 Opened" << std::endl;
+        background->ChangeSprite("./Sprites/Level_Passage_Door.png");
+>>>>>>> parent of d3f32ec... adding the rest
     }
     else
     {
@@ -327,15 +435,8 @@ void Game::DoorOpen(int x, int y)
     {
         std::cout << "Not Near Door" << std::endl;
     }
-
-    if (x > 280 & x<290 & y> 330 & y < 340 & KeyFound == true)
-    {
-        Door3 = true;
-        std::cout << "Door 3 Opened" << std::endl;
-        background->ChangeSprite("./Sprites/Level_Teacher_Door.png");
-    }
-    else
-    {
-        std::cout << "Not Near Door" << std::endl;
-    }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> parent of d3f32ec... adding the rest

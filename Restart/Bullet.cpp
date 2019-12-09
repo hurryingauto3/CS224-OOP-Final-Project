@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 // #include "Bullet.h"
+=======
+>>>>>>> parent of d3f32ec... adding the rest
 
 // bool Bullet::getShotFired()
 // {

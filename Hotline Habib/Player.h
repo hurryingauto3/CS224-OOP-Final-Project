@@ -1,7 +1,52 @@
-// #include <iostream>
-// #include <cmath>
+#include <iostream>
+#include <cmath>
+#include "GameObject.h"
 
-// #pragma once
+class Player : virtual public GameObject
+{
+private:
+    static Player *player;
+    int data;
+
+    Player(std::string Sprite, int xpos, int ypos) : GameObject(Sprite, xpos, ypos)
+    {
+        data = 0;
+    }
+
+    Player(std::string Sprite, int xpos, int ypos, int frames, int speed) : GameObject(Sprite, xpos, ypos, frames, speed)
+    {
+        data = 0;
+    }
+
+public:
+    static Player *getPlayer(std::string Sprite, int xpos, int ypos)
+    {
+        if (player == nullptr)
+        {
+            player = new Player(Sprite, xpos, ypos);
+        }
+        return player;
+    }
+
+    static Player *getPlayer(std::string Sprite, int xpor, int ypos, int frames, int speed)
+    {
+        if (player == nullptr)
+        {
+            player = new Player(Sprite, xpor, ypos, frames, speed);
+        }
+        return player;
+    }
+
+    int getData()
+    {
+        return this->data;
+    }
+
+    void setData(int x)
+    {
+        this->data = x;
+    }
+};
 
 // class Player : public GameObject
 // {
@@ -23,55 +68,9 @@
 //         return a;
 //     }
 
-//     Player(std::string sprite, SDL_Renderer *gRenderer, int x, int y)
-//     {
-//         Player::Setloc(x, y);
-//         obj_tex = TextureManager::LoadTexture(sprite);
-//         dRect.h = 128;
-//         dRect.w = 128;
-//         dRect.x = this->getx();
-//         dRect.y = this->gety();
-//         camera = {this->getx(), this->gety(), 1080, 720};
-
-//         SDL_RenderCopy(Game::renderer, obj_tex, nullptr, &dRect);
-//     }
-
-//     void obj_update()
-//     {
-
-//         dRect.h = 128;
-//         dRect.w = 128;
-//         dRect.x = getx();
-//         dRect.y = gety();
-
+//
 //         angle();
 
-//         // camera.x = getx() - 540;
-//         // camera.y = gety() - 360;
-
-//         // if (camera.x < 0)
-//         // {
-//         //     camera.x = 0;
-//         // }
-//         // if (camera.y < 0)
-//         // {
-//         //     camera.y = 0;
-//         // }
-//         // if (camera.x + camera.w >= 1800)
-//         // {
-//         //     camera.x = 1800 - camera.w;
-//         // }
-//         // if (camera.y + camera.h >= 1300)
-//         // {
-//         //     camera.y = 1300 - camera.h;
-//         // }
-//     }
-
-//     void obj_render()
-//     {
-//         dRect = {dRect.x - camera.x, dRect.y - camera.y, dRect.w, dRect.h};
-//         SDL_RenderCopyEx(Game::renderer, obj_tex, nullptr, &dRect, angle(), nullptr, SDL_FLIP_HORIZONTAL); //sRect is null for now
-//     }
 //     double angle()
 //     {
 //         int x, y;

@@ -42,7 +42,17 @@ public:
     bool Collision(SDL_Rect a, SDL_Rect b);
     bool TerrainCollide(int x, int y);
     void DoorOpen(int x, int y);
-    // void MovementAlgo(Enemy, GameObject *, int arr[8]);
+    // void MovementAlgo(GameObject *, GameObject *, int arr[8]);
+
+    void run()
+    {
+        while (Game::running())
+        {
+            Game::handleEvents();
+            Game::update();
+            Game::render();
+        }
+    }
 };
 
 #endif

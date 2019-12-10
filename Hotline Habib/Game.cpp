@@ -5,6 +5,11 @@ GameObject *Player;
 GameObject *Enemy[5];
 Background *background;
 Map *map;
+
+int array[10][8] = {{390, 60, 420, 60, 420, 310, 390, 310},
+                    {240, 50, 320, 50, 320, 300, 240, 300},
+                    {470, 330, 730, 330, 730, 610, 470, 610}};
+
 // Camera *camera;
 SDL_Renderer *Game::renderer = nullptr;
 
@@ -45,15 +50,15 @@ void Game::init(const std::string title, int xpos, int ypos, int width, int heig
         isRunning = true;
     }
 
-    Player = new GameObject("./Sprites/player_stat.png", 970, 70, 2, 150);
+    Player = new GameObject("./Sprites/Player/player_stat.png", 970, 70, 2, 150);
     // camera = new Camera("./Sprite/Level_No_Doors");
-    Enemy[0] = new GameObject("./Sprites/Enemy_updown.png", 390, 60, 4, 150);
-    Enemy[1] = new GameObject("./Sprites/Enemy_updown.png", 390, 60, 4, 150);
-    Enemy[2] = new GameObject("./Sprites/Enemy_updown.png", 390, 60, 4, 150);
-    Enemy[3] = new GameObject("./Sprites/Enemy_updown.png", 390, 60, 4, 150);
-    Enemy[4] = new GameObject("./Sprites/Enemy_updown.png", 390, 60, 4, 150);
+    Enemy[0] = new GameObject("./Sprites/Enemy/Enemy_updown.png", 390, 60, 2, 150);
+    Enemy[1] = new GameObject("./Sprites/Enemy/Enemy_updown.png", 700, 60, 2, 150);
+    Enemy[2] = new GameObject("./Sprites/Enemy/Enemy_updown.png", 390, 560, 2, 150);
+    Enemy[3] = new GameObject("./Sprites/Enemy/Enemy_updown.png", 390, 360, 2, 150);
+    Enemy[4] = new GameObject("./Sprites/Enemy/Enemy_updown.png", 700, 560, 2, 150);
 
-    background = new Background("./Sprites/Level_No_Doors1.png");
+    background = new Background("./Sprites/Map/Level_No_Doors1.png");
 
     map = new Map();
 }
@@ -68,6 +73,61 @@ void Game::handleEvents()
         isRunning = false;
     }
 
+    //If a key was pressed
+    if (e.type == SDL_KEYDOWN && e.key.repeat == 0)
+    {
+        //Adjust the velocity
+        switch (e.key.keysym.sym)
+        {
+        case SDLK_UP:
+            Player->ChangeSprite("./Sprites/Player/player_moving_up.png");
+            Player->mVelY -= GameObject::DOT_VEL;
+            // Player->sety(Player->gety() + Player->mVelY);
+            break;
+        case SDLK_DOWN:
+            Player->ChangeSprite("./Sprites/Player/player_moving_down.png");
+            Player->mVelY += GameObject::DOT_VEL;
+            // Player->sety(Player->gety() + Player->mVelY);
+            break;
+        case SDLK_LEFT:
+            Player->ChangeSprite("./Sprites/Player/player_moving_left.png");
+            Player->mVelX -= GameObject::DOT_VEL;
+            // Player->setx(Player->getx() + Player->mVelX);
+            break;
+        case SDLK_RIGHT:
+            Player->ChangeSprite("./Sprites/Player/player_moving_right.png");
+            Player->mVelX += GameObject::DOT_VEL;
+            // Player->setx(Player->getx() + Player->mVelX);
+            break;
+        }
+    }
+
+    else if (e.type == SDL_KEYUP && e.key.repeat == 0)
+    {
+        //Adjust the velocity
+        switch (e.key.keysym.sym)
+        {
+        case SDLK_UP:
+            Player->ChangeSprite("./Sprites/Player/player_moving_up.png");
+            Player->mVelY += GameObject::DOT_VEL;
+            break;
+        case SDLK_DOWN:
+            Player->ChangeSprite("./Sprites/Player/player_moving_down.png");
+            Player->mVelY -= GameObject::DOT_VEL;
+            break;
+        case SDLK_LEFT:
+            Player->ChangeSprite("./Sprites/Player/player_moving_left.png");
+            Player->mVelX += GameObject::DOT_VEL;
+            break;
+        case SDLK_RIGHT:
+            Player->ChangeSprite("./Sprites/Player/player_moving_right.png");
+            Player->mVelX -= GameObject::DOT_VEL;
+            break;
+        }
+    }
+    Player->sety(Player->gety() + Player->mVelY);
+    Player->setx(Player->getx() + Player->mVelX);
+
     // If a key was released else
     if (e.type == SDL_KEYDOWN)
     {
@@ -77,59 +137,59 @@ void Game::handleEvents()
         case SDLK_w:
             if (!TerrainCollide(Player->getx(), Player->gety()))
             {
-                Player->ChangeSprite("./Sprites/player_moving_up.png");
+                Player->ChangeSprite("./Sprites/Player/player_moving_up.png");
                 Player->Setloc(Player->getx(), Player->gety() - 5);
                 std::cout << Player->getx() << ", " << Player->gety() << std::endl;
                 break;
             }
             else
             {
-                Player->ChangeSprite("./Sprites/player_moving_up.png");
+                Player->ChangeSprite("./Sprites/Player/player_moving_up.png");
                 Player->Setloc(Player->getx(), Player->gety() + 20);
             }
         case SDLK_s:
             if (!TerrainCollide(Player->getx(), Player->gety()))
             {
-                Player->ChangeSprite("./Sprites/player_moving_down.png");
+                Player->ChangeSprite("./Sprites/Player/player_moving_down.png");
                 Player->Setloc(Player->getx(), Player->gety() + 5);
                 std::cout << Player->getx() << ", " << Player->gety() << std::endl;
                 break;
             }
             else
             {
-                Player->ChangeSprite("./Sprites/player_moving_down.png");
+                Player->ChangeSprite("./Sprites/Player/player_moving_down.png");
                 Player->Setloc(Player->getx(), Player->gety() - 20);
             }
 
         case SDLK_a:
             if (!TerrainCollide(Player->getx(), Player->gety()))
             {
-                Player->ChangeSprite("./Sprites/player_moving_left.png");
+                Player->ChangeSprite("./Sprites/Player/player_moving_left.png");
                 Player->Setloc(Player->getx() - 5, Player->gety());
                 std::cout << Player->getx() << ", " << Player->gety() << std::endl;
                 break;
             }
             else
             {
-                Player->ChangeSprite("./Sprites/player_moving_left.png");
+                Player->ChangeSprite("./Sprites/Player/player_moving_left.png");
                 Player->Setloc(Player->getx() + 20, Player->gety());
             }
 
         case SDLK_d:
             if (!TerrainCollide(Player->getx(), Player->gety()))
             {
-                Player->ChangeSprite("./Sprites/player_moving_right.png");
+                Player->ChangeSprite("./Sprites/Player/player_moving_right.png");
                 Player->Setloc(Player->getx() + 5, Player->gety());
                 std::cout << Player->getx() << ", " << Player->gety() << std::endl;
                 break;
             }
             else
             {
-                Player->ChangeSprite("./Sprites/player_moving_right.png");
+                Player->ChangeSprite("./Sprites/Player/player_moving_right.png");
                 Player->Setloc(Player->getx() - 20, Player->gety());
             }
         case SDLK_p:
-            Player->ChangeSprite("./Sprites/player_shoot.png");
+            Player->ChangeSprite("./Sprites/Player/player_shoot.png");
         }
         // case SDLK_o:
         //     DoorOpen(Player->getx(), Player->gety());
@@ -138,17 +198,39 @@ void Game::handleEvents()
     }
     if (e.type == SDL_KEYUP)
     {
-        Player->ChangeSprite("./Sprites/player_stat.png");
+        Player->ChangeSprite("./Sprites/Player/player_stat.png");
     }
 }
 void Game::update()
 {
+
     Player->Update();
     background->BG_Update();
     for (int i = 0; i < 5; i++)
     {
+        Enemy[i]->Path(0, 0, 100, 0, 100, 100, 0, 100);
         Enemy[i]->Update();
 
+        if (Enemy[i]->returnclose())
+        {
+            Enemy[i]->ApproachPlayer(Player);
+            Enemy[i]->Update();
+        }
+        else
+        {
+            if (Enemy[i]->IsPlayerClose(Player))
+            {
+                Enemy[i]->ApproachPlayer(Player);
+                Enemy[i]->Update();
+            }
+            else
+            {
+                Enemy[i]->Path(array[i][0], array[i][1], array[i][2], array[i][3], array[i][4], array[i][5], array[i][6], array[i][7]);
+                Enemy[i]->Update();
+            }
+        }
+
+        Enemy[i]->Update();
         if (Collision(Player->GetDRect(), Enemy[i]->GetDRect()))
         {
             Game::isRunning = false;
@@ -156,14 +238,6 @@ void Game::update()
     }
 
     // background->BG_Cam(Player->getx(), Player->gety());
-    // int array[10][8] = {{390, 60, 420, 60, 420, 310, 390, 310},
-    //                     {240, 50, 320, 50, 320, 300, 240, 300},
-    //                     {470, 330, 730, 330, 730, 610, 470, 610}};
-
-    // for (int i = 0; i < 3; i++)
-    // {
-    //     MovementAlgo(Enemy[i], Player, array[i]);
-    // }
 }
 
 void Game::render()
@@ -190,6 +264,18 @@ void Game::clean()
     std::cout << "Renderer Destroyed" << std::endl;
     SDL_Quit();
     std::cout << "Game Cleaned" << std::endl;
+    Player = nullptr;
+    for (int i = 0; i < 5; i++)
+    {
+        Enemy[i] = nullptr;
+        delete Enemy[i];
+    }
+    background = nullptr;
+    map = nullptr;
+
+    delete background;
+    delete map;
+    delete Player;
 }
 
 bool Game::running()
@@ -276,27 +362,27 @@ void Game::DoorOpen(int x, int y)
     }
 }
 
-// void Game::MovementAlgo(Enemy A, GameObject *Player, int array[8])
+// void Game::MovementAlgo(GameObject *A, GameObject *Player, int array[8])
 // {
-//     A.Path(0, 0, 100, 0, 100, 100, 0, 100);
-//     A.Update();
+//     A->Path(0, 0, 100, 0, 100, 100, 0, 100);
+//     A->Update();
 
-//     if (A.returnclose())
+//     if (A->returnclose())
 //     {
-//         A.ApproachPlayer(Player);
-//         A.Update();
+//         A->ApproachPlayer(Player);
+//         A->Update();
 //     }
 //     else
 //     {
-//         if (A.IsPlayerClose(Player))
+//         if (A->IsPlayerClose(Player))
 //         {
-//             A.ApproachPlayer(Player);
-//             A.Update();
+//             A->ApproachPlayer(Player);
+//             A->Update();
 //         }
 //         else
 //         {
-//             A.Path(array[0], array[1], array[2], array[3], array[4], array[5], array[6], array[7]);
-//             A.Update();
+//             A->Path(array[0], array[1], array[2], array[3], array[4], array[5], array[6], array[7]);
+//             A->Update();
 //         }
 //     }
 // }

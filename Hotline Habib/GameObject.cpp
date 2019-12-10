@@ -7,6 +7,9 @@ GameObject::GameObject(std::string Sprite, int xpos, int ypos)
     this->xpos = xpos;
     this->ypos = ypos;
     Obj_Tex = TextureManager::LoadTexture(this->Sprite);
+    IsPlayerClosebool = false;
+    mVelX = 0;
+    mVelY = 0;
 }
 
 GameObject::GameObject(std::string Sprite, int xpos, int ypos, int frames, int speed) : GameObject(Sprite, xpos, ypos)
@@ -14,6 +17,9 @@ GameObject::GameObject(std::string Sprite, int xpos, int ypos, int frames, int s
     this->frames = frames;
     this->speed = speed;
     this->animated = true;
+    IsPlayerClosebool = false;
+    mVelX = 0;
+    mVelY = 0;
 }
 void GameObject::Render() { SDL_RenderCopy(Game::renderer, Obj_Tex, &sRect, &dRect); }
 

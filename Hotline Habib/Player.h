@@ -2,6 +2,9 @@
 #include <cmath>
 #include "GameObject.h"
 
+#ifndef PLAYER_H
+#define PLAYER_H
+
 class Player : virtual public GameObject
 {
 private:
@@ -47,6 +50,8 @@ public:
         this->data = x;
     }
 };
+
+#endif
 
 // class Player : public GameObject
 // {

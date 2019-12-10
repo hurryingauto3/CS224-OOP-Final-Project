@@ -5,16 +5,16 @@
 class Background
 {
 private:
-    char *Sprite;
+    std::string Sprite;
     SDL_Texture *obj_tex;
     SDL_Rect sRect, dRect;
     SDL_Renderer *ren;
 
 public:
     Background();
-    Background(char *sprite);
+    Background(std::string sprite);
     void BG_Update();
     void BG_Render();
-    void ChangeSprite(char *Sprite);
+    void ChangeSprite(std::string Sprite);
     void BG_Cam(int x, int y);
 };

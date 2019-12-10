@@ -1,8 +1,9 @@
 #include "Texture.h"
 
-SDL_Texture *TextureManager::LoadTexture(char *Sprite)
+SDL_Texture *TextureManager::LoadTexture(std::string Sprite)
 {
-    SDL_Surface *temp = IMG_Load(Sprite);
+    const char *c = Sprite.c_str();
+    SDL_Surface *temp = IMG_Load(c);
     SDL_Texture *tex = SDL_CreateTextureFromSurface(Game::renderer, temp);
     SDL_FreeSurface(temp);
     return tex;

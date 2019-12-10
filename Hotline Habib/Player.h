@@ -23,7 +23,7 @@
 //         return a;
 //     }
 
-//     Player(char *sprite, SDL_Renderer *gRenderer, int x, int y)
+//     Player(std::string sprite, SDL_Renderer *gRenderer, int x, int y)
 //     {
 //         Player::Setloc(x, y);
 //         obj_tex = TextureManager::LoadTexture(sprite);

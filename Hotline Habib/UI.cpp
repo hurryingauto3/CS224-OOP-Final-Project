@@ -1,6 +1,6 @@
 #include "UI.h"
 
-ui_simplified::ui_simplified(char *sprite)
+ui_simplified::ui_simplified(std::string sprite)
 {
     obj_tex = TextureManager::LoadTexture(sprite);
     dRect.h = 720;

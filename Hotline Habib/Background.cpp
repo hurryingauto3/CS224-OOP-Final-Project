@@ -1,6 +1,7 @@
 #include "Background.h"
 Background::Background(){};
-Background::Background(char *sprite)
+
+Background::Background(std::string sprite)
 {
     ren = Game::renderer;
     obj_tex = TextureManager::LoadTexture(sprite);
@@ -14,13 +15,6 @@ Background::Background(char *sprite)
 void Background::BG_Update()
 {
     SDL_RenderCopy(Game::renderer, obj_tex, &dRect, nullptr);
-    // dRect.x = x - 560;
-    // dRect.y = y - 360;
-
-    // if (dRect.x < 0)
-    //     dRect.x = 0;
-    // if (dRect.y < 0)
-    //     dRect.y = 0;
 }
 void Background::BG_Cam(int x, int y)
 {
@@ -40,7 +34,7 @@ void Background::BG_Render()
     SDL_RenderCopy(Game::renderer, obj_tex, &dRect, nullptr); //sRect is null for now
 }
 
-void Background::ChangeSprite(char *Sprite)
+void Background::ChangeSprite(std::string Sprite)
 {
     this->Sprite = Sprite;
     this->obj_tex = TextureManager::LoadTexture(this->Sprite);

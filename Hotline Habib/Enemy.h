@@ -1,25 +1,21 @@
-// #include <cmath>
-// #include "Player.h"
-// #include "GameObject.h"
+#include "GameObject.h"
 
-// class Enemy : public GameObject
-// {
+#ifndef ENEMY_H
+#define ENEMY_H
+class Enemy : virtual public GameObject
+{
+private:
+    bool IsPlayerClosebool;
 
-// private:
-//     bool PlayernearBy;
-//     SDL_Texture *obj_tex;
-//     SDL_Rect sRect, dRect;
+public:
+    bool IsPlayerClose(GameObject *A);
+    void ApproachPlayer(GameObject *A);
+    bool returnclose();
+    void Path(int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4);
+    Enemy() {}
+    Enemy(std::string Sprite, int xpos, int ypos);
+    Enemy(std::string Sprite, int xpos, int ypos, int frames, int speed);
+    ~Enemy();
+};
 
-// public:
-//     Enemy();
-//     Enemy(char *sprite, int x, int y);
-//     Enemy(char *sprite);
-//     void obj_update(Player *p);
-//     void obj_update();
-//     void obj_render(Player *p);
-//     void Path(int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4);
-//     bool getplayercloseby();
-//     void IsPlayerClose(Player *A);
-//     void ApproachPlayer(Player *A);
-//     double angle(Player *p);
-// };
+#endif

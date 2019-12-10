@@ -2,11 +2,10 @@
 #include "Game.h"
 
 GameObject *Player;
-GameObject *Enemy[3];
+GameObject *Enemy[5];
 Background *background;
 Map *map;
 // Camera *camera;
-
 SDL_Renderer *Game::renderer = nullptr;
 
 Game::Game()
@@ -20,7 +19,7 @@ Game::Game()
 
 Game::~Game() {}
 
-void Game::init(const char *title, int xpos, int ypos, int width, int height, bool fullscreen)
+void Game::init(const std::string title, int xpos, int ypos, int width, int height, bool fullscreen)
 {
     int flags = 0;
     if (fullscreen)
@@ -30,7 +29,8 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height, bo
     if (SDL_Init(SDL_INIT_EVERYTHING) == 0)
     {
         std::cout << "Subsystems Initialized..." << std::endl;
-        window = SDL_CreateWindow(title, xpos, ypos, width, height, flags);
+        const char *name = title.c_str();
+        window = SDL_CreateWindow(name, xpos, ypos, width, height, flags);
         if (window)
         {
             std::cout << "Window Created" << std::endl;
@@ -47,10 +47,14 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height, bo
 
     Player = new GameObject("./Sprites/player_stat.png", 970, 70, 2, 150);
     // camera = new Camera("./Sprite/Level_No_Doors");
-    Enemy[0] = new GameObject("./Sprites/player_stat.png", 390, 60, 2, 150);
-    Enemy[1] = new GameObject("./Sprites/player_stat.png", 240, 50, 2, 150);
-    Enemy[2] = new GameObject("./Sprites/player_stat.png", 470, 330, 2, 150);
+    Enemy[0] = new GameObject("./Sprites/Enemy_updown.png", 390, 60, 4, 150);
+    Enemy[1] = new GameObject("./Sprites/Enemy_updown.png", 390, 60, 4, 150);
+    Enemy[2] = new GameObject("./Sprites/Enemy_updown.png", 390, 60, 4, 150);
+    Enemy[3] = new GameObject("./Sprites/Enemy_updown.png", 390, 60, 4, 150);
+    Enemy[4] = new GameObject("./Sprites/Enemy_updown.png", 390, 60, 4, 150);
+
     background = new Background("./Sprites/Level_No_Doors1.png");
+
     map = new Map();
 }
 
@@ -71,7 +75,7 @@ void Game::handleEvents()
         switch (e.key.keysym.sym)
         {
         case SDLK_w:
-            if (!TerrainCollide(Player->getx(), Player->gety(), Door1, Door2, Door3))
+            if (!TerrainCollide(Player->getx(), Player->gety()))
             {
                 Player->ChangeSprite("./Sprites/player_moving_up.png");
                 Player->Setloc(Player->getx(), Player->gety() - 5);
@@ -84,7 +88,7 @@ void Game::handleEvents()
                 Player->Setloc(Player->getx(), Player->gety() + 20);
             }
         case SDLK_s:
-            if (!TerrainCollide(Player->getx(), Player->gety(), Door1, Door2, Door3))
+            if (!TerrainCollide(Player->getx(), Player->gety()))
             {
                 Player->ChangeSprite("./Sprites/player_moving_down.png");
                 Player->Setloc(Player->getx(), Player->gety() + 5);
@@ -98,7 +102,7 @@ void Game::handleEvents()
             }
 
         case SDLK_a:
-            if (!TerrainCollide(Player->getx(), Player->gety(), Door1, Door2, Door3))
+            if (!TerrainCollide(Player->getx(), Player->gety()))
             {
                 Player->ChangeSprite("./Sprites/player_moving_left.png");
                 Player->Setloc(Player->getx() - 5, Player->gety());
@@ -112,7 +116,7 @@ void Game::handleEvents()
             }
 
         case SDLK_d:
-            if (!TerrainCollide(Player->getx(), Player->gety(), Door1, Door2, Door3))
+            if (!TerrainCollide(Player->getx(), Player->gety()))
             {
                 Player->ChangeSprite("./Sprites/player_moving_right.png");
                 Player->Setloc(Player->getx() + 5, Player->gety());
@@ -141,57 +145,25 @@ void Game::update()
 {
     Player->Update();
     background->BG_Update();
-    // background->BG_Cam(Player->getx(), Player->gety());
-    int array[40];
-    array[0] = 390;
-    array[1] = 60;
-    array[2] = 420;
-    array[3] = 60;
-    array[4] = 420;
-    array[5] = 310;
-    array[6] = 390;
-    array[7] = 310;
-    array[8] = 240;
-    array[9] = 50;
-    array[10] = 320;
-    array[11] = 50;
-    array[12] = 320;
-    array[13] = 300;
-    array[14] = 240;
-    array[15] = 300;
-    array[16] = 470;
-    array[17] = 330;
-    array[18] = 730;
-    array[19] = 330;
-    array[20] = 730;
-    array[21] = 610;
-    array[22] = 470;
-    array[23] = 610;
-
-    for (int i = 0; i < 3; i++)
+    for (int i = 0; i < 5; i++)
     {
-        Enemy[i]->Path(0, 0, 100, 0, 100, 100, 0, 100);
         Enemy[i]->Update();
 
-        if (Enemy[i]->returnclose())
+        if (Collision(Player->GetDRect(), Enemy[i]->GetDRect()))
         {
-            Enemy[i]->ApproachPlayer(Player);
-            Enemy[i]->Update();
-        }
-        else
-        {
-            if (Enemy[i]->IsPlayerClose(Player))
-            {
-                Enemy[i]->ApproachPlayer(Player);
-                Enemy[i]->Update();
-            }
-            else
-            {
-                Enemy[i]->Path(array[i], array[i + 1], array[i + 2], array[i + 3], array[i + 4], array[i + 5], array[i + 6], array[i + 7]);
-                Enemy[i]->Update();
-            }
+            Game::isRunning = false;
         }
     }
+
+    // background->BG_Cam(Player->getx(), Player->gety());
+    // int array[10][8] = {{390, 60, 420, 60, 420, 310, 390, 310},
+    //                     {240, 50, 320, 50, 320, 300, 240, 300},
+    //                     {470, 330, 730, 330, 730, 610, 470, 610}};
+
+    // for (int i = 0; i < 3; i++)
+    // {
+    //     MovementAlgo(Enemy[i], Player, array[i]);
+    // }
 }
 
 void Game::render()
@@ -204,6 +176,8 @@ void Game::render()
     Enemy[0]->Render();
     Enemy[1]->Render();
     Enemy[2]->Render();
+    Enemy[3]->Render();
+    Enemy[4]->Render();
 
     SDL_RenderPresent(renderer);
 }
@@ -223,33 +197,23 @@ bool Game::running()
     return isRunning;
 }
 
-bool Game::collision(SDL_Rect a, SDL_Rect b)
+bool Game::Collision(SDL_Rect a, SDL_Rect b)
 {
     if (a.y >= b.y + b.h)
-    {
         return false;
-    }
     if (a.x >= b.x + b.w)
-    {
         return false;
-    }
     if (a.y + a.h <= b.y)
-    {
         return false;
-    }
     if (a.x + a.w <= b.x)
-    {
         return false;
-    }
     if (a.y == b.y && a.h == b.h && a.x == b.x && a.w == b.w)
         return false;
     else
-    {
         return true;
-    }
 }
 
-bool Game::TerrainCollide(int x, int y, bool door1, bool door2, bool door3)
+bool Game::TerrainCollide(int x, int y)
 {
     if (y <= 20 & x >= 230 & x <= 340)
     {
@@ -261,7 +225,7 @@ bool Game::TerrainCollide(int x, int y, bool door1, bool door2, bool door3)
     }
     if (y >= 340 & x >= 370 & x <= 870)
     {
-        if (door1 & x >= 580 & x <= 590)
+        if (Game::Door1 & x >= 580 & x <= 590)
         {
             return false;
         }
@@ -311,3 +275,28 @@ void Game::DoorOpen(int x, int y)
         std::cout << "Not Near Door" << std::endl;
     }
 }
+
+// void Game::MovementAlgo(Enemy A, GameObject *Player, int array[8])
+// {
+//     A.Path(0, 0, 100, 0, 100, 100, 0, 100);
+//     A.Update();
+
+//     if (A.returnclose())
+//     {
+//         A.ApproachPlayer(Player);
+//         A.Update();
+//     }
+//     else
+//     {
+//         if (A.IsPlayerClose(Player))
+//         {
+//             A.ApproachPlayer(Player);
+//             A.Update();
+//         }
+//         else
+//         {
+//             A.Path(array[0], array[1], array[2], array[3], array[4], array[5], array[6], array[7]);
+//             A.Update();
+//         }
+//     }
+// }

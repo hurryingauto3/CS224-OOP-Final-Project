@@ -10,7 +10,7 @@ int main(int argc, char *argv[])
     Uint32 framestart;
 
     game = new Game();
-    game->init("Hotline Habib", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1080, 720, true);
+    game->init("Hotline Habib", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1080, 720, false);
 
     while (game->running())
     {

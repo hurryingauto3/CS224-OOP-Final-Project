@@ -3,11 +3,12 @@
 #include <SDL_image.h>
 #include <iostream>
 #include "Texture.h"
-#include "GameObject.h"
 #include "Map.h"
 #include "Camera.h"
 #include "Background.h"
 #include "Bullet.h"
+#include "Enemy.h"
+#include "GameObject.h"
 
 #ifndef GAME_H
 #define GAME_H
@@ -32,15 +33,16 @@ public:
     ~Game();
 
     //Member functions
-    void init(const char *title, int xpos, int ypos, int width, int height, bool fullscreen); //window Creator
+    void init(const std::string title, int xpos, int ypos, int width, int height, bool fullscreen); //window Creator
     void handleEvents();
     void update();
     void render();
     void clean();   //Memory management
     bool running(); //Run check
-    bool collision(SDL_Rect a, SDL_Rect b);
-    bool TerrainCollide(int x, int y, bool door1, bool door2, bool door3);
+    bool Collision(SDL_Rect a, SDL_Rect b);
+    bool TerrainCollide(int x, int y);
     void DoorOpen(int x, int y);
+    // void MovementAlgo(Enemy, GameObject *, int arr[8]);
 };
 
 #endif

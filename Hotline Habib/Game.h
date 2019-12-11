@@ -16,9 +16,9 @@
 class Game
 {
 private:
-    int cnt = 0;
     bool isRunning;
     SDL_Window *window;
+    int collides;
     bool KeyFound;
     bool PaperFound;
     bool Door1;

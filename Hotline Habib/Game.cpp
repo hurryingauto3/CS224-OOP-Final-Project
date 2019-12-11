@@ -6,6 +6,8 @@ GameObject *Enemy[5];
 Background *background;
 Map *map;
 
+SDL_Rect camera = {0, 0, 1080, 720};
+
 int array[10][8] = {{390, 60, 420, 60, 420, 310, 390, 310},
                     {240, 50, 320, 50, 320, 300, 240, 300},
                     {470, 330, 730, 330, 730, 610, 470, 610}};
@@ -20,6 +22,7 @@ Game::Game()
     Door3 = false;
     KeyFound = false;
     PaperFound = false;
+    collides = 0;
 }
 
 Game::~Game() {}
@@ -231,9 +234,39 @@ void Game::update()
         }
 
         Enemy[i]->Update();
+
         if (Collision(Player->GetDRect(), Enemy[i]->GetDRect()))
         {
-            Game::isRunning = false;
+            if (Game::collides <= 3)
+            {
+                Game::collides++;
+            }
+
+            if (Game::collides > 3)
+            {
+                Game::isRunning = false;
+            }
+        }
+
+        camera.x = (Player->getx() + 50) - 560;
+        camera.y = (Player->getx() + 50) - 360;
+
+        //Keep the camera in bounds
+        if (camera.x < 0)
+        {
+            camera.x = 0;
+        }
+        if (camera.y < 0)
+        {
+            camera.y = 0;
+        }
+        if (camera.x > 1800 - camera.w)
+        {
+            camera.x = 1800 - camera.w;
+        }
+        if (camera.y > 1300 - camera.h)
+        {
+            camera.y = 1300 - camera.h;
         }
     }
 
@@ -243,7 +276,7 @@ void Game::update()
 void Game::render()
 {
     SDL_RenderClear(renderer);
-    background->BG_Render();
+    background->BG_Render(camera);
 
     Player->Render();
 

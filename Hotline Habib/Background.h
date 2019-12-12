@@ -15,6 +15,7 @@ public:
     Background(std::string sprite);
     void BG_Update();
     void BG_Render(SDL_Rect);
+    void BG_Render();
     void ChangeSprite(std::string Sprite);
     void BG_Cam(int x, int y);
 };

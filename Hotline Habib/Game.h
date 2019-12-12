@@ -9,6 +9,8 @@
 #include "Bullet.h"
 #include "Enemy.h"
 #include "GameObject.h"
+#include "key.hpp"
+#pragma once
 
 #ifndef GAME_H
 #define GAME_H
@@ -19,7 +21,7 @@ private:
     bool isRunning;
     SDL_Window *window;
     int collides;
-    bool KeyFound;
+    Key key;
     bool PaperFound;
     bool Door1;
     bool Door2;
@@ -43,7 +45,6 @@ public:
     bool TerrainCollide(int x, int y);
     void DoorOpen(int x, int y);
     // void MovementAlgo(GameObject *, GameObject *, int arr[8]);
-
     void run()
     {
         while (Game::running())

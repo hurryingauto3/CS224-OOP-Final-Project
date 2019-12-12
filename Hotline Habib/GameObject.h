@@ -1,9 +1,7 @@
 #pragma once
 #include "Game.h"
+#include "Texture.h"
 #include <cmath>
-
-#ifndef GAMEOBJECT_H
-#define GAMEOBJECT_H
 
 class GameObject
 {
@@ -11,7 +9,6 @@ class GameObject
 private:
     std::string Sprite;
     int xpos, ypos;
-
     SDL_Texture *Obj_Tex;
     SDL_Rect sRect, dRect;
     bool animated = false;
@@ -23,7 +20,7 @@ public:
     static const int DOT_VEL = 5;
     int mVelX, mVelY;
 
-    GameObject(){};
+    GameObject();
     GameObject(std::string Sprite, int xpos, int ypos);
     GameObject(std::string Sprite, int xpos, int ypos, int frames, int speed);
 
@@ -37,9 +34,7 @@ public:
 
     void Setloc(int x, int y);
     void ChangeSprite(std::string title);
-
     SDL_Rect GetDRect() { return dRect; }
-
     bool IsPlayerClose(GameObject *A)
     {
         if (pow(pow(this->getx() - A->getx(), 2) + pow(this->gety() - A->gety(), 2), 0.5) < 200)
@@ -53,7 +48,6 @@ public:
             return false;
         }
     }
-
     void ApproachPlayer(GameObject *A)
     {
         if (this->getx() != A->getx() | this->gety() != A->gety())
@@ -105,5 +99,3 @@ public:
         }
     }
 };
-
-#endif

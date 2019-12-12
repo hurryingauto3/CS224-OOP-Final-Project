@@ -1,5 +1,6 @@
 
 #include "Game.h"
+#include <fstream>
 
 GameObject *Player;
 //GameObject *Enemy[5];
@@ -7,10 +8,6 @@ Background *background;
 Map *map;
 
 SDL_Rect camera = {0, 0, 1080, 720};
-
-int array[10][8] = {{390, 60, 420, 60, 420, 310, 390, 310},
-                    {240, 50, 320, 50, 320, 300, 240, 300},
-                    {470, 330, 730, 330, 730, 610, 470, 610}};
 
 // Camera *camera;
 SDL_Renderer *Game::renderer = nullptr;
@@ -20,9 +17,9 @@ Game::Game()
     Door1 = false;
     Door2 = false;
     Door3 = false;
-    KeyFound = false;
-    PaperFound = false;
-    collides = 0;
+    //Key key;
+    // Paper paper;
+    makemap("readmap.txt");
 }
 
 Game::~Game() {}
@@ -335,66 +332,71 @@ bool Game::Collision(SDL_Rect a, SDL_Rect b)
 
 bool Game::TerrainCollide(int x, int y)
 {
-    if (y <= 20 & x >= 180 & x <= 900)
+    for (int i = 0; i <= 16; i += 4)
     {
-        return true;
+        if (x >= collision[i] and x <= collision[i + 1] and y >= collision[i + 2] and y <= collision[i + 3])
+        {
+            return true;
+        }
     }
-    if (x <= 210 & y >= 35 & y <= 315)
-    {
-        return true;
-    }
-    if (x <= 345 and x >= 340 and y >= 25 and y <= 125)
-    {
-        return true;
-    }
-    if (x <= 345 and x >= 340 and y >= 180 and y <= 315)
-    {
-        return true;
-    }
-    if (x <= 345 and x >= 340 and y >= 25 and y <= 125)
-    {
-        return true;
-    }
-    if (x <= 875 and x >= 600 and y <= 345 and y >= 340)
-    {
-        return true;
-    }
-    if (x <= 875 and x >= 870 and y <= 340 and y >= 70)
-    {
-        return true;
-    }
-    if (x >= 305 and x <= 555 and y >= 325 and y <= 330)
-    {
-        return true;
-    }
-    if (x >= 165 and x <= 250 and y >= 325 and y <= 330)
-    {
-        return true;
-    }
-    if (x >= 160 and x <= 160 and y >= 330 and y <= 545)
-    {
-        return true;
-    }
-    if (x >= 180 and x <= 425 and y >= 535 and y <= 540)
-    {
-        return true;
-    }
-    if (x >= 425 and x <= 435 and y >= 330 and y <= 610)
-    {
-        return true;
-    }
-    if (x >= 760 and x <= 760 and y >= 365 and y <= 615)
-    {
-        return true;
-    }
-    if (x >= 410 and x <= 760 and y >= 620 and y <= 625)
-    {
-        return true;
-    }
-    if ((x <= 0 or x > 1080) or (y <= 0 or y >= 720))
-    {
-        return true;
-    }
+    return false;
+    // }
+    // if (x >= 180 & x <= 900 & y >= 20 & y <= 25)
+    // {
+    //     return true;
+    // }
+    // if (x >= 200 & x <= 205 & y >= 35 & y <= 315)
+    // {
+    //     return true;
+    // }
+    // if (x >= 340 and x <= 345 and y >= 25 and y <= 125)
+    // {
+    //     return true;
+    // }
+    // if (x >= 340 and x <= 345 and y >= 180 and y <= 315)
+    // {
+    //     return true;
+    // }
+    // if (x >= 340 and x <= 345 and y >= 25 and y <= 125)
+    // {
+    //     return true;
+    // }
+    // if (x >= 600 and x <= 875 and y >= 340 and y <= 345)
+    // {
+    //     return true;
+    // }
+    // if (x >= 870 and x <= 875 and y >= 70 and y <= 345)
+    // {
+    //     return true;
+    // }
+    // if (x >= 305 and x <= 555 and y >= 325 and y <= 330)
+    // {
+    //     return true;
+    // }
+    // if (x >= 165 and x <= 250 and y >= 325 and y <= 330)
+    // {
+    //     return true;
+    // }
+    // if (x >= 155 and x <= 160 and y >= 330 and y <= 545)
+    // {
+    //     return true;
+    // }
+    // if (x >= 180 and x <= 425 and y >= 535 and y <= 540)
+    // {
+    //     return true;
+    // }
+    // if (x >= 425 and x <= 435 and y >= 330 and y <= 610)
+    // {
+    //     return true;
+    // }
+    // if (x >= 755 and x <= 760 and y >= 365 and y <= 615)
+    // {
+    //     return true;
+    // }
+    // if (x >= 410 and x <= 760 and y >= 620 and y <= 625)
+    // {
+    //     return true;
+    // }
 }
 
 void Game::DoorOpen(int x, int y)
@@ -421,7 +423,7 @@ void Game::DoorOpen(int x, int y)
         std::cout << "Not Near Door" << std::endl;
     }
 
-    if (x > 280 & x<290 & y> 330 & y < 340 & KeyFound == true)
+    if (x > 280 & x<290 & y> 330 & y < 340) // & key.getstate() == true)
     {
         Door3 = true;
         std::cout << "Door 3 Opened" << std::endl;
@@ -431,6 +433,24 @@ void Game::DoorOpen(int x, int y)
     {
         std::cout << "Not Near Door" << std::endl;
     }
+}
+void Game::makemap(std::string filename)
+{
+    std::string line;
+    std::ifstream myfile(filename);
+    if (myfile.is_open())
+    {
+        int i = 0;
+        while (getline(myfile, line))
+        {
+            collision[i] = stoi(line);
+            i++;
+        }
+        myfile.close();
+    }
+
+    else
+        std::cout << "Unable to open file";
 }
 
 // void Game::MovementAlgo(GameObject *A, GameObject *Player, int array[8])

@@ -10,6 +10,7 @@
 #include "Enemy.h"
 #include "GameObject.h"
 #include "key.hpp"
+#include "Paper.hpp"
 #pragma once
 
 #ifndef GAME_H
@@ -21,11 +22,12 @@ private:
     bool isRunning;
     SDL_Window *window;
     int collides;
-    Key key;
-    bool PaperFound;
+    //Key key;
+    //Paper paper;
     bool Door1;
     bool Door2;
     bool Door3;
+    int collision[56];
 
 public:
     static SDL_Renderer *renderer;
@@ -35,6 +37,7 @@ public:
     ~Game();
 
     //Member functions
+    void makemap(std::string filename);
     void init(const std::string title, int xpos, int ypos, int width, int height, bool fullscreen); //window Creator
     void handleEvents();
     void update();

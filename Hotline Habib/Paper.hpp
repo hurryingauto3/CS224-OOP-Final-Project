@@ -2,11 +2,11 @@
 // #include "Game.h"
 // #include <cmath>
 
-// class Key
+// class Paper
 // {
 // private:
-//     int x;
 //     bool collected;
+//     int x;
 //     int y;
 
 // public:
@@ -18,19 +18,23 @@
 //     {
 //         return y;
 //     }
-//     Key()
+
+//     Paper()
 //     {
 //         collected = false;
 //     }
-//     bool getstate()
-//     {
-//         return collected;
-//     }
-//     void keycollected(GameObject *A)
+//     void papercollected(GameObject *A, Key *B)
 //     {
 //         if (pow(pow(this->getx() - A->getx(), 2) + pow(this->gety() - A->gety(), 2), 0.5) <= 5)
 //         {
-//             collected = true;
+//             if (B->getstate())
+//             {
+//                 collected = true;
+//             }
+//             else
+//             {
+//                 std::cout << "you dont have the key to unlock this";
+//             }
 //         }
 //     }
 // };

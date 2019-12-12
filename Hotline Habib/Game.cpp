@@ -4,9 +4,11 @@
 GameObject *Player;
 GameObject *Enemy[5];
 Background *background;
+uicomp *UI;
+
 Map *map;
 
-SDL_Rect camera = {0, 0, 1080, 720};
+// SDL_Rect camera = {0, 0, 1080, 720};
 
 int array[10][8] = {{390, 60, 420, 60, 420, 310, 390, 310},
                     {240, 50, 320, 50, 320, 300, 240, 300},
@@ -23,6 +25,7 @@ Game::Game()
     KeyFound = false;
     PaperFound = false;
     collides = 0;
+    isGameRunning = true;
 }
 
 Game::~Game() {}
@@ -63,6 +66,8 @@ void Game::init(const std::string title, int xpos, int ypos, int width, int heig
 
     background = new Background("./Sprites/Map/Level_No_Doors1.png");
 
+    UI = new uicomp("./SplashScreens/MainMenu.png");
+
     map = new Map();
 }
 
@@ -75,61 +80,6 @@ void Game::handleEvents()
     {
         isRunning = false;
     }
-
-    //If a key was pressed
-    if (e.type == SDL_KEYDOWN && e.key.repeat == 0)
-    {
-        //Adjust the velocity
-        switch (e.key.keysym.sym)
-        {
-        case SDLK_UP:
-            Player->ChangeSprite("./Sprites/Player/player_moving_up.png");
-            Player->mVelY -= GameObject::DOT_VEL;
-            // Player->sety(Player->gety() + Player->mVelY);
-            break;
-        case SDLK_DOWN:
-            Player->ChangeSprite("./Sprites/Player/player_moving_down.png");
-            Player->mVelY += GameObject::DOT_VEL;
-            // Player->sety(Player->gety() + Player->mVelY);
-            break;
-        case SDLK_LEFT:
-            Player->ChangeSprite("./Sprites/Player/player_moving_left.png");
-            Player->mVelX -= GameObject::DOT_VEL;
-            // Player->setx(Player->getx() + Player->mVelX);
-            break;
-        case SDLK_RIGHT:
-            Player->ChangeSprite("./Sprites/Player/player_moving_right.png");
-            Player->mVelX += GameObject::DOT_VEL;
-            // Player->setx(Player->getx() + Player->mVelX);
-            break;
-        }
-    }
-
-    else if (e.type == SDL_KEYUP && e.key.repeat == 0)
-    {
-        //Adjust the velocity
-        switch (e.key.keysym.sym)
-        {
-        case SDLK_UP:
-            Player->ChangeSprite("./Sprites/Player/player_moving_up.png");
-            Player->mVelY += GameObject::DOT_VEL;
-            break;
-        case SDLK_DOWN:
-            Player->ChangeSprite("./Sprites/Player/player_moving_down.png");
-            Player->mVelY -= GameObject::DOT_VEL;
-            break;
-        case SDLK_LEFT:
-            Player->ChangeSprite("./Sprites/Player/player_moving_left.png");
-            Player->mVelX += GameObject::DOT_VEL;
-            break;
-        case SDLK_RIGHT:
-            Player->ChangeSprite("./Sprites/Player/player_moving_right.png");
-            Player->mVelX -= GameObject::DOT_VEL;
-            break;
-        }
-    }
-    Player->sety(Player->gety() + Player->mVelY);
-    Player->setx(Player->getx() + Player->mVelX);
 
     // If a key was released else
     if (e.type == SDL_KEYDOWN)
@@ -191,6 +141,34 @@ void Game::handleEvents()
                 Player->ChangeSprite("./Sprites/Player/player_moving_right.png");
                 Player->Setloc(Player->getx() - 20, Player->gety());
             }
+        case SDLK_RETURN:
+            if (!(UI->getstart()))
+            {
+                if (UI->getUp())
+                {
+                    UI->setstart(true);
+                }
+                else
+                    Game::isRunning = false;
+            }
+        case SDLK_UP:
+        {
+            if (!(UI->getstart()))
+            {
+                UI->SetSprite("./SplashSceens/MainMenu2.png");
+                UI->setUP(true);
+                std::cout << "UP true" << std::endl;
+            }
+        }
+        case SDLK_DOWN:
+        {
+            if (!(UI->getstart()))
+            {
+                UI->SetSprite("./SplashSceens/MainMenu3.png");
+                UI->setUP(false);
+                std::cout << "UP down" << std::endl;
+            }
+        }
         case SDLK_p:
             Player->ChangeSprite("./Sprites/Player/player_shoot.png");
         }
@@ -204,88 +182,81 @@ void Game::handleEvents()
         Player->ChangeSprite("./Sprites/Player/player_stat.png");
     }
 }
+
 void Game::update()
 {
-
-    Player->Update();
-    background->BG_Update();
-    for (int i = 0; i < 5; i++)
+    if (!(UI->getstart()))
     {
-        Enemy[i]->Path(0, 0, 100, 0, 100, 100, 0, 100);
-        Enemy[i]->Update();
-
-        if (Enemy[i]->returnclose())
+        UI->UI_Update();
+    }
+    else
+    {
+        Player->Update();
+        background->BG_Update();
+        for (int i = 0; i < 3; i++)
         {
-            Enemy[i]->ApproachPlayer(Player);
+            Enemy[i]->Path(0, 0, 100, 0, 100, 100, 0, 100);
             Enemy[i]->Update();
-        }
-        else
-        {
-            if (Enemy[i]->IsPlayerClose(Player))
+
+            if (Enemy[i]->returnclose())
             {
                 Enemy[i]->ApproachPlayer(Player);
                 Enemy[i]->Update();
             }
             else
             {
-                Enemy[i]->Path(array[i][0], array[i][1], array[i][2], array[i][3], array[i][4], array[i][5], array[i][6], array[i][7]);
-                Enemy[i]->Update();
+                if (Enemy[i]->IsPlayerClose(Player))
+                {
+                    Enemy[i]->ApproachPlayer(Player);
+                    Enemy[i]->Update();
+                }
+                else
+                {
+                    Enemy[i]->Path(array[i][0], array[i][1],
+                                   array[i][2], array[i][3], array[i][4],
+                                   array[i][5], array[i][6], array[i][7]);
+                    Enemy[i]->Update();
+                }
             }
-        }
 
-        Enemy[i]->Update();
+            Enemy[i]->Update();
 
-        if (Collision(Player->GetDRect(), Enemy[i]->GetDRect()))
-        {
-            if (Game::collides <= 3)
+            if (Collision(Player->GetDRect(), Enemy[i]->GetDRect()))
             {
-                Game::collides++;
+                if (Game::collides <= 1)
+                {
+                    Game::collides++;
+                }
+
+                if (Game::collides > 1)
+                {
+                    Game::isGameRunning = false;
+                }
             }
-
-            if (Game::collides > 3)
-            {
-                Game::isRunning = false;
-            }
-        }
-
-        camera.x = (Player->getx() + 50) - 560;
-        camera.y = (Player->getx() + 50) - 360;
-
-        //Keep the camera in bounds
-        if (camera.x < 0)
-        {
-            camera.x = 0;
-        }
-        if (camera.y < 0)
-        {
-            camera.y = 0;
-        }
-        if (camera.x > 1800 - camera.w)
-        {
-            camera.x = 1800 - camera.w;
-        }
-        if (camera.y > 1300 - camera.h)
-        {
-            camera.y = 1300 - camera.h;
         }
     }
-
-    // background->BG_Cam(Player->getx(), Player->gety());
 }
 
 void Game::render()
 {
     SDL_RenderClear(renderer);
-    background->BG_Render(camera);
+    if (!(UI->getstart()))
+    {
+        UI->UI_Render();
+    }
+    else
+    {
+        background->BG_Render();
 
-    Player->Render();
+        Player->Render();
 
-    Enemy[0]->Render();
-    Enemy[1]->Render();
-    Enemy[2]->Render();
-    Enemy[3]->Render();
-    Enemy[4]->Render();
-
+        Enemy[0]->Render();
+        Enemy[1]->Render();
+        Enemy[2]->Render();
+        Enemy[3]->Render();
+        Enemy[4]->Render();
+    }
+    // UI->UI_Render();
     SDL_RenderPresent(renderer);
 }
 
@@ -419,3 +390,14 @@ void Game::DoorOpen(int x, int y)
 //         }
 //     }
 // }
+
+void Game::run()
+{
+
+    while (Game::running())
+    {
+        Game::handleEvents();
+        Game::update();
+        Game::render();
+    }
+}

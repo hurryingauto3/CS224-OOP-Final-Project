@@ -1,6 +1,6 @@
 #include "UI.h"
 
-ui_simplified::ui_simplified(std::string sprite)
+uicomp::uicomp(std::string sprite)
 {
     obj_tex = TextureManager::LoadTexture(sprite);
     dRect.h = 720;
@@ -11,7 +11,13 @@ ui_simplified::ui_simplified(std::string sprite)
     SDL_RenderCopy(Game::renderer, obj_tex, nullptr, &dRect);
 }
 
-void ui_simplified::UI_Update()
+void uicomp::SetSprite(std::string Sprite)
+{
+    this->Sprite = Sprite;
+    this->obj_tex = TextureManager::LoadTexture(this->Sprite);
+}
+
+void uicomp::UI_Update()
 {
     dRect.h = 720;
     dRect.w = 1080;
@@ -25,16 +31,22 @@ void ui_simplified::UI_Update()
     }
 }
 
-void ui_simplified::UI_Render()
+void uicomp::UI_Render()
 {
     SDL_RenderCopy(Game::renderer, obj_tex, nullptr, &dRect); //sRect is null for now
 }
-bool ui_simplified::start_party()
-{
-    return starto;
-}
 
-void ui_simplified::setEndGame(bool gameState)
+void uicomp::setEndGame(bool gameState)
 {
     endGame = gameState;
+}
+
+bool uicomp::getstart()
+{
+    return Start;
+}
+
+void uicomp::setstart(bool Start)
+{
+    this->Start = Start;
 }

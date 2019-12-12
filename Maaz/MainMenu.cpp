@@ -1,12 +1,12 @@
-#include<iostream>
-#include<SDL.h>
-#include<SDL_image.h>
-#include<SDL_mixer.h>
-#include<string>
-#include<sstream>
-#include<stdlib.h>
-#include<windows.h>
-#include "Credits.hpp"
+#include <iostream>
+#include <SDL.h>
+#include <SDL_image.h>
+#include <SDL_mixer.h>
+#include <string>
+#include <sstream>
+#include <stdlib.h>
+#include <windows.h>
+// #include "Credits.hpp"
 using namespace std;
 
 int main(int argc, char *argv[])
@@ -46,51 +46,51 @@ int main(int argc, char *argv[])
     bool isRunning = true;
     SDL_Event ev;
 
-    while(isRunning)
+    while (isRunning)
     {
-        while(SDL_PollEvent(&ev)!=0)
+        while (SDL_PollEvent(&ev) != 0)
         {
-          //  if(SDL_Quit == ev.type)
+            //  if(SDL_Quit == ev.type)
             //    isRunning=false;
-             if(ev.type == SDL_KEYDOWN && ev.key.repeat == 0)
+            if (ev.type == SDL_KEYDOWN && ev.key.repeat == 0)
             {
-                switch(ev.key.keysym.sym)
+                switch (ev.key.keysym.sym)
                 {
-                    case SDLK_RETURN:
-                        Mix_PlayChannel(-1, Click,0);
-                        current_img=image2;
-                        Mix_HaltMusic();
-//                        current_img=image3;
-//                        current_img=image4;
-                        break;
+                case SDLK_RETURN:
+                    Mix_PlayChannel(-1, Click, 0);
+                    current_img = image2;
+                    Mix_HaltMusic();
+                    //                        current_img=image3;
+                    //                        current_img=image4;
+                    break;
 
-                    case SDLK_F4:
-                        Mix_PlayChannel(-1, Click,0);
-                        isRunning=false;
-                        break;
+                case SDLK_F4:
+                    Mix_PlayChannel(-1, Click, 0);
+                    isRunning = false;
+                    break;
 
-                    case SDLK_w:
-                        Mix_PlayChannel(-1, foot1,0);
-                        break;
+                case SDLK_w:
+                    Mix_PlayChannel(-1, foot1, 0);
+                    break;
 
-                    case SDLK_a:
-                        Mix_PlayChannel(-1, foot1,0);
-                        break;
+                case SDLK_a:
+                    Mix_PlayChannel(-1, foot1, 0);
+                    break;
 
-                    case SDLK_s:
-                        Mix_PlayChannel(-1, foot2,0);
-                        break;
+                case SDLK_s:
+                    Mix_PlayChannel(-1, foot2, 0);
+                    break;
 
-                    case SDLK_d:
-                        Mix_PlayChannel(-1, foot2,0);
-                        break;
+                case SDLK_d:
+                    Mix_PlayChannel(-1, foot2, 0);
+                    break;
 
-                    case SDLK_p:
-                        Mix_PlayChannel(-1, shot,0);
-                        break;
+                case SDLK_p:
+                    Mix_PlayChannel(-1, shot, 0);
+                    break;
 
-                    case SDLK_BACKSPACE:
-                        Credits.Credit()
+                case SDLK_BACKSPACE:
+                    // Credits.Credit()
                 }
             }
         }
@@ -109,7 +109,7 @@ int main(int argc, char *argv[])
     Mix_FreeChunk(shot);
 
     current_img = image1 = image2 = nullptr;
-    window=nullptr;
+    window = nullptr;
     Mix_CloseAudio();
     SDL_Quit;
     return 0;

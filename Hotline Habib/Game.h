@@ -12,6 +12,9 @@
 #include "Player.h"
 #include "UI.h"
 
+#include "key.hpp"
+#pragma once
+
 #ifndef GAME_H
 #define GAME_H
 
@@ -22,7 +25,7 @@ private:
     bool isGameRunning;
     SDL_Window *window;
     int collides;
-    bool KeyFound;
+    Key key;
     bool PaperFound;
     bool Door1;
     bool Door2;

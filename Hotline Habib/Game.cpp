@@ -2,7 +2,7 @@
 #include "Game.h"
 
 GameObject *Player;
-GameObject *Enemy[5];
+//GameObject *Enemy[5];
 Background *background;
 uicomp *UI;
 
@@ -58,12 +58,12 @@ void Game::init(const std::string title, int xpos, int ypos, int width, int heig
 
     Player = new GameObject("./Sprites/Player/player_stat.png", 970, 70, 2, 150);
     // camera = new Camera("./Sprite/Level_No_Doors");
-    Enemy[0] = new GameObject("./Sprites/Enemy/Enemy_updown.png", 390, 60, 2, 150);
-    Enemy[1] = new GameObject("./Sprites/Enemy/Enemy_updown.png", 700, 60, 2, 150);
-    Enemy[2] = new GameObject("./Sprites/Enemy/Enemy_updown.png", 390, 560, 2, 150);
-    Enemy[3] = new GameObject("./Sprites/Enemy/Enemy_updown.png", 390, 360, 2, 150);
-    Enemy[4] = new GameObject("./Sprites/Enemy/Enemy_updown.png", 700, 560, 2, 150);
-
+    //     Enemy[0] = new GameObject("./Sprites/Enemy/Enemy_updown.png", 390, 60, 2, 150);
+    //     Enemy[1] = new GameObject("./Sprites/Enemy/Enemy_updown.png", 700, 60, 2, 150);
+    //     Enemy[2] = new GameObject("./Sprites/Enemy/Enemy_updown.png", 390, 560, 2, 150);
+    //     Enemy[3] = new GameObject("./Sprites/Enemy/Enemy_updown.png", 390, 360, 2, 150);
+    //     Enemy[4] = new GameObject("./Sprites/Enemy/Enemy_updown.png", 700, 560, 2, 150);
+    // //
     background = new Background("./Sprites/Map/Level_No_Doors1.png");
 
     UI = new uicomp("./SplashScreens/MainMenu.png");
@@ -171,9 +171,9 @@ void Game::handleEvents()
         }
         case SDLK_p:
             Player->ChangeSprite("./Sprites/Player/player_shoot.png");
-        }
-        // case SDLK_o:
-        //     DoorOpen(Player->getx(), Player->gety());
+
+            // case SDLK_o:
+        } //     DoorOpen(Player->getx(), Player->gety());
         //     std::cout << "O Pressed" << std::endl;
         // }
     }
@@ -185,7 +185,6 @@ void Game::handleEvents()
 
 void Game::update()
 {
-    if (!(UI->getstart()))
     {
         UI->UI_Update();
     }
@@ -193,6 +192,7 @@ void Game::update()
     {
         Player->Update();
         background->BG_Update();
+
         for (int i = 0; i < 3; i++)
         {
             Enemy[i]->Path(0, 0, 100, 0, 100, 100, 0, 100);
@@ -236,97 +236,80 @@ void Game::update()
         }
     }
 }
+return false;
+if (a.y + a.h <= b.y)
 
-void Game::render()
-{
-    SDL_RenderClear(renderer);
-    if (!(UI->getstart()))
-    {
-        UI->UI_Render();
-    }
-    else
-    {
-        background->BG_Render();
+    return false;
+if (a.x + a.w <= b.x)
 
-        Player->Render();
-
-        Enemy[0]->Render();
-        Enemy[1]->Render();
-        Enemy[2]->Render();
-        Enemy[3]->Render();
-        Enemy[4]->Render();
-    }
-    // UI->UI_Render();
-    SDL_RenderPresent(renderer);
-}
-
-void Game::clean()
-{
-    SDL_DestroyWindow(window);
-    std::cout << "Window Destroyed" << std::endl;
-    SDL_DestroyRenderer(renderer);
-    std::cout << "Renderer Destroyed" << std::endl;
-    SDL_Quit();
-    std::cout << "Game Cleaned" << std::endl;
-    Player = nullptr;
-    for (int i = 0; i < 5; i++)
-    {
-        Enemy[i] = nullptr;
-        delete Enemy[i];
-    }
-    background = nullptr;
-    map = nullptr;
-
-    delete background;
-    delete map;
-    delete Player;
-}
-
-bool Game::running()
-{
-    return isRunning;
-}
-
-bool Game::Collision(SDL_Rect a, SDL_Rect b)
-{
-    if (a.y >= b.y + b.h)
-        return false;
-    if (a.x >= b.x + b.w)
-        return false;
-    if (a.y + a.h <= b.y)
-        return false;
-    if (a.x + a.w <= b.x)
-        return false;
-    if (a.y == b.y && a.h == b.h && a.x == b.x && a.w == b.w)
-        return false;
-    else
-        return true;
+    return false;
+if (a.y == b.y && a.h == b.h && a.x == b.x && a.w == b.w)
+    return false;
+else
+    return true;
 }
 
 bool Game::TerrainCollide(int x, int y)
 {
-    if (y <= 20 & x >= 230 & x <= 340)
+    if (y <= 20 & x >= 180 & x <= 900)
     {
         return true;
     }
-    if (y <= 30 & x >= 370 & x <= 870)
+    if (x <= 210 & y >= 35 & y <= 315)
     {
         return true;
     }
-    if (y >= 340 & x >= 370 & x <= 870)
+    if (x <= 345 and x >= 340 and y >= 25 and y <= 125)
     {
-        if (Game::Door1 & x >= 580 & x <= 590)
-        {
-            return false;
-        }
-        else
-        {
-            return true;
-        }
+        return true;
     }
-    else
+    if (x <= 345 and x >= 340 and y >= 180 and y <= 315)
     {
-        return false;
+        return true;
+    }
+    if (x <= 345 and x >= 340 and y >= 25 and y <= 125)
+    {
+        return true;
+    }
+    if (x <= 875 and x >= 600 and y <= 345 and y >= 340)
+    {
+        return true;
+    }
+    if (x <= 875 and x >= 870 and y <= 340 and y >= 70)
+    {
+        return true;
+    }
+    if (x >= 305 and x <= 555 and y >= 325 and y <= 330)
+    {
+        return true;
+    }
+    if (x >= 165 and x <= 250 and y >= 325 and y <= 330)
+    {
+        return true;
+    }
+    if (x >= 160 and x <= 160 and y >= 330 and y <= 545)
+    {
+        return true;
+    }
+    if (x >= 180 and x <= 425 and y >= 535 and y <= 540)
+    {
+        return true;
+    }
+    if (x >= 425 and x <= 435 and y >= 330 and y <= 610)
+    {
+        return true;
+    }
+    if (x >= 760 and x <= 760 and y >= 365 and y <= 615)
+    {
+        return true;
+    }
+    if (x >= 410 and x <= 760 and y >= 620 and y <= 625)
+    {
+        return true;
+    }
+    if ((x <= 0 or x > 1080) or (y <= 0 or y >= 720))
+    {
+        return true;
     }
 }
 

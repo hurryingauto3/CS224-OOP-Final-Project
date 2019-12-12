@@ -1,6 +1,6 @@
 // #include "Enemy.h"
 
-// bool Enemyy::IsPlayerClose(GameObject *A)
+// bool Enemyy::IsPlayerClose(Playerr *A)
 // {
 //     if (pow(pow(this->getx() - A->getx(), 2) + pow(this->gety() - A->gety(), 2), 0.5) < 200)
 //     {
@@ -14,7 +14,7 @@
 //     }
 // }
 
-// void Enemyy::ApproachPlayer(GameObject *A)
+// void Enemyy::ApproachPlayer(Playerr *A)
 // {
 //     if (this->getx() != A->getx() | this->gety() != A->gety())
 //     {

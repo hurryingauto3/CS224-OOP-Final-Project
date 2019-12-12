@@ -4,21 +4,32 @@
 using namespace std;
 
 #pragma once
+#ifndef UICOMP_H
+#define UICOMP_H
 
-class ui_simplified
+class uicomp
 {
 private:
+    std::string Sprite;
     SDL_Texture *obj_tex;
     SDL_Rect sRect, dRect;
-    bool starto;
+    bool Up;
+    bool Start;
     bool endGame;
 
 public:
+    void SetSprite(std::string);
+    bool getstart();
+    void setstart(bool);
     void setEndGame(bool);
-    ui_simplified();                   //default constructor
-    ui_simplified(std::string sprite); //in cpp
-    ~ui_simplified();                  //default deconstructor
-    void UI_Update();                  //in cpp
-    void UI_Render();                  //in cpp
-    bool start_party();                //in cpp
+    uicomp();                   //default constructor
+    uicomp(std::string sprite); //in cpp
+    ~uicomp();                  //default deconstructor
+    void UI_Update();           //in cpp
+    void UI_Render();
+    void setUP(bool U) { this->Up = U; }
+    bool getUp() { return this->Up; }
+    //in cpp        //in cpp
 };
+
+#endif

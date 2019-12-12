@@ -1,57 +1,57 @@
-#include <iostream>
-#include <cmath>
-#include "GameObject.h"
+// #include <iostream>
+// #include <cmath>
+// #include "GameObject.h"
 
-#ifndef PLAYER_H
-#define PLAYER_H
+// #ifndef PLAYER_H
+// #define PLAYER_H
 
-class Player : virtual public GameObject
-{
-private:
-    static Player *player;
-    int data;
+// class Player : public GameObject
+// {
+// private:
+//     static Player *player;
+//     int data;
 
-    Player(std::string Sprite, int xpos, int ypos) : GameObject(Sprite, xpos, ypos)
-    {
-        data = 0;
-    }
+//     Player(std::string Sprite, int xpos, int ypos) : GameObject(Sprite, xpos, ypos)
+//     {
+//         data = 0;
+//     }
 
-    Player(std::string Sprite, int xpos, int ypos, int frames, int speed) : GameObject(Sprite, xpos, ypos, frames, speed)
-    {
-        data = 0;
-    }
+//     Player(std::string Sprite, int xpos, int ypos, int frames, int speed) : GameObject(Sprite, xpos, ypos, frames, speed)
+//     {
+//         data = 0;
+//     }
 
-public:
-    static Player *getPlayer(std::string Sprite, int xpos, int ypos)
-    {
-        if (player == nullptr)
-        {
-            player = new Player(Sprite, xpos, ypos);
-        }
-        return player;
-    }
+// public:
+//     static Player *getPlayer(std::string Sprite, int xpos, int ypos)
+//     {
+//         if (player == nullptr)
+//         {
+//             player = new Player(Sprite, xpos, ypos);
+//         }
+//         return player;
+//     }
 
-    static Player *getPlayer(std::string Sprite, int xpor, int ypos, int frames, int speed)
-    {
-        if (player == nullptr)
-        {
-            player = new Player(Sprite, xpor, ypos, frames, speed);
-        }
-        return player;
-    }
+//     static Player *getPlayer(std::string Sprite, int xpor, int ypos, int frames, int speed)
+//     {
+//         if (player == nullptr)
+//         {
+//             player = new Player(Sprite, xpor, ypos, frames, speed);
+//         }
+//         return player;
+//     }
 
-    int getData()
-    {
-        return this->data;
-    }
+//     int getData()
+//     {
+//         return this->data;
+//     }
 
-    void setData(int x)
-    {
-        this->data = x;
-    }
-};
+//     void setData(int x)
+//     {
+//         this->data = x;
+//     }
+// };
 
-#endif
+// #endif
 
 // class Player : public GameObject
 // {

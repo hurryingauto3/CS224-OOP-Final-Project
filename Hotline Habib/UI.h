@@ -22,6 +22,7 @@ public:
     bool getstart();
     void setstart(bool);
     void setEndGame(bool);
+    bool getstate();
     uicomp();                   //default constructor
     uicomp(std::string sprite); //in cpp
     ~uicomp();                  //default deconstructor

@@ -39,7 +39,6 @@ public:
     //Constructors and Destructors
     Game();
     ~Game();
-
     //Member functions
     void init(const std::string title, int xpos, int ypos, int width, int height, bool fullscreen);
     //window Creator
@@ -52,6 +51,7 @@ public:
     bool Collision(SDL_Rect a, SDL_Rect b);
     bool TerrainCollide(int x, int y);
     void DoorOpen(int x, int y);
+    void makemap(std::string);
     // void MovementAlgo(GameObject *, GameObject *, int arr[8]);
     void run();
 };

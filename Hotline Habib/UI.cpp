@@ -11,6 +11,10 @@ uicomp::uicomp(std::string sprite)
     SDL_RenderCopy(Game::renderer, obj_tex, nullptr, &dRect);
 }
 
+bool uicomp::getstate()
+{
+    return endGame;
+}
 void uicomp::SetSprite(std::string Sprite)
 {
     this->Sprite = Sprite;

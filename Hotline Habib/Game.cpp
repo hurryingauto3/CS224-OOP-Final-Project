@@ -253,26 +253,26 @@ void Game::update()
         {
             Enemy[i]->Update();
 
-            if (Enemy[i]->returnclose())
-            {
-                Enemy[i]->ApproachPlayer(Player);
-                Enemy[i]->Update();
-            }
-            else
-            {
-                if (Enemy[i]->IsPlayerClose(Player))
-                {
-                    Enemy[i]->ApproachPlayer(Player);
-                    Enemy[i]->Update();
-                }
-                else
-                {
-                    Enemy[i]->Path(array[i][0], array[i][1],
-                                   array[i][2], array[i][3], array[i][4],
-                                   array[i][5], array[i][6], array[i][7]);
-                    Enemy[i]->Update();
-                }
-            }
+            // if (Enemy[i]->returnclose())
+            // {
+            //     Enemy[i]->ApproachPlayer(Player);
+            //     Enemy[i]->Update();
+            // }
+            // else
+            // {
+            //     if (Enemy[i]->IsPlayerClose(Player))
+            //     {
+            //         Enemy[i]->ApproachPlayer(Player);
+            //         Enemy[i]->Update();
+            //     }
+            //     else
+            //     {
+            //         Enemy[i]->Path(array[i][0], array[i][1],
+            //                        array[i][2], array[i][3], array[i][4],
+            //                        array[i][5], array[i][6], array[i][7]);
+            //         Enemy[i]->Update();
+            //     }
+            // }
 
             Enemy[i]->Update();
 
@@ -281,17 +281,48 @@ void Game::update()
                 if (Game::collides <= 1)
                 {
                     Game::collides++;
+
+                    Player->ChangeSprite("./Sprites/Player/Player_collides.png");
+                    SDL_Delay(1500);
+                    UI->SetSprite("./SplashScreens/GameOver.bmp");
+                    UI->UI_Render();
+                    SDL_Delay(1500);
+                    SDL_Surface *WindowSurface;
+                    WindowSurface = SDL_GetWindowSurface(window);
+                    SDL_Surface *GameOver;
+                    GameOver = SDL_LoadBMP("./SplashScreens/GameOver.bmp");
+                    SDL_Surface *Endgame = GameOver;
+                    SDL_BlitSurface(Endgame, NULL, WindowSurface, NULL);
+                    SDL_UpdateWindowSurface(window);
+                    SDL_Delay(1500);
+
+                    isRunning = false;
                 }
 
-                if (Game::collides > 1)
-                {
-                    Game::isGameRunning = false;
-                }
+                // Player->ChangeSprite("./Sprites/Player/Player_stat.png");
             }
 
             if (Collision(Player->GetDRect(), Key->GetDRect()))
             {
                 Key->ChangeSprite("./Sprites/keygone.png");
+                Game::Keyfind();
+            }
+
+            if (Collision(Player->GetDRect(), Book->GetDRect()))
+            {
+                if (keyfound)
+                {
+                    Book->ChangeSprite("./Sprites/keygone.png");
+                    SDL_Delay(1000);
+                    SDL_Surface *WindowSurface;
+                    WindowSurface = SDL_GetWindowSurface(window);
+                    SDL_Surface *GameOver;
+                    GameOver = SDL_LoadBMP("./SplashScreens/Win.bmp");
+                    SDL_Surface *Endgame = GameOver;
+                    SDL_BlitSurface(Endgame, NULL, WindowSurface, NULL);
+                    SDL_UpdateWindowSurface(window);
+                    SDL_Delay(1500);
+                }
             }
         }
     }

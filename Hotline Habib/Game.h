@@ -26,11 +26,8 @@ private:
     bool isGameRunning;
     SDL_Window *window;
     int collides;
-    //Key key;
-    //Paper paper;
-    bool Door1;
-    bool Door2;
-    bool Door3;
+    bool keyfound;
+    bool paperfound;
     int collision[56];
 
 public:
@@ -40,6 +37,7 @@ public:
     Game();
     ~Game();
     //Member functions
+    void paperfind();
     void init(const std::string title, int xpos, int ypos, int width, int height, bool fullscreen);
     //window Creator
     void handleEvents();
@@ -52,6 +50,7 @@ public:
     bool TerrainCollide(int x, int y);
     void DoorOpen(int x, int y);
     void makemap(std::string);
+    void Keyfind();
     // void MovementAlgo(GameObject *, GameObject *, int arr[8]);
     void run();
 };

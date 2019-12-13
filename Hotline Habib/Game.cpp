@@ -7,24 +7,17 @@ GameObject *Enemy[5];
 Background *background;
 uicomp *UI;
 Map *map;
-
-// SDL_Rect camera = {0, 0, 1080, 720};
-
-// Camera *camera;
+int array[3][8] = {{390, 60, 420, 60, 420, 310, 390, 310},
+                   {240, 50, 320, 50, 320, 300, 240, 300},
+                   {470, 330, 730, 330, 730, 610, 470, 610}};
 SDL_Renderer *Game::renderer = nullptr;
 
 Game::Game()
 {
-    Door1 = false;
-    Door2 = false;
-    Door3 = false;
-    //Key key;
-    // Paper paper;
     makemap("readmap.txt");
-    // KeyFound = false;
-    // PaperFound = false;
-    collides = 0;
     isGameRunning = true;
+    keyfound = false;
+    paperfound = false;
 }
 Game::~Game() {}
 
@@ -37,11 +30,11 @@ void Game::clean()
     SDL_Quit();
     std::cout << "Game Cleaned" << std::endl;
     Player = nullptr;
-    //for (int i = 0; i < 5; i++)
-    // {
-    //   Enemy[i] = nullptr;
-    // delete Enemy[i];
-    //}
+    for (int i = 0; i < 5; i++)
+    {
+        Enemy[i] = nullptr;
+        delete Enemy[i];
+    }
     background = nullptr;
     map = nullptr;
 
@@ -57,8 +50,8 @@ void Game::render()
     Enemy[0]->Render();
     Enemy[1]->Render();
     Enemy[2]->Render();
-    Enemy[3]->Render();
-    Enemy[4]->Render();
+    // Enemy[3]->Render();
+    // Enemy[4]->Render();
 
     SDL_RenderPresent(renderer);
 }
@@ -91,9 +84,7 @@ void Game::init(const std::string title, int xpos, int ypos, int width, int heig
     Player = new GameObject("./Sprites/Player/player_stat.png", 970, 70, 2, 150);
     Enemy[0] = new GameObject("./Sprites/Enemy/Enemy_updown.png", 390, 60, 2, 150);
     Enemy[1] = new GameObject("./Sprites/Enemy/Enemy_updown.png", 700, 60, 2, 150);
-    Enemy[2] = new GameObject("./Sprites/Enemy/Enemy_updown.png", 390, 560, 2, 150);
-    Enemy[3] = new GameObject("./Sprites/Enemy/Enemy_updown.png", 390, 360, 2, 150);
-    Enemy[4] = new GameObject("./Sprites/Enemy/Enemy_updown.png", 700, 560, 2, 150);
+    Enemy[2] = new GameObject("./Sprites/Enemy/Enemy_updown.png", 390, 510, 2, 150);
     background = new Background("./Sprites/Map/Level_No_Doors1.png");
     UI = new uicomp("./SplashScreens/MainMenu.png");
     map = new Map();
@@ -210,6 +201,21 @@ void Game::handleEvents()
         Player->ChangeSprite("./Sprites/Player/player_stat.png");
     }
 }
+void Game::Keyfind()
+{
+    keyfound = true;
+}
+void Game::paperfind()
+{
+    if (this->keyfound)
+    {
+        paperfound = true;
+    }
+    else
+    {
+        std::cout << "You must look for the key";
+    }
+}
 
 void Game::update()
 {
@@ -224,7 +230,6 @@ void Game::update()
 
         for (int i = 0; i < 3; i++)
         {
-            Enemy[i]->Path(0, 0, 100, 0, 100, 100, 0, 100);
             Enemy[i]->Update();
 
             if (Enemy[i]->returnclose())
@@ -241,9 +246,9 @@ void Game::update()
                 }
                 else
                 {
-                    // Enemy[i]->Path(array[i][0], array[i][1],
-                    //                array[i][2], array[i][3], array[i][4],
-                    //                array[i][5], array[i][6], array[i][7]);
+                    Enemy[i]->Path(array[i][0], array[i][1],
+                                   array[i][2], array[i][3], array[i][4],
+                                   array[i][5], array[i][6], array[i][7]);
                     Enemy[i]->Update();
                 }
             }
@@ -286,78 +291,24 @@ bool Game::Collision(SDL_Rect a, SDL_Rect b)
 
 bool Game::TerrainCollide(int x, int y)
 {
-    for (int i = 0; i <= 16; i += 4)
+    for (int i = 0; i <= 52; i += 4)
     {
         if (x >= collision[i] and x <= collision[i + 1] and y >= collision[i + 2] and y <= collision[i + 3])
         {
             return true;
         }
+        if (x >= 1080 or x <= 0 or y >= 720 or y <= 0)
+        {
+            return true;
+        }
     }
     return false;
-    // }
-    // if (x >= 180 & x <= 900 & y >= 20 & y <= 25)
-    // {
-    //     return true;
-    // }
-    // if (x >= 200 & x <= 205 & y >= 35 & y <= 315)
-    // {
-    //     return true;
-    // }
-    // if (x >= 340 and x <= 345 and y >= 25 and y <= 125)
-    // {
-    //     return true;
-    // }
-    // if (x >= 340 and x <= 345 and y >= 180 and y <= 315)
-    // {
-    //     return true;
-    // }
-    // if (x >= 340 and x <= 345 and y >= 25 and y <= 125)
-    // {
-    //     return true;
-    // }
-    // if (x >= 600 and x <= 875 and y >= 340 and y <= 345)
-    // {
-    //     return true;
-    // }
-    // if (x >= 870 and x <= 875 and y >= 70 and y <= 345)
-    // {
-    //     return true;
-    // }
-    // if (x >= 305 and x <= 555 and y >= 325 and y <= 330)
-    // {
-    //     return true;
-    // }
-    // if (x >= 165 and x <= 250 and y >= 325 and y <= 330)
-    // {
-    //     return true;
-    // }
-    // if (x >= 155 and x <= 160 and y >= 330 and y <= 545)
-    // {
-    //     return true;
-    // }
-    // if (x >= 180 and x <= 425 and y >= 535 and y <= 540)
-    // {
-    //     return true;
-    // }
-    // if (x >= 425 and x <= 435 and y >= 330 and y <= 610)
-    // {
-    //     return true;
-    // }
-    // if (x >= 755 and x <= 760 and y >= 365 and y <= 615)
-    // {
-    //     return true;
-    // }
-    // if (x >= 410 and x <= 760 and y >= 620 and y <= 625)
-    // {
-    //     return true;
-    // }
 }
 
 void Game::DoorOpen(int x, int y)
 {
     if (x > 580 & x < 590 & y<340 & y> 330)
     {
-        Door1 = true;
         std::cout << "Door 1 Opened" << std::endl;
         background->ChangeSprite("./Sprites/Level_TV_Door.png");
     }
@@ -368,7 +319,6 @@ void Game::DoorOpen(int x, int y)
 
     if (x > 360 & x<370 & y> 60 & y < 80)
     {
-        Door2 = true;
         std::cout << "Door 2 Opened" << std::endl;
         background->ChangeSprite("./Sprites/Level_Passage_Door.png");
     }
@@ -379,7 +329,6 @@ void Game::DoorOpen(int x, int y)
 
     if (x > 280 & x<290 & y> 330 & y < 340) // & key.getstate() == true)
     {
-        Door3 = true;
         std::cout << "Door 3 Opened" << std::endl;
         background->ChangeSprite("./Sprites/Level_Teacher_Door.png");
     }

@@ -45,15 +45,14 @@ public:
     void handleEvents();
     void update();
     void render();
-    void clean();   //Memory management
-    bool running(); //Run check
+    void clean();                        //Memory management
+    bool running() { return isRunning; } //Run check
     bool gamerunning() { return isGameRunning; }
     bool Collision(SDL_Rect a, SDL_Rect b);
     bool TerrainCollide(int x, int y);
     void DoorOpen(int x, int y);
     void makemap(std::string);
     // void MovementAlgo(GameObject *, GameObject *, int arr[8]);
-    void run();
 };
 
 #endif

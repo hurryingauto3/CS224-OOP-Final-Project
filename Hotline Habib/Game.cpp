@@ -3,10 +3,17 @@
 #include <fstream>
 
 GameObject *Player;
+GameObject *Key;
+GameObject *Book;
 GameObject *Enemy[5];
 Background *background;
+
 uicomp *UI;
 Map *map;
+
+int array[10][8] = {{390, 60, 420, 60, 420, 310, 390, 310},
+                    {240, 50, 320, 50, 320, 300, 240, 300},
+                    {470, 330, 730, 330, 730, 610, 470, 610}};
 
 // SDL_Rect camera = {0, 0, 1080, 720};
 
@@ -37,11 +44,11 @@ void Game::clean()
     SDL_Quit();
     std::cout << "Game Cleaned" << std::endl;
     Player = nullptr;
-    //for (int i = 0; i < 5; i++)
-    // {
-    //   Enemy[i] = nullptr;
-    // delete Enemy[i];
-    //}
+    for (int i = 0; i < 5; i++)
+    {
+        Enemy[i] = nullptr;
+        delete Enemy[i];
+    }
     background = nullptr;
     map = nullptr;
 
@@ -51,15 +58,24 @@ void Game::clean()
 }
 void Game::render()
 {
-    SDL_RenderClear(renderer);
-    background->BG_Render();
-    Player->Render();
-    Enemy[0]->Render();
-    Enemy[1]->Render();
-    Enemy[2]->Render();
-    Enemy[3]->Render();
-    Enemy[4]->Render();
 
+    SDL_RenderClear(renderer);
+    if (!(UI->getstart()))
+    {
+        UI->UI_Render();
+    }
+    else
+    {
+        background->BG_Render();
+        Book->Render();
+        Key->Render();
+        Player->Render();
+        Enemy[0]->Render();
+        Enemy[1]->Render();
+        Enemy[2]->Render();
+        Enemy[3]->Render();
+        Enemy[4]->Render();
+    }
     SDL_RenderPresent(renderer);
 }
 void Game::init(const std::string title, int xpos, int ypos, int width, int height, bool fullscreen)
@@ -94,8 +110,10 @@ void Game::init(const std::string title, int xpos, int ypos, int width, int heig
     Enemy[2] = new GameObject("./Sprites/Enemy/Enemy_updown.png", 390, 560, 2, 150);
     Enemy[3] = new GameObject("./Sprites/Enemy/Enemy_updown.png", 390, 360, 2, 150);
     Enemy[4] = new GameObject("./Sprites/Enemy/Enemy_updown.png", 700, 560, 2, 150);
-    background = new Background("./Sprites/Map/Level_No_Doors1.png");
-    UI = new uicomp("./SplashScreens/MainMenu.png");
+    background = new Background("./Sprites/Map/LevelFinal.png");
+    Key = new GameObject("./Sprites/key.png", 600, 500, 2, 150);
+    Book = new GameObject("./Sprites/Book.png", 200, 500, 2, 150);
+    UI = new uicomp("./SplashScreens/MainMenu2.png");
     map = new Map();
 }
 
@@ -177,13 +195,15 @@ void Game::handleEvents()
                     UI->setstart(true);
                 }
                 else
+                {
                     Game::isRunning = false;
+                }
             }
         case SDLK_UP:
         {
             if (!(UI->getstart()))
             {
-                UI->SetSprite("./SplashSceens/MainMenu2.png");
+                UI->SetSprite("./SplashSceens/GameOver.bmp");
                 UI->setUP(true);
                 std::cout << "UP true" << std::endl;
             }
@@ -192,7 +212,7 @@ void Game::handleEvents()
         {
             if (!(UI->getstart()))
             {
-                UI->SetSprite("./SplashSceens/MainMenu3.png");
+                UI->SetSprite("./SplashSceens/GameOver.bmp");
                 UI->setUP(false);
                 std::cout << "UP down" << std::endl;
             }
@@ -213,13 +233,15 @@ void Game::handleEvents()
 
 void Game::update()
 {
-    if (UI->getstate())
+    if (!(UI->getstart()))
     {
         UI->UI_Update();
     }
     else
     {
         Player->Update();
+        Key->Update();
+        Book->Update();
         background->BG_Update();
 
         for (int i = 0; i < 3; i++)
@@ -261,6 +283,11 @@ void Game::update()
                 {
                     Game::isGameRunning = false;
                 }
+            }
+
+            if (Collision(Player->GetDRect(), Key->GetDRect()))
+            {
+                Key->ChangeSprite("./Sprites/keygone.png");
             }
         }
     }
@@ -431,14 +458,3 @@ void Game::makemap(std::string filename)
 //         }
 //     }
 // }
-
-void Game::run()
-{
-
-    while (Game::gamerunning())
-    {
-        Game::handleEvents();
-        Game::update();
-        Game::render();
-    }
-}

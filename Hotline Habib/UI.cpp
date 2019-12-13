@@ -9,16 +9,15 @@ uicomp::uicomp(std::string sprite)
     dRect.y = 0;
     endGame = false;
     SDL_RenderCopy(Game::renderer, obj_tex, nullptr, &dRect);
+    Up = true;
 }
 
-bool uicomp::getstate()
-{
-    return endGame;
-}
 void uicomp::SetSprite(std::string Sprite)
 {
     this->Sprite = Sprite;
     this->obj_tex = TextureManager::LoadTexture(this->Sprite);
+    this->UI_Render();
+    this->UI_Update();
 }
 
 void uicomp::UI_Update()

@@ -3,10 +3,9 @@
 #include <fstream>
 
 GameObject *Player;
-//GameObject *Enemy[5];
+GameObject *Enemy[5];
 Background *background;
 uicomp *UI;
-
 Map *map;
 
 // SDL_Rect camera = {0, 0, 1080, 720};
@@ -22,14 +21,47 @@ Game::Game()
     //Key key;
     // Paper paper;
     makemap("readmap.txt");
-    KeyFound = false;
-    PaperFound = false;
+    // KeyFound = false;
+    // PaperFound = false;
     collides = 0;
     isGameRunning = true;
 }
-
 Game::~Game() {}
 
+void Game::clean()
+{
+    SDL_DestroyWindow(window);
+    std::cout << "Window Destroyed" << std::endl;
+    SDL_DestroyRenderer(renderer);
+    std::cout << "Renderer Destroyed" << std::endl;
+    SDL_Quit();
+    std::cout << "Game Cleaned" << std::endl;
+    Player = nullptr;
+    //for (int i = 0; i < 5; i++)
+    // {
+    //   Enemy[i] = nullptr;
+    // delete Enemy[i];
+    //}
+    background = nullptr;
+    map = nullptr;
+
+    delete background;
+    delete map;
+    delete Player;
+}
+void Game::render()
+{
+    SDL_RenderClear(renderer);
+    background->BG_Render();
+    Player->Render();
+    Enemy[0]->Render();
+    Enemy[1]->Render();
+    Enemy[2]->Render();
+    Enemy[3]->Render();
+    Enemy[4]->Render();
+
+    SDL_RenderPresent(renderer);
+}
 void Game::init(const std::string title, int xpos, int ypos, int width, int height, bool fullscreen)
 {
     int flags = 0;
@@ -57,17 +89,13 @@ void Game::init(const std::string title, int xpos, int ypos, int width, int heig
     }
 
     Player = new GameObject("./Sprites/Player/player_stat.png", 970, 70, 2, 150);
-    // camera = new Camera("./Sprite/Level_No_Doors");
-    //     Enemy[0] = new GameObject("./Sprites/Enemy/Enemy_updown.png", 390, 60, 2, 150);
-    //     Enemy[1] = new GameObject("./Sprites/Enemy/Enemy_updown.png", 700, 60, 2, 150);
-    //     Enemy[2] = new GameObject("./Sprites/Enemy/Enemy_updown.png", 390, 560, 2, 150);
-    //     Enemy[3] = new GameObject("./Sprites/Enemy/Enemy_updown.png", 390, 360, 2, 150);
-    //     Enemy[4] = new GameObject("./Sprites/Enemy/Enemy_updown.png", 700, 560, 2, 150);
-    // //
+    Enemy[0] = new GameObject("./Sprites/Enemy/Enemy_updown.png", 390, 60, 2, 150);
+    Enemy[1] = new GameObject("./Sprites/Enemy/Enemy_updown.png", 700, 60, 2, 150);
+    Enemy[2] = new GameObject("./Sprites/Enemy/Enemy_updown.png", 390, 560, 2, 150);
+    Enemy[3] = new GameObject("./Sprites/Enemy/Enemy_updown.png", 390, 360, 2, 150);
+    Enemy[4] = new GameObject("./Sprites/Enemy/Enemy_updown.png", 700, 560, 2, 150);
     background = new Background("./Sprites/Map/Level_No_Doors1.png");
-
     UI = new uicomp("./SplashScreens/MainMenu.png");
-
     map = new Map();
 }
 
@@ -185,6 +213,7 @@ void Game::handleEvents()
 
 void Game::update()
 {
+    if (UI->getstate())
     {
         UI->UI_Update();
     }
@@ -212,9 +241,9 @@ void Game::update()
                 }
                 else
                 {
-                    Enemy[i]->Path(array[i][0], array[i][1],
-                                   array[i][2], array[i][3], array[i][4],
-                                   array[i][5], array[i][6], array[i][7]);
+                    // Enemy[i]->Path(array[i][0], array[i][1],
+                    //                array[i][2], array[i][3], array[i][4],
+                    //                array[i][5], array[i][6], array[i][7]);
                     Enemy[i]->Update();
                 }
             }
@@ -236,17 +265,23 @@ void Game::update()
         }
     }
 }
-return false;
-if (a.y + a.h <= b.y)
+bool Game::Collision(SDL_Rect a, SDL_Rect b)
+{
+    if (a.y >= b.y + b.h)
+        return false;
+    if (a.x >= b.x + b.w)
 
-    return false;
-if (a.x + a.w <= b.x)
+        return false;
+    if (a.y + a.h <= b.y)
 
-    return false;
-if (a.y == b.y && a.h == b.h && a.x == b.x && a.w == b.w)
-    return false;
-else
-    return true;
+        return false;
+    if (a.x + a.w <= b.x)
+
+        return false;
+    if (a.y == b.y && a.h == b.h && a.x == b.x && a.w == b.w)
+        return false;
+    else
+        return true;
 }
 
 bool Game::TerrainCollide(int x, int y)
@@ -400,7 +435,7 @@ void Game::makemap(std::string filename)
 void Game::run()
 {
 
-    while (Game::running())
+    while (Game::gamerunning())
     {
         Game::handleEvents();
         Game::update();

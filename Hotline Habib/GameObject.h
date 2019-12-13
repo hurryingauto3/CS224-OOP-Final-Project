@@ -37,7 +37,7 @@ public:
     SDL_Rect GetDRect() { return dRect; }
     bool IsPlayerClose(GameObject *A)
     {
-        if (pow(pow(this->getx() - A->getx(), 2) + pow(this->gety() - A->gety(), 2), 0.5) < 200)
+        if (pow(pow(this->getx() - A->getx(), 2) + pow(this->gety() - A->gety(), 2), 0.5) < 110)
         {
             this->IsPlayerClosebool = true;
             return true;

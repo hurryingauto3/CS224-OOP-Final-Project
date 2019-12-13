@@ -38,12 +38,6 @@ void Background::BG_Render()
 {
     SDL_RenderCopy(Game::renderer, obj_tex, &dRect, nullptr); //sRect is null for now
 }
-
-void Background::BG_Render()
-{
-    SDL_RenderCopy(Game::renderer, obj_tex, &dRect, nullptr); //sRect is null for now
-}
-
 void Background::ChangeSprite(std::string Sprite)
 {
     this->Sprite = Sprite;

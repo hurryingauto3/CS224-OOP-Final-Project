@@ -1,23 +1,23 @@
 #include <cmath>
 
-class Bullet : public GameObject
-{
-private:
-    static int speed;
-    int x_direction_movement;
-    int y_direction_movement;
-    bool shot_fired;
-    SDL_Texture *Obj_Tex;
-    SDL_Rect *sRect, dRect;
-    bool move_bullet = false;
+// class Bullet : public GameObject
+// {
+// private:
+//     static int speed;
+//     int x_direction_movement;
+//     int y_direction_movement;
+//     bool shot_fired;
+//     SDL_Texture *Obj_Tex;
+//     SDL_Rect *sRect, dRect;
+//     bool move_bullet = false;
 
-public:
-    bool getShotFired();
-    void setShotFired(bool shot);
-    void BulletMove();
-    Bullet();
+// public:
+//     bool getShotFired();
+//     void setShotFired(bool shot);
+//     void BulletMove();
+//     Bullet();
 
-    Bullet(GameObject A, int x, int y, char *sprite);
-    void obj_render(GameObject *p);
-    void obj_update();
-};
+//     Bullet(GameObject A, int x, int y, char *sprite);
+//     void obj_render(GameObject *p);
+//     void obj_update();
+// };
